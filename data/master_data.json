@@ -1,0 +1,694 @@
+{
+  "banner": "SYNTHETIC DEMO DATA — FICTIONAL — NOT SEAGATE INTERNAL DATA",
+  "products": [
+    {
+      "product_id": "PRD-HX1001",
+      "product_family": "HDD-X",
+      "model_name": "HX-Alpha",
+      "capacity_class": "12TB",
+      "interface_type": "SATA",
+      "form_factor": "3.5-inch",
+      "lifecycle_status": "ACTIVE"
+    },
+    {
+      "product_id": "PRD-HX1002",
+      "product_family": "HDD-X",
+      "model_name": "HX-Beta",
+      "capacity_class": "16TB",
+      "interface_type": "SATA",
+      "form_factor": "3.5-inch",
+      "lifecycle_status": "ACTIVE"
+    },
+    {
+      "product_id": "PRD-HY2001",
+      "product_family": "HDD-Y",
+      "model_name": "HY-Sigma",
+      "capacity_class": "8TB",
+      "interface_type": "SAS",
+      "form_factor": "3.5-inch",
+      "lifecycle_status": "ACTIVE"
+    },
+    {
+      "product_id": "PRD-HY2002",
+      "product_family": "HDD-Y",
+      "model_name": "HY-Tau",
+      "capacity_class": "10TB",
+      "interface_type": "SAS",
+      "form_factor": "3.5-inch",
+      "lifecycle_status": "PILOT"
+    },
+    {
+      "product_id": "PRD-HZ3001",
+      "product_family": "HDD-Z",
+      "model_name": "HZ-Orbit",
+      "capacity_class": "20TB",
+      "interface_type": "SAS",
+      "form_factor": "3.5-inch",
+      "lifecycle_status": "ACTIVE"
+    }
+  ],
+  "lines": [
+    {
+      "line_id": "LINE-01",
+      "line_name": "Drive Assembly Line 1",
+      "area": "SelfTest Area A",
+      "status": "ACTIVE"
+    },
+    {
+      "line_id": "LINE-02",
+      "line_name": "Drive Assembly Line 2",
+      "area": "SelfTest Area A",
+      "status": "ACTIVE"
+    }
+  ],
+  "stations": [
+    {
+      "station_id": "ST-01",
+      "line_id": "LINE-01",
+      "station_name": "SelfTest Station 01",
+      "test_stage": "SELFTEST_FINAL",
+      "equipment_id": "EQ-ST-001",
+      "status": "ACTIVE"
+    },
+    {
+      "station_id": "ST-02",
+      "line_id": "LINE-01",
+      "station_name": "SelfTest Station 02",
+      "test_stage": "SELFTEST_FINAL",
+      "equipment_id": "EQ-ST-002",
+      "status": "ACTIVE"
+    },
+    {
+      "station_id": "ST-03",
+      "line_id": "LINE-01",
+      "station_name": "SelfTest Station 03",
+      "test_stage": "SELFTEST_FINAL",
+      "equipment_id": "EQ-ST-003",
+      "status": "ACTIVE"
+    },
+    {
+      "station_id": "ST-04",
+      "line_id": "LINE-02",
+      "station_name": "SelfTest Station 04",
+      "test_stage": "SELFTEST_FINAL",
+      "equipment_id": "EQ-ST-004",
+      "status": "ACTIVE"
+    },
+    {
+      "station_id": "ST-05",
+      "line_id": "LINE-02",
+      "station_name": "SelfTest Station 05",
+      "test_stage": "SELFTEST_FINAL",
+      "equipment_id": "EQ-ST-005",
+      "status": "ACTIVE"
+    },
+    {
+      "station_id": "ST-06",
+      "line_id": "LINE-02",
+      "station_name": "SelfTest Station 06",
+      "test_stage": "SELFTEST_FINAL",
+      "equipment_id": "EQ-ST-006",
+      "status": "ACTIVE"
+    }
+  ],
+  "equipment": [
+    {
+      "equipment_id": "EQ-ST-001",
+      "equipment_type": "SELFTEST_RACK",
+      "equipment_model": "STR-X1",
+      "installation_date": "2024-02-12",
+      "last_calibration_at": "2026-07-02T09:00:00+08:00",
+      "last_maintenance_at": "2026-07-14T11:30:00+08:00",
+      "status": "ACTIVE"
+    },
+    {
+      "equipment_id": "EQ-ST-002",
+      "equipment_type": "SELFTEST_RACK",
+      "equipment_model": "STR-X2",
+      "installation_date": "2024-03-12",
+      "last_calibration_at": "2026-07-03T09:00:00+08:00",
+      "last_maintenance_at": "2026-07-15T11:30:00+08:00",
+      "status": "ACTIVE"
+    },
+    {
+      "equipment_id": "EQ-ST-003",
+      "equipment_type": "SELFTEST_RACK",
+      "equipment_model": "STR-X1",
+      "installation_date": "2024-04-12",
+      "last_calibration_at": "2026-07-04T09:00:00+08:00",
+      "last_maintenance_at": "2026-07-16T11:30:00+08:00",
+      "status": "ACTIVE"
+    },
+    {
+      "equipment_id": "EQ-ST-004",
+      "equipment_type": "SELFTEST_RACK",
+      "equipment_model": "STR-X2",
+      "installation_date": "2024-05-12",
+      "last_calibration_at": "2026-07-05T09:00:00+08:00",
+      "last_maintenance_at": "2026-07-17T11:30:00+08:00",
+      "status": "ACTIVE"
+    },
+    {
+      "equipment_id": "EQ-ST-005",
+      "equipment_type": "SELFTEST_RACK",
+      "equipment_model": "STR-X1",
+      "installation_date": "2024-06-12",
+      "last_calibration_at": "2026-07-06T09:00:00+08:00",
+      "last_maintenance_at": "2026-07-18T11:30:00+08:00",
+      "status": "ACTIVE"
+    },
+    {
+      "equipment_id": "EQ-ST-006",
+      "equipment_type": "SELFTEST_RACK",
+      "equipment_model": "STR-X2",
+      "installation_date": "2024-07-12",
+      "last_calibration_at": "2026-07-07T09:00:00+08:00",
+      "last_maintenance_at": "2026-07-19T11:30:00+08:00",
+      "status": "ACTIVE"
+    }
+  ],
+  "failure_codes": [
+    {
+      "failure_code": "F127",
+      "name_en": "Positioning Timeout",
+      "name_zh": "定位超时",
+      "description": "SelfTest 阶段未在规定时间内完成定位",
+      "test_stage": "SELFTEST_FINAL",
+      "severity": "MEDIUM",
+      "default_owner_team": "TEAM-PE",
+      "valid_from": "2025-01-01T00:00:00+08:00",
+      "valid_to": null,
+      "source_document_id": "DOC-FC-001"
+    },
+    {
+      "failure_code": "F131",
+      "name_en": "Seek Settle Variance",
+      "name_zh": "寻道稳定偏差",
+      "description": "寻道稳定时间偏离参考区间",
+      "test_stage": "SELFTEST_FINAL",
+      "severity": "MEDIUM",
+      "default_owner_team": "TEAM-PE",
+      "valid_from": "2025-01-01T00:00:00+08:00",
+      "valid_to": null,
+      "source_document_id": "DOC-FC-001"
+    },
+    {
+      "failure_code": "F204",
+      "name_en": "Read Channel Calibration Fail",
+      "name_zh": "读通道校准失败",
+      "description": "读通道校准未满足检查条件",
+      "test_stage": "SELFTEST_FINAL",
+      "severity": "HIGH",
+      "default_owner_team": "TEAM-PE",
+      "valid_from": "2025-01-01T00:00:00+08:00",
+      "valid_to": null,
+      "source_document_id": "DOC-FC-001"
+    },
+    {
+      "failure_code": "F219",
+      "name_en": "Head Signal Margin Low",
+      "name_zh": "磁头信号裕量偏低",
+      "description": "测试到的信号裕量低于演示阈值",
+      "test_stage": "SELFTEST_FINAL",
+      "severity": "HIGH",
+      "default_owner_team": "TEAM-PE",
+      "valid_from": "2025-01-01T00:00:00+08:00",
+      "valid_to": null,
+      "source_document_id": "DOC-FC-001"
+    },
+    {
+      "failure_code": "F302",
+      "name_en": "Thermal Stabilization Timeout",
+      "name_zh": "热稳定超时",
+      "description": "产品未在演示时间窗口内达到稳定状态",
+      "test_stage": "SELFTEST_FINAL",
+      "severity": "MEDIUM",
+      "default_owner_team": "TEAM-PE",
+      "valid_from": "2025-01-01T00:00:00+08:00",
+      "valid_to": null,
+      "source_document_id": "DOC-FC-001"
+    },
+    {
+      "failure_code": "F411",
+      "name_en": "Firmware SelfCheck Reject",
+      "name_zh": "固件自检拒绝",
+      "description": "固件自检返回拒绝状态",
+      "test_stage": "SELFTEST_FINAL",
+      "severity": "HIGH",
+      "default_owner_team": "TEAM-PE",
+      "valid_from": "2025-01-01T00:00:00+08:00",
+      "valid_to": null,
+      "source_document_id": "DOC-FC-001"
+    },
+    {
+      "failure_code": "F508",
+      "name_en": "Interface Link Retry",
+      "name_zh": "接口链路重试",
+      "description": "接口链路重试次数异常",
+      "test_stage": "SELFTEST_FINAL",
+      "severity": "LOW",
+      "default_owner_team": "TEAM-PE",
+      "valid_from": "2025-01-01T00:00:00+08:00",
+      "valid_to": null,
+      "source_document_id": "DOC-FC-001"
+    },
+    {
+      "failure_code": "F620",
+      "name_en": "Mechanical Resonance Detected",
+      "name_zh": "机械共振检出",
+      "description": "测试阶段检测到异常机械响应",
+      "test_stage": "SELFTEST_FINAL",
+      "severity": "HIGH",
+      "default_owner_team": "TEAM-PE",
+      "valid_from": "2025-01-01T00:00:00+08:00",
+      "valid_to": null,
+      "source_document_id": "DOC-FC-001"
+    }
+  ],
+  "material_lots": [
+    {
+      "material_lot_id": "HSA-L2401",
+      "material_type": "HSA",
+      "material_part_number": "PN-HSA-42",
+      "received_at": "2026-07-03T08:00:00+08:00",
+      "supplier_alias": "SUPPLIER-A",
+      "quality_status": "RELEASED",
+      "applicable_products": [
+        "PRD-HX1001",
+        "PRD-HX1002"
+      ]
+    },
+    {
+      "material_lot_id": "HSA-L2402",
+      "material_type": "HSA",
+      "material_part_number": "PN-HSA-42",
+      "received_at": "2026-07-04T08:00:00+08:00",
+      "supplier_alias": "SUPPLIER-B",
+      "quality_status": "RELEASED",
+      "applicable_products": [
+        "PRD-HX1001",
+        "PRD-HX1002"
+      ]
+    },
+    {
+      "material_lot_id": "HSA-L2403",
+      "material_type": "HSA",
+      "material_part_number": "PN-HSA-42",
+      "received_at": "2026-07-05T08:00:00+08:00",
+      "supplier_alias": "SUPPLIER-A",
+      "quality_status": "RELEASED",
+      "applicable_products": [
+        "PRD-HX1001",
+        "PRD-HX1002"
+      ]
+    },
+    {
+      "material_lot_id": "HSA-L2404",
+      "material_type": "HSA",
+      "material_part_number": "PN-HSA-42",
+      "received_at": "2026-07-06T08:00:00+08:00",
+      "supplier_alias": "SUPPLIER-B",
+      "quality_status": "RELEASED",
+      "applicable_products": [
+        "PRD-HX1001",
+        "PRD-HX1002"
+      ]
+    },
+    {
+      "material_lot_id": "HSA-L2405",
+      "material_type": "HSA",
+      "material_part_number": "PN-HSA-42",
+      "received_at": "2026-07-07T08:00:00+08:00",
+      "supplier_alias": "SUPPLIER-A",
+      "quality_status": "RELEASED",
+      "applicable_products": [
+        "PRD-HX1001",
+        "PRD-HX1002"
+      ]
+    },
+    {
+      "material_lot_id": "HSA-L2406",
+      "material_type": "HSA",
+      "material_part_number": "PN-HSA-42",
+      "received_at": "2026-07-08T08:00:00+08:00",
+      "supplier_alias": "SUPPLIER-B",
+      "quality_status": "RELEASED",
+      "applicable_products": [
+        "PRD-HX1001",
+        "PRD-HX1002"
+      ]
+    },
+    {
+      "material_lot_id": "HSA-L2407",
+      "material_type": "HSA",
+      "material_part_number": "PN-HSA-55",
+      "received_at": "2026-07-09T08:00:00+08:00",
+      "supplier_alias": "SUPPLIER-A",
+      "quality_status": "RELEASED",
+      "applicable_products": [
+        "PRD-HX1001",
+        "PRD-HX1002"
+      ]
+    },
+    {
+      "material_lot_id": "HSA-L2408",
+      "material_type": "HSA",
+      "material_part_number": "PN-HSA-55",
+      "received_at": "2026-07-10T08:00:00+08:00",
+      "supplier_alias": "SUPPLIER-B",
+      "quality_status": "RELEASED",
+      "applicable_products": [
+        "PRD-HX1001",
+        "PRD-HX1002"
+      ]
+    },
+    {
+      "material_lot_id": "HSA-L2409",
+      "material_type": "HSA",
+      "material_part_number": "PN-HSA-55",
+      "received_at": "2026-07-11T08:00:00+08:00",
+      "supplier_alias": "SUPPLIER-A",
+      "quality_status": "RELEASED",
+      "applicable_products": [
+        "PRD-HY2001"
+      ]
+    },
+    {
+      "material_lot_id": "HSA-L2410",
+      "material_type": "HSA",
+      "material_part_number": "PN-HSA-55",
+      "received_at": "2026-07-12T08:00:00+08:00",
+      "supplier_alias": "SUPPLIER-B",
+      "quality_status": "RELEASED",
+      "applicable_products": [
+        "PRD-HY2001"
+      ]
+    },
+    {
+      "material_lot_id": "HSA-L2411",
+      "material_type": "HSA",
+      "material_part_number": "PN-HSA-55",
+      "received_at": "2026-07-13T08:00:00+08:00",
+      "supplier_alias": "SUPPLIER-A",
+      "quality_status": "RELEASED",
+      "applicable_products": [
+        "PRD-HY2001"
+      ]
+    },
+    {
+      "material_lot_id": "HSA-L2412",
+      "material_type": "HSA",
+      "material_part_number": "PN-HSA-55",
+      "received_at": "2026-07-14T08:00:00+08:00",
+      "supplier_alias": "SUPPLIER-B",
+      "quality_status": "RELEASED",
+      "applicable_products": [
+        "PRD-HY2001"
+      ]
+    }
+  ],
+  "software_versions": [
+    {
+      "software_version_id": "SW-FW-2.1.2",
+      "software_type": "FIRMWARE",
+      "version": "2.1.2",
+      "status": "RETIRED",
+      "released_at": "2026-03-01T10:00:00+08:00",
+      "applicable_products": [
+        "PRD-HX1001",
+        "PRD-HX1002"
+      ],
+      "change_record_id": "CHG-FW-212"
+    },
+    {
+      "software_version_id": "SW-FW-2.1.3",
+      "software_type": "FIRMWARE",
+      "version": "2.1.3",
+      "status": "ACTIVE",
+      "released_at": "2026-05-01T10:00:00+08:00",
+      "applicable_products": [
+        "PRD-HX1001",
+        "PRD-HX1002"
+      ],
+      "change_record_id": "CHG-FW-213"
+    },
+    {
+      "software_version_id": "SW-FW-2.1.4",
+      "software_type": "FIRMWARE",
+      "version": "2.1.4",
+      "status": "ACTIVE",
+      "released_at": "2026-07-10T10:00:00+08:00",
+      "applicable_products": [
+        "PRD-HX1001"
+      ],
+      "change_record_id": "CHG-FW-214"
+    },
+    {
+      "software_version_id": "SW-FW-4.0.1",
+      "software_type": "FIRMWARE",
+      "version": "4.0.1",
+      "status": "ACTIVE",
+      "released_at": "2026-06-10T10:00:00+08:00",
+      "applicable_products": [
+        "PRD-HY2001",
+        "PRD-HY2002",
+        "PRD-HZ3001"
+      ],
+      "change_record_id": "CHG-FW-401"
+    },
+    {
+      "software_version_id": "SW-TP-3.5",
+      "software_type": "TEST_PROGRAM",
+      "version": "3.5",
+      "status": "RETIRED",
+      "released_at": "2026-02-01T10:00:00+08:00",
+      "applicable_products": [
+        "PRD-HX1001",
+        "PRD-HX1002"
+      ],
+      "change_record_id": "CHG-TP-0035"
+    },
+    {
+      "software_version_id": "SW-TP-3.6",
+      "software_type": "TEST_PROGRAM",
+      "version": "3.6",
+      "status": "RETIRED",
+      "released_at": "2026-04-01T10:00:00+08:00",
+      "applicable_products": [
+        "PRD-HX1001",
+        "PRD-HX1002"
+      ],
+      "change_record_id": "CHG-TP-0036"
+    },
+    {
+      "software_version_id": "SW-TP-3.7",
+      "software_type": "TEST_PROGRAM",
+      "version": "3.7",
+      "status": "ACTIVE",
+      "released_at": "2026-06-01T10:00:00+08:00",
+      "applicable_products": [
+        "PRD-HX1001",
+        "PRD-HX1002"
+      ],
+      "change_record_id": "CHG-TP-0037"
+    },
+    {
+      "software_version_id": "SW-TP-3.8",
+      "software_type": "TEST_PROGRAM",
+      "version": "3.8",
+      "status": "PILOT",
+      "released_at": "2026-07-15T10:00:00+08:00",
+      "applicable_products": [
+        "PRD-HX1001"
+      ],
+      "change_record_id": "CHG-TP-0038"
+    },
+    {
+      "software_version_id": "SW-TP-5.1",
+      "software_type": "TEST_PROGRAM",
+      "version": "5.1",
+      "status": "ACTIVE",
+      "released_at": "2026-06-15T10:00:00+08:00",
+      "applicable_products": [
+        "PRD-HY2001",
+        "PRD-HY2002",
+        "PRD-HZ3001"
+      ],
+      "change_record_id": "CHG-TP-0051"
+    }
+  ],
+  "teams": [
+    {
+      "team_id": "TEAM-PE",
+      "team_name": "Product Engineering",
+      "data_domains": [
+        "PRODUCT",
+        "TEST",
+        "CASE"
+      ]
+    },
+    {
+      "team_id": "TEAM-PROC",
+      "team_name": "Process Engineering",
+      "data_domains": [
+        "PROCESS",
+        "MATERIAL",
+        "CASE"
+      ]
+    },
+    {
+      "team_id": "TEAM-QA",
+      "team_name": "Quality Engineering",
+      "data_domains": [
+        "QUALITY",
+        "CASE",
+        "RESTRICTED"
+      ]
+    },
+    {
+      "team_id": "TEAM-FA",
+      "team_name": "Failure Analysis",
+      "data_domains": [
+        "FA",
+        "CASE",
+        "RESTRICTED"
+      ]
+    },
+    {
+      "team_id": "TEAM-LINE",
+      "team_name": "Line Operations",
+      "data_domains": [
+        "PUBLIC_GUIDANCE"
+      ]
+    }
+  ],
+  "users": [
+    {
+      "user_id": "USR-PE-001",
+      "display_name": "Product Engineer A",
+      "team_id": "TEAM-PE",
+      "roles": [
+        "PRODUCT_ENGINEER"
+      ],
+      "status": "ACTIVE"
+    },
+    {
+      "user_id": "USR-PROC-001",
+      "display_name": "Process Engineer A",
+      "team_id": "TEAM-PROC",
+      "roles": [
+        "PROCESS_ENGINEER"
+      ],
+      "status": "ACTIVE"
+    },
+    {
+      "user_id": "USR-QA-001",
+      "display_name": "Quality Engineer A",
+      "team_id": "TEAM-QA",
+      "roles": [
+        "QUALITY_ENGINEER"
+      ],
+      "status": "ACTIVE"
+    },
+    {
+      "user_id": "USR-FA-001",
+      "display_name": "FA Engineer A",
+      "team_id": "TEAM-FA",
+      "roles": [
+        "FA_ENGINEER"
+      ],
+      "status": "ACTIVE"
+    },
+    {
+      "user_id": "USR-LINE-001",
+      "display_name": "Line Lead A",
+      "team_id": "TEAM-LINE",
+      "roles": [
+        "LINE_LEAD"
+      ],
+      "status": "ACTIVE"
+    }
+  ],
+  "terminology": [
+    {
+      "canonical_term": "SELFTEST_FINAL",
+      "term_type": "TEST_STAGE",
+      "aliases": [
+        "selftest",
+        "self test",
+        "自测试",
+        "st final"
+      ]
+    },
+    {
+      "canonical_term": "POSITIONING_TIMEOUT",
+      "term_type": "SYMPTOM",
+      "aliases": [
+        "定位超时",
+        "position timeout",
+        "servo timeout",
+        "f127"
+      ]
+    },
+    {
+      "canonical_term": "TEST_PROGRAM",
+      "term_type": "SOFTWARE_TYPE",
+      "aliases": [
+        "tp",
+        "test code",
+        "测试程序",
+        "测试版本"
+      ]
+    },
+    {
+      "canonical_term": "HEAD_STACK_ASSEMBLY",
+      "term_type": "MATERIAL_TYPE",
+      "aliases": [
+        "hsa",
+        "磁头堆栈组件",
+        "磁头组件"
+      ]
+    },
+    {
+      "canonical_term": "FIRST_PASS_YIELD",
+      "term_type": "METRIC",
+      "aliases": [
+        "fpy",
+        "首次通过率",
+        "一遍良率",
+        "良率"
+      ]
+    },
+    {
+      "canonical_term": "SINGLE_STATION",
+      "term_type": "SCOPE",
+      "aliases": [
+        "单站",
+        "仅一个站",
+        "only station",
+        "single station"
+      ]
+    },
+    {
+      "canonical_term": "MULTI_STATION",
+      "term_type": "SCOPE",
+      "aliases": [
+        "多站",
+        "多个站",
+        "multiple stations",
+        "cross station"
+      ]
+    },
+    {
+      "canonical_term": "RECENT_CHANGE",
+      "term_type": "CONTEXT",
+      "aliases": [
+        "升级后",
+        "变更后",
+        "刚发布",
+        "after update",
+        "after release"
+      ]
+    }
+  ]
+}

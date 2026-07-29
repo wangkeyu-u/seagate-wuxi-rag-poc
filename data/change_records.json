@@ -1,0 +1,71 @@
+{
+  "banner": "SYNTHETIC DEMO DATA — FICTIONAL — NOT SEAGATE INTERNAL DATA",
+  "change_records": [
+    {
+      "change_record_id": "CHG-TP-0038",
+      "change_type": "TEST_PROGRAM",
+      "title": "Release TP 3.8",
+      "description": "Fictional pilot adjustment to SelfTest decision timing.",
+      "affected_products": [
+        "PRD-HX1001"
+      ],
+      "affected_lines": [
+        "LINE-01",
+        "LINE-02"
+      ],
+      "effective_at": "2026-07-15T10:00:00+08:00",
+      "rollback_at": null,
+      "status": "ACTIVE",
+      "owner_team_id": "TEAM-PE",
+      "approval_status": "APPROVED",
+      "validation_summary": "Synthetic pilot validation passed before release.",
+      "related_document_ids": [
+        "DOC-CHG-TP38"
+      ]
+    },
+    {
+      "change_record_id": "CHG-FW-214",
+      "change_type": "FIRMWARE",
+      "title": "Release FW 2.1.4",
+      "description": "Fictional firmware release for HDD-X Alpha.",
+      "affected_products": [
+        "PRD-HX1001"
+      ],
+      "affected_lines": [
+        "LINE-01",
+        "LINE-02"
+      ],
+      "effective_at": "2026-07-10T10:00:00+08:00",
+      "rollback_at": null,
+      "status": "ACTIVE",
+      "owner_team_id": "TEAM-PE",
+      "approval_status": "APPROVED",
+      "validation_summary": "No approved direct link to the demo single-station F127 event.",
+      "related_document_ids": [
+        "DOC-FW-REL-001"
+      ]
+    },
+    {
+      "change_record_id": "CHG-EQ-CAL-04",
+      "change_type": "EQUIPMENT",
+      "title": "Station 04 scheduled calibration review",
+      "description": "Fictional calibration review record for SelfTest Station 04.",
+      "affected_products": [
+        "PRD-HX1001",
+        "PRD-HX1002"
+      ],
+      "affected_lines": [
+        "LINE-02"
+      ],
+      "effective_at": "2026-07-01T09:00:00+08:00",
+      "rollback_at": null,
+      "status": "CLOSED",
+      "owner_team_id": "TEAM-PROC",
+      "approval_status": "APPROVED",
+      "validation_summary": "Synthetic record retained for demo comparison.",
+      "related_document_ids": [
+        "DOC-MAINT-CAL-001"
+      ]
+    }
+  ]
+}

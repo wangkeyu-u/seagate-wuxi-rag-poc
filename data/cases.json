@@ -1,0 +1,3155 @@
+{
+  "banner": "SYNTHETIC DEMO DATA — FICTIONAL — NOT SEAGATE INTERNAL DATA",
+  "cases": [
+    {
+      "case_id": "CASE-F127-EQ-01",
+      "title": "Single-station F127 after calibration drift",
+      "summary": "F127 investigation concluded: Synthetic SelfTest station calibration or connection condition.",
+      "status": "PUBLISHED",
+      "product_ids": [
+        "PRD-HX1001"
+      ],
+      "product_family": "HX",
+      "line_ids": [
+        "LINE-01"
+      ],
+      "station_ids": [
+        "ST-02"
+      ],
+      "equipment_types": [
+        "SELFTEST_RACK"
+      ],
+      "failure_codes": [
+        "F127"
+      ],
+      "symptoms": [
+        "single_station_spike",
+        "position_timeout",
+        "peer_stations_normal"
+      ],
+      "material_lot_ids": [],
+      "firmware_versions": [
+        "2.1.3"
+      ],
+      "test_program_versions": [
+        "SW-TP-3.7"
+      ],
+      "detected_at": "2026-05-12T08:20:00+08:00",
+      "impact_summary": "Synthetic FPY excursion detected during SelfTest.",
+      "checks_performed": [
+        {
+          "step": "scope_comparison",
+          "result": "completed"
+        },
+        {
+          "step": "context_comparison",
+          "result": "completed"
+        },
+        {
+          "step": "evidence_review",
+          "result": "completed"
+        }
+      ],
+      "excluded_causes": [
+        "MATERIAL",
+        "FIRMWARE"
+      ],
+      "confirmed_root_cause": "Synthetic SelfTest station calibration or connection condition",
+      "root_cause_category": "EQUIPMENT",
+      "containment_action": "Synthetic controlled containment recorded; authorization required for any real action.",
+      "corrective_action": "Synthetic corrective action for category EQUIPMENT; see cited approved process.",
+      "validation_result": "Three synthetic observation windows returned to the demonstration baseline.",
+      "applicable_conditions": [
+        "single_station_only",
+        "peer_stations_normal"
+      ],
+      "non_applicable_conditions": [
+        "multi_station_spike",
+        "cross_line_after_release"
+      ],
+      "owner_team_id": "TEAM-PE",
+      "approved_by": "USR-QA-001",
+      "approved_at": "2026-05-12T16:00:00+08:00",
+      "confidence": "CONFIRMED",
+      "source_evidence_ids": [
+        "EV-CASE-F127-EQ-01-1",
+        "EV-CASE-F127-EQ-01-2",
+        "EV-CASE-F127-EQ-01-3",
+        "EV-CASE-F127-EQ-01-CASE"
+      ],
+      "evidence": [
+        {
+          "evidence_id": "EV-CASE-F127-EQ-01-1",
+          "source_type": "DOCUMENT_VERSION",
+          "source_id": "DOC-FA-EQP-001-V1_0",
+          "locator": "section:Evidence",
+          "claim_supported": "Synthetic SelfTest station calibration or connection condition",
+          "evidence_status": "VALID"
+        },
+        {
+          "evidence_id": "EV-CASE-F127-EQ-01-2",
+          "source_type": "DOCUMENT_VERSION",
+          "source_id": "DOC-MAINT-CAL-001-V1_0",
+          "locator": "section:Evidence",
+          "claim_supported": "Synthetic SelfTest station calibration or connection condition",
+          "evidence_status": "VALID"
+        },
+        {
+          "evidence_id": "EV-CASE-F127-EQ-01-3",
+          "source_type": "DOCUMENT_VERSION",
+          "source_id": "DOC-SOP-ST-001-V2_0",
+          "locator": "section:Evidence",
+          "claim_supported": "Synthetic SelfTest station calibration or connection condition",
+          "evidence_status": "VALID"
+        },
+        {
+          "evidence_id": "EV-CASE-F127-EQ-01-CASE",
+          "source_type": "CASE",
+          "source_id": "CASE-F127-EQ-01",
+          "locator": "section:Root Cause",
+          "claim_supported": "Synthetic SelfTest station calibration or connection condition",
+          "evidence_status": "VALID"
+        }
+      ],
+      "confidentiality": "INTERNAL"
+    },
+    {
+      "case_id": "CASE-F127-EQ-02",
+      "title": "Station connector condition created F127 concentration",
+      "summary": "F127 investigation concluded: Synthetic SelfTest station calibration or connection condition.",
+      "status": "PUBLISHED",
+      "product_ids": [
+        "PRD-HX1001"
+      ],
+      "product_family": "HX",
+      "line_ids": [
+        "LINE-02"
+      ],
+      "station_ids": [
+        "ST-05"
+      ],
+      "equipment_types": [
+        "SELFTEST_RACK"
+      ],
+      "failure_codes": [
+        "F127"
+      ],
+      "symptoms": [
+        "single_station_spike",
+        "position_timeout",
+        "peer_stations_normal"
+      ],
+      "material_lot_ids": [],
+      "firmware_versions": [
+        "2.1.3"
+      ],
+      "test_program_versions": [
+        "SW-TP-3.6"
+      ],
+      "detected_at": "2026-03-18T08:20:00+08:00",
+      "impact_summary": "Synthetic FPY excursion detected during SelfTest.",
+      "checks_performed": [
+        {
+          "step": "scope_comparison",
+          "result": "completed"
+        },
+        {
+          "step": "context_comparison",
+          "result": "completed"
+        },
+        {
+          "step": "evidence_review",
+          "result": "completed"
+        }
+      ],
+      "excluded_causes": [
+        "MATERIAL",
+        "FIRMWARE"
+      ],
+      "confirmed_root_cause": "Synthetic SelfTest station calibration or connection condition",
+      "root_cause_category": "EQUIPMENT",
+      "containment_action": "Synthetic controlled containment recorded; authorization required for any real action.",
+      "corrective_action": "Synthetic corrective action for category EQUIPMENT; see cited approved process.",
+      "validation_result": "Three synthetic observation windows returned to the demonstration baseline.",
+      "applicable_conditions": [
+        "single_station_only",
+        "peer_stations_normal"
+      ],
+      "non_applicable_conditions": [
+        "multi_station_spike",
+        "cross_line_after_release"
+      ],
+      "owner_team_id": "TEAM-PE",
+      "approved_by": "USR-QA-001",
+      "approved_at": "2026-03-18T16:00:00+08:00",
+      "confidence": "CONFIRMED",
+      "source_evidence_ids": [
+        "EV-CASE-F127-EQ-02-1",
+        "EV-CASE-F127-EQ-02-2",
+        "EV-CASE-F127-EQ-02-3",
+        "EV-CASE-F127-EQ-02-CASE"
+      ],
+      "evidence": [
+        {
+          "evidence_id": "EV-CASE-F127-EQ-02-1",
+          "source_type": "DOCUMENT_VERSION",
+          "source_id": "DOC-FA-EQP-001-V1_0",
+          "locator": "section:Evidence",
+          "claim_supported": "Synthetic SelfTest station calibration or connection condition",
+          "evidence_status": "VALID"
+        },
+        {
+          "evidence_id": "EV-CASE-F127-EQ-02-2",
+          "source_type": "DOCUMENT_VERSION",
+          "source_id": "DOC-MAINT-CAL-001-V1_0",
+          "locator": "section:Evidence",
+          "claim_supported": "Synthetic SelfTest station calibration or connection condition",
+          "evidence_status": "VALID"
+        },
+        {
+          "evidence_id": "EV-CASE-F127-EQ-02-3",
+          "source_type": "DOCUMENT_VERSION",
+          "source_id": "DOC-SOP-ST-001-V2_0",
+          "locator": "section:Evidence",
+          "claim_supported": "Synthetic SelfTest station calibration or connection condition",
+          "evidence_status": "VALID"
+        },
+        {
+          "evidence_id": "EV-CASE-F127-EQ-02-CASE",
+          "source_type": "CASE",
+          "source_id": "CASE-F127-EQ-02",
+          "locator": "section:Root Cause",
+          "claim_supported": "Synthetic SelfTest station calibration or connection condition",
+          "evidence_status": "VALID"
+        }
+      ],
+      "confidentiality": "INTERNAL"
+    },
+    {
+      "case_id": "CASE-F127-EQ-03",
+      "title": "F127 isolated to rack timing interface",
+      "summary": "F127 investigation concluded: Synthetic SelfTest station calibration or connection condition.",
+      "status": "PUBLISHED",
+      "product_ids": [
+        "PRD-HX1001"
+      ],
+      "product_family": "HX",
+      "line_ids": [
+        "LINE-01"
+      ],
+      "station_ids": [
+        "ST-01"
+      ],
+      "equipment_types": [
+        "SELFTEST_RACK"
+      ],
+      "failure_codes": [
+        "F127"
+      ],
+      "symptoms": [
+        "single_station_spike",
+        "position_timeout",
+        "peer_stations_normal"
+      ],
+      "material_lot_ids": [],
+      "firmware_versions": [
+        "2.1.3"
+      ],
+      "test_program_versions": [
+        "SW-TP-3.5"
+      ],
+      "detected_at": "2026-02-07T08:20:00+08:00",
+      "impact_summary": "Synthetic FPY excursion detected during SelfTest.",
+      "checks_performed": [
+        {
+          "step": "scope_comparison",
+          "result": "completed"
+        },
+        {
+          "step": "context_comparison",
+          "result": "completed"
+        },
+        {
+          "step": "evidence_review",
+          "result": "completed"
+        }
+      ],
+      "excluded_causes": [
+        "MATERIAL",
+        "FIRMWARE"
+      ],
+      "confirmed_root_cause": "Synthetic SelfTest station calibration or connection condition",
+      "root_cause_category": "EQUIPMENT",
+      "containment_action": "Synthetic controlled containment recorded; authorization required for any real action.",
+      "corrective_action": "Synthetic corrective action for category EQUIPMENT; see cited approved process.",
+      "validation_result": "Three synthetic observation windows returned to the demonstration baseline.",
+      "applicable_conditions": [
+        "single_station_only",
+        "peer_stations_normal"
+      ],
+      "non_applicable_conditions": [
+        "multi_station_spike",
+        "cross_line_after_release"
+      ],
+      "owner_team_id": "TEAM-PE",
+      "approved_by": "USR-QA-001",
+      "approved_at": "2026-02-07T16:00:00+08:00",
+      "confidence": "CONFIRMED",
+      "source_evidence_ids": [
+        "EV-CASE-F127-EQ-03-1",
+        "EV-CASE-F127-EQ-03-2",
+        "EV-CASE-F127-EQ-03-3",
+        "EV-CASE-F127-EQ-03-CASE"
+      ],
+      "evidence": [
+        {
+          "evidence_id": "EV-CASE-F127-EQ-03-1",
+          "source_type": "DOCUMENT_VERSION",
+          "source_id": "DOC-FA-EQP-001-V1_0",
+          "locator": "section:Evidence",
+          "claim_supported": "Synthetic SelfTest station calibration or connection condition",
+          "evidence_status": "VALID"
+        },
+        {
+          "evidence_id": "EV-CASE-F127-EQ-03-2",
+          "source_type": "DOCUMENT_VERSION",
+          "source_id": "DOC-MAINT-CAL-001-V1_0",
+          "locator": "section:Evidence",
+          "claim_supported": "Synthetic SelfTest station calibration or connection condition",
+          "evidence_status": "VALID"
+        },
+        {
+          "evidence_id": "EV-CASE-F127-EQ-03-3",
+          "source_type": "DOCUMENT_VERSION",
+          "source_id": "DOC-SOP-ST-001-V2_0",
+          "locator": "section:Evidence",
+          "claim_supported": "Synthetic SelfTest station calibration or connection condition",
+          "evidence_status": "VALID"
+        },
+        {
+          "evidence_id": "EV-CASE-F127-EQ-03-CASE",
+          "source_type": "CASE",
+          "source_id": "CASE-F127-EQ-03",
+          "locator": "section:Root Cause",
+          "claim_supported": "Synthetic SelfTest station calibration or connection condition",
+          "evidence_status": "VALID"
+        }
+      ],
+      "confidentiality": "INTERNAL"
+    },
+    {
+      "case_id": "CASE-F127-MAT-01",
+      "title": "F127 followed HSA lot across three stations",
+      "summary": "F127 investigation concluded: Synthetic HSA lot condition confirmed by controlled comparison.",
+      "status": "PUBLISHED",
+      "product_ids": [
+        "PRD-HX1001"
+      ],
+      "product_family": "HX",
+      "line_ids": [
+        "LINE-01",
+        "LINE-02"
+      ],
+      "station_ids": [
+        "ST-01",
+        "ST-03",
+        "ST-05"
+      ],
+      "equipment_types": [
+        "SELFTEST_RACK"
+      ],
+      "failure_codes": [
+        "F127"
+      ],
+      "symptoms": [
+        "multi_station_spike",
+        "position_timeout",
+        "lot_concentration"
+      ],
+      "material_lot_ids": [
+        "HSA-L2403"
+      ],
+      "firmware_versions": [
+        "2.1.3"
+      ],
+      "test_program_versions": [
+        "SW-TP-3.7"
+      ],
+      "detected_at": "2026-04-19T08:20:00+08:00",
+      "impact_summary": "Synthetic FPY excursion detected during SelfTest.",
+      "checks_performed": [
+        {
+          "step": "scope_comparison",
+          "result": "completed"
+        },
+        {
+          "step": "context_comparison",
+          "result": "completed"
+        },
+        {
+          "step": "evidence_review",
+          "result": "completed"
+        }
+      ],
+      "excluded_causes": [
+        "EQUIPMENT",
+        "TEST_PROGRAM"
+      ],
+      "confirmed_root_cause": "Synthetic HSA lot condition confirmed by controlled comparison",
+      "root_cause_category": "MATERIAL",
+      "containment_action": "Synthetic controlled containment recorded; authorization required for any real action.",
+      "corrective_action": "Synthetic corrective action for category MATERIAL; see cited approved process.",
+      "validation_result": "Three synthetic observation windows returned to the demonstration baseline.",
+      "applicable_conditions": [
+        "multi_station_spike",
+        "same_material_lot"
+      ],
+      "non_applicable_conditions": [
+        "single_station_only"
+      ],
+      "owner_team_id": "TEAM-FA",
+      "approved_by": "USR-QA-001",
+      "approved_at": "2026-04-19T16:00:00+08:00",
+      "confidence": "CONFIRMED",
+      "source_evidence_ids": [
+        "EV-CASE-F127-MAT-01-1",
+        "EV-CASE-F127-MAT-01-2",
+        "EV-CASE-F127-MAT-01-3",
+        "EV-CASE-F127-MAT-01-CASE"
+      ],
+      "evidence": [
+        {
+          "evidence_id": "EV-CASE-F127-MAT-01-1",
+          "source_type": "DOCUMENT_VERSION",
+          "source_id": "DOC-FA-MAT-001-V1_0",
+          "locator": "section:Evidence",
+          "claim_supported": "Synthetic HSA lot condition confirmed by controlled comparison",
+          "evidence_status": "VALID"
+        },
+        {
+          "evidence_id": "EV-CASE-F127-MAT-01-2",
+          "source_type": "DOCUMENT_VERSION",
+          "source_id": "DOC-HSA-LOT-001-V1_0",
+          "locator": "section:Evidence",
+          "claim_supported": "Synthetic HSA lot condition confirmed by controlled comparison",
+          "evidence_status": "VALID"
+        },
+        {
+          "evidence_id": "EV-CASE-F127-MAT-01-3",
+          "source_type": "DOCUMENT_VERSION",
+          "source_id": "DOC-SOP-ST-001-V2_0",
+          "locator": "section:Evidence",
+          "claim_supported": "Synthetic HSA lot condition confirmed by controlled comparison",
+          "evidence_status": "VALID"
+        },
+        {
+          "evidence_id": "EV-CASE-F127-MAT-01-CASE",
+          "source_type": "CASE",
+          "source_id": "CASE-F127-MAT-01",
+          "locator": "section:Root Cause",
+          "claim_supported": "Synthetic HSA lot condition confirmed by controlled comparison",
+          "evidence_status": "VALID"
+        }
+      ],
+      "confidentiality": "RESTRICTED"
+    },
+    {
+      "case_id": "CASE-F127-MAT-02",
+      "title": "Multi-station positioning timeout concentrated by HSA lot",
+      "summary": "F127 investigation concluded: Synthetic HSA lot condition confirmed by controlled comparison.",
+      "status": "PUBLISHED",
+      "product_ids": [
+        "PRD-HX1001"
+      ],
+      "product_family": "HX",
+      "line_ids": [
+        "LINE-01",
+        "LINE-02"
+      ],
+      "station_ids": [
+        "ST-01",
+        "ST-03",
+        "ST-05"
+      ],
+      "equipment_types": [
+        "SELFTEST_RACK"
+      ],
+      "failure_codes": [
+        "F127"
+      ],
+      "symptoms": [
+        "multi_station_spike",
+        "position_timeout",
+        "lot_concentration"
+      ],
+      "material_lot_ids": [
+        "HSA-L2405"
+      ],
+      "firmware_versions": [
+        "2.1.3"
+      ],
+      "test_program_versions": [
+        "SW-TP-3.7"
+      ],
+      "detected_at": "2026-01-23T08:20:00+08:00",
+      "impact_summary": "Synthetic FPY excursion detected during SelfTest.",
+      "checks_performed": [
+        {
+          "step": "scope_comparison",
+          "result": "completed"
+        },
+        {
+          "step": "context_comparison",
+          "result": "completed"
+        },
+        {
+          "step": "evidence_review",
+          "result": "completed"
+        }
+      ],
+      "excluded_causes": [
+        "EQUIPMENT",
+        "TEST_PROGRAM"
+      ],
+      "confirmed_root_cause": "Synthetic HSA lot condition confirmed by controlled comparison",
+      "root_cause_category": "MATERIAL",
+      "containment_action": "Synthetic controlled containment recorded; authorization required for any real action.",
+      "corrective_action": "Synthetic corrective action for category MATERIAL; see cited approved process.",
+      "validation_result": "Three synthetic observation windows returned to the demonstration baseline.",
+      "applicable_conditions": [
+        "multi_station_spike",
+        "same_material_lot"
+      ],
+      "non_applicable_conditions": [
+        "single_station_only"
+      ],
+      "owner_team_id": "TEAM-FA",
+      "approved_by": "USR-QA-001",
+      "approved_at": "2026-01-23T16:00:00+08:00",
+      "confidence": "CONFIRMED",
+      "source_evidence_ids": [
+        "EV-CASE-F127-MAT-02-1",
+        "EV-CASE-F127-MAT-02-2",
+        "EV-CASE-F127-MAT-02-3",
+        "EV-CASE-F127-MAT-02-CASE"
+      ],
+      "evidence": [
+        {
+          "evidence_id": "EV-CASE-F127-MAT-02-1",
+          "source_type": "DOCUMENT_VERSION",
+          "source_id": "DOC-FA-MAT-001-V1_0",
+          "locator": "section:Evidence",
+          "claim_supported": "Synthetic HSA lot condition confirmed by controlled comparison",
+          "evidence_status": "VALID"
+        },
+        {
+          "evidence_id": "EV-CASE-F127-MAT-02-2",
+          "source_type": "DOCUMENT_VERSION",
+          "source_id": "DOC-HSA-LOT-001-V1_0",
+          "locator": "section:Evidence",
+          "claim_supported": "Synthetic HSA lot condition confirmed by controlled comparison",
+          "evidence_status": "VALID"
+        },
+        {
+          "evidence_id": "EV-CASE-F127-MAT-02-3",
+          "source_type": "DOCUMENT_VERSION",
+          "source_id": "DOC-SOP-ST-001-V2_0",
+          "locator": "section:Evidence",
+          "claim_supported": "Synthetic HSA lot condition confirmed by controlled comparison",
+          "evidence_status": "VALID"
+        },
+        {
+          "evidence_id": "EV-CASE-F127-MAT-02-CASE",
+          "source_type": "CASE",
+          "source_id": "CASE-F127-MAT-02",
+          "locator": "section:Root Cause",
+          "claim_supported": "Synthetic HSA lot condition confirmed by controlled comparison",
+          "evidence_status": "VALID"
+        }
+      ],
+      "confidentiality": "RESTRICTED"
+    },
+    {
+      "case_id": "CASE-F127-MAT-03",
+      "title": "Cross-station F127 material comparison case",
+      "summary": "F127 investigation concluded: Synthetic HSA lot condition confirmed by controlled comparison.",
+      "status": "PUBLISHED",
+      "product_ids": [
+        "PRD-HX1001"
+      ],
+      "product_family": "HX",
+      "line_ids": [
+        "LINE-01",
+        "LINE-02"
+      ],
+      "station_ids": [
+        "ST-01",
+        "ST-03",
+        "ST-05"
+      ],
+      "equipment_types": [
+        "SELFTEST_RACK"
+      ],
+      "failure_codes": [
+        "F127"
+      ],
+      "symptoms": [
+        "multi_station_spike",
+        "position_timeout",
+        "lot_concentration"
+      ],
+      "material_lot_ids": [
+        "HSA-L2408"
+      ],
+      "firmware_versions": [
+        "2.1.3"
+      ],
+      "test_program_versions": [
+        "SW-TP-3.7"
+      ],
+      "detected_at": "2025-12-11T08:20:00+08:00",
+      "impact_summary": "Synthetic FPY excursion detected during SelfTest.",
+      "checks_performed": [
+        {
+          "step": "scope_comparison",
+          "result": "completed"
+        },
+        {
+          "step": "context_comparison",
+          "result": "completed"
+        },
+        {
+          "step": "evidence_review",
+          "result": "completed"
+        }
+      ],
+      "excluded_causes": [
+        "EQUIPMENT",
+        "TEST_PROGRAM"
+      ],
+      "confirmed_root_cause": "Synthetic HSA lot condition confirmed by controlled comparison",
+      "root_cause_category": "MATERIAL",
+      "containment_action": "Synthetic controlled containment recorded; authorization required for any real action.",
+      "corrective_action": "Synthetic corrective action for category MATERIAL; see cited approved process.",
+      "validation_result": "Three synthetic observation windows returned to the demonstration baseline.",
+      "applicable_conditions": [
+        "multi_station_spike",
+        "same_material_lot"
+      ],
+      "non_applicable_conditions": [
+        "single_station_only"
+      ],
+      "owner_team_id": "TEAM-FA",
+      "approved_by": "USR-QA-001",
+      "approved_at": "2025-12-11T16:00:00+08:00",
+      "confidence": "CONFIRMED",
+      "source_evidence_ids": [
+        "EV-CASE-F127-MAT-03-1",
+        "EV-CASE-F127-MAT-03-2",
+        "EV-CASE-F127-MAT-03-3",
+        "EV-CASE-F127-MAT-03-CASE"
+      ],
+      "evidence": [
+        {
+          "evidence_id": "EV-CASE-F127-MAT-03-1",
+          "source_type": "DOCUMENT_VERSION",
+          "source_id": "DOC-FA-MAT-001-V1_0",
+          "locator": "section:Evidence",
+          "claim_supported": "Synthetic HSA lot condition confirmed by controlled comparison",
+          "evidence_status": "VALID"
+        },
+        {
+          "evidence_id": "EV-CASE-F127-MAT-03-2",
+          "source_type": "DOCUMENT_VERSION",
+          "source_id": "DOC-HSA-LOT-001-V1_0",
+          "locator": "section:Evidence",
+          "claim_supported": "Synthetic HSA lot condition confirmed by controlled comparison",
+          "evidence_status": "VALID"
+        },
+        {
+          "evidence_id": "EV-CASE-F127-MAT-03-3",
+          "source_type": "DOCUMENT_VERSION",
+          "source_id": "DOC-SOP-ST-001-V2_0",
+          "locator": "section:Evidence",
+          "claim_supported": "Synthetic HSA lot condition confirmed by controlled comparison",
+          "evidence_status": "VALID"
+        },
+        {
+          "evidence_id": "EV-CASE-F127-MAT-03-CASE",
+          "source_type": "CASE",
+          "source_id": "CASE-F127-MAT-03",
+          "locator": "section:Root Cause",
+          "claim_supported": "Synthetic HSA lot condition confirmed by controlled comparison",
+          "evidence_status": "VALID"
+        }
+      ],
+      "confidentiality": "RESTRICTED"
+    },
+    {
+      "case_id": "CASE-F127-TP-01",
+      "title": "Cross-line F127 after test program release",
+      "summary": "F127 investigation concluded: Synthetic test-program timing logic condition.",
+      "status": "PUBLISHED",
+      "product_ids": [
+        "PRD-HX1001"
+      ],
+      "product_family": "HX",
+      "line_ids": [
+        "LINE-01",
+        "LINE-02"
+      ],
+      "station_ids": [
+        "ST-01",
+        "ST-02",
+        "ST-04",
+        "ST-05"
+      ],
+      "equipment_types": [
+        "SELFTEST_RACK"
+      ],
+      "failure_codes": [
+        "F127"
+      ],
+      "symptoms": [
+        "cross_line_spike",
+        "position_timeout",
+        "after_program_change"
+      ],
+      "material_lot_ids": [],
+      "firmware_versions": [
+        "2.1.4"
+      ],
+      "test_program_versions": [
+        "SW-TP-3.8"
+      ],
+      "detected_at": "2026-07-17T08:20:00+08:00",
+      "impact_summary": "Synthetic FPY excursion detected during SelfTest.",
+      "checks_performed": [
+        {
+          "step": "scope_comparison",
+          "result": "completed"
+        },
+        {
+          "step": "context_comparison",
+          "result": "completed"
+        },
+        {
+          "step": "evidence_review",
+          "result": "completed"
+        }
+      ],
+      "excluded_causes": [
+        "SINGLE_EQUIPMENT",
+        "MATERIAL_LOT"
+      ],
+      "confirmed_root_cause": "Synthetic test-program timing logic condition",
+      "root_cause_category": "TEST_PROGRAM",
+      "containment_action": "Synthetic controlled containment recorded; authorization required for any real action.",
+      "corrective_action": "Synthetic corrective action for category TEST_PROGRAM; see cited approved process.",
+      "validation_result": "Three synthetic observation windows returned to the demonstration baseline.",
+      "applicable_conditions": [
+        "cross_line_after_release",
+        "same_test_program"
+      ],
+      "non_applicable_conditions": [
+        "single_station_only"
+      ],
+      "owner_team_id": "TEAM-PE",
+      "approved_by": "USR-QA-001",
+      "approved_at": "2026-07-17T16:00:00+08:00",
+      "confidence": "CONFIRMED",
+      "source_evidence_ids": [
+        "EV-CASE-F127-TP-01-1",
+        "EV-CASE-F127-TP-01-2",
+        "EV-CASE-F127-TP-01-3",
+        "EV-CASE-F127-TP-01-CASE"
+      ],
+      "evidence": [
+        {
+          "evidence_id": "EV-CASE-F127-TP-01-1",
+          "source_type": "DOCUMENT_VERSION",
+          "source_id": "DOC-FA-TP-001-V1_0",
+          "locator": "section:Evidence",
+          "claim_supported": "Synthetic test-program timing logic condition",
+          "evidence_status": "VALID"
+        },
+        {
+          "evidence_id": "EV-CASE-F127-TP-01-2",
+          "source_type": "DOCUMENT_VERSION",
+          "source_id": "DOC-CHG-TP38-V1_0",
+          "locator": "section:Evidence",
+          "claim_supported": "Synthetic test-program timing logic condition",
+          "evidence_status": "VALID"
+        },
+        {
+          "evidence_id": "EV-CASE-F127-TP-01-3",
+          "source_type": "DOCUMENT_VERSION",
+          "source_id": "DOC-SOP-ST-001-V2_0",
+          "locator": "section:Evidence",
+          "claim_supported": "Synthetic test-program timing logic condition",
+          "evidence_status": "VALID"
+        },
+        {
+          "evidence_id": "EV-CASE-F127-TP-01-CASE",
+          "source_type": "CASE",
+          "source_id": "CASE-F127-TP-01",
+          "locator": "section:Root Cause",
+          "claim_supported": "Synthetic test-program timing logic condition",
+          "evidence_status": "VALID"
+        }
+      ],
+      "confidentiality": "INTERNAL"
+    },
+    {
+      "case_id": "CASE-F127-TP-02",
+      "title": "F127 pattern followed program 3.6 rollout",
+      "summary": "F127 investigation concluded: Synthetic test-program timing logic condition.",
+      "status": "PUBLISHED",
+      "product_ids": [
+        "PRD-HX1001"
+      ],
+      "product_family": "HX",
+      "line_ids": [
+        "LINE-01",
+        "LINE-02"
+      ],
+      "station_ids": [
+        "ST-01",
+        "ST-02",
+        "ST-04",
+        "ST-05"
+      ],
+      "equipment_types": [
+        "SELFTEST_RACK"
+      ],
+      "failure_codes": [
+        "F127"
+      ],
+      "symptoms": [
+        "cross_line_spike",
+        "position_timeout",
+        "after_program_change"
+      ],
+      "material_lot_ids": [],
+      "firmware_versions": [
+        "2.1.4"
+      ],
+      "test_program_versions": [
+        "SW-TP-3.6"
+      ],
+      "detected_at": "2026-04-03T08:20:00+08:00",
+      "impact_summary": "Synthetic FPY excursion detected during SelfTest.",
+      "checks_performed": [
+        {
+          "step": "scope_comparison",
+          "result": "completed"
+        },
+        {
+          "step": "context_comparison",
+          "result": "completed"
+        },
+        {
+          "step": "evidence_review",
+          "result": "completed"
+        }
+      ],
+      "excluded_causes": [
+        "SINGLE_EQUIPMENT",
+        "MATERIAL_LOT"
+      ],
+      "confirmed_root_cause": "Synthetic test-program timing logic condition",
+      "root_cause_category": "TEST_PROGRAM",
+      "containment_action": "Synthetic controlled containment recorded; authorization required for any real action.",
+      "corrective_action": "Synthetic corrective action for category TEST_PROGRAM; see cited approved process.",
+      "validation_result": "Three synthetic observation windows returned to the demonstration baseline.",
+      "applicable_conditions": [
+        "cross_line_after_release",
+        "same_test_program"
+      ],
+      "non_applicable_conditions": [
+        "single_station_only"
+      ],
+      "owner_team_id": "TEAM-PE",
+      "approved_by": "USR-QA-001",
+      "approved_at": "2026-04-03T16:00:00+08:00",
+      "confidence": "CONFIRMED",
+      "source_evidence_ids": [
+        "EV-CASE-F127-TP-02-1",
+        "EV-CASE-F127-TP-02-2",
+        "EV-CASE-F127-TP-02-3",
+        "EV-CASE-F127-TP-02-CASE"
+      ],
+      "evidence": [
+        {
+          "evidence_id": "EV-CASE-F127-TP-02-1",
+          "source_type": "DOCUMENT_VERSION",
+          "source_id": "DOC-FA-TP-001-V1_0",
+          "locator": "section:Evidence",
+          "claim_supported": "Synthetic test-program timing logic condition",
+          "evidence_status": "VALID"
+        },
+        {
+          "evidence_id": "EV-CASE-F127-TP-02-2",
+          "source_type": "DOCUMENT_VERSION",
+          "source_id": "DOC-CHG-TP38-V1_0",
+          "locator": "section:Evidence",
+          "claim_supported": "Synthetic test-program timing logic condition",
+          "evidence_status": "VALID"
+        },
+        {
+          "evidence_id": "EV-CASE-F127-TP-02-3",
+          "source_type": "DOCUMENT_VERSION",
+          "source_id": "DOC-SOP-ST-001-V2_0",
+          "locator": "section:Evidence",
+          "claim_supported": "Synthetic test-program timing logic condition",
+          "evidence_status": "VALID"
+        },
+        {
+          "evidence_id": "EV-CASE-F127-TP-02-CASE",
+          "source_type": "CASE",
+          "source_id": "CASE-F127-TP-02",
+          "locator": "section:Root Cause",
+          "claim_supported": "Synthetic test-program timing logic condition",
+          "evidence_status": "VALID"
+        }
+      ],
+      "confidentiality": "INTERNAL"
+    },
+    {
+      "case_id": "CASE-F127-TP-03",
+      "title": "Program timing logic caused distributed F127",
+      "summary": "F127 investigation concluded: Synthetic test-program timing logic condition.",
+      "status": "PUBLISHED",
+      "product_ids": [
+        "PRD-HX1001"
+      ],
+      "product_family": "HX",
+      "line_ids": [
+        "LINE-01",
+        "LINE-02"
+      ],
+      "station_ids": [
+        "ST-01",
+        "ST-02",
+        "ST-04",
+        "ST-05"
+      ],
+      "equipment_types": [
+        "SELFTEST_RACK"
+      ],
+      "failure_codes": [
+        "F127"
+      ],
+      "symptoms": [
+        "cross_line_spike",
+        "position_timeout",
+        "after_program_change"
+      ],
+      "material_lot_ids": [],
+      "firmware_versions": [
+        "2.1.4"
+      ],
+      "test_program_versions": [
+        "SW-TP-3.5"
+      ],
+      "detected_at": "2026-02-05T08:20:00+08:00",
+      "impact_summary": "Synthetic FPY excursion detected during SelfTest.",
+      "checks_performed": [
+        {
+          "step": "scope_comparison",
+          "result": "completed"
+        },
+        {
+          "step": "context_comparison",
+          "result": "completed"
+        },
+        {
+          "step": "evidence_review",
+          "result": "completed"
+        }
+      ],
+      "excluded_causes": [
+        "SINGLE_EQUIPMENT",
+        "MATERIAL_LOT"
+      ],
+      "confirmed_root_cause": "Synthetic test-program timing logic condition",
+      "root_cause_category": "TEST_PROGRAM",
+      "containment_action": "Synthetic controlled containment recorded; authorization required for any real action.",
+      "corrective_action": "Synthetic corrective action for category TEST_PROGRAM; see cited approved process.",
+      "validation_result": "Three synthetic observation windows returned to the demonstration baseline.",
+      "applicable_conditions": [
+        "cross_line_after_release",
+        "same_test_program"
+      ],
+      "non_applicable_conditions": [
+        "single_station_only"
+      ],
+      "owner_team_id": "TEAM-PE",
+      "approved_by": "USR-QA-001",
+      "approved_at": "2026-02-05T16:00:00+08:00",
+      "confidence": "CONFIRMED",
+      "source_evidence_ids": [
+        "EV-CASE-F127-TP-03-1",
+        "EV-CASE-F127-TP-03-2",
+        "EV-CASE-F127-TP-03-3",
+        "EV-CASE-F127-TP-03-CASE"
+      ],
+      "evidence": [
+        {
+          "evidence_id": "EV-CASE-F127-TP-03-1",
+          "source_type": "DOCUMENT_VERSION",
+          "source_id": "DOC-FA-TP-001-V1_0",
+          "locator": "section:Evidence",
+          "claim_supported": "Synthetic test-program timing logic condition",
+          "evidence_status": "VALID"
+        },
+        {
+          "evidence_id": "EV-CASE-F127-TP-03-2",
+          "source_type": "DOCUMENT_VERSION",
+          "source_id": "DOC-CHG-TP38-V1_0",
+          "locator": "section:Evidence",
+          "claim_supported": "Synthetic test-program timing logic condition",
+          "evidence_status": "VALID"
+        },
+        {
+          "evidence_id": "EV-CASE-F127-TP-03-3",
+          "source_type": "DOCUMENT_VERSION",
+          "source_id": "DOC-SOP-ST-001-V2_0",
+          "locator": "section:Evidence",
+          "claim_supported": "Synthetic test-program timing logic condition",
+          "evidence_status": "VALID"
+        },
+        {
+          "evidence_id": "EV-CASE-F127-TP-03-CASE",
+          "source_type": "CASE",
+          "source_id": "CASE-F127-TP-03",
+          "locator": "section:Root Cause",
+          "claim_supported": "Synthetic test-program timing logic condition",
+          "evidence_status": "VALID"
+        }
+      ],
+      "confidentiality": "INTERNAL"
+    },
+    {
+      "case_id": "CASE-F131-01",
+      "title": "F131 synthetic investigation 1",
+      "summary": "F131 investigation concluded: Synthetic rack vibration isolation condition.",
+      "status": "PUBLISHED",
+      "product_ids": [
+        "PRD-HY2001"
+      ],
+      "product_family": "HY",
+      "line_ids": [
+        "LINE-01"
+      ],
+      "station_ids": [
+        "ST-01"
+      ],
+      "equipment_types": [
+        "SELFTEST_RACK"
+      ],
+      "failure_codes": [
+        "F131"
+      ],
+      "symptoms": [
+        "seek_settle_variance",
+        "selftest_excursion"
+      ],
+      "material_lot_ids": [
+        "HSA-L2401"
+      ],
+      "firmware_versions": [
+        "4.0.1"
+      ],
+      "test_program_versions": [
+        "SW-TP-5.1"
+      ],
+      "detected_at": "2026-01-04T08:20:00+08:00",
+      "impact_summary": "Synthetic FPY excursion detected during SelfTest.",
+      "checks_performed": [
+        {
+          "step": "scope_comparison",
+          "result": "completed"
+        },
+        {
+          "step": "context_comparison",
+          "result": "completed"
+        },
+        {
+          "step": "evidence_review",
+          "result": "completed"
+        }
+      ],
+      "excluded_causes": [
+        "F127_ROOT_CAUSES"
+      ],
+      "confirmed_root_cause": "Synthetic rack vibration isolation condition",
+      "root_cause_category": "EQUIPMENT",
+      "containment_action": "Synthetic controlled containment recorded; authorization required for any real action.",
+      "corrective_action": "Synthetic corrective action for category EQUIPMENT; see cited approved process.",
+      "validation_result": "Three synthetic observation windows returned to the demonstration baseline.",
+      "applicable_conditions": [
+        "seek_settle_variance"
+      ],
+      "non_applicable_conditions": [
+        "different_failure_mode"
+      ],
+      "owner_team_id": "TEAM-PE",
+      "approved_by": "USR-QA-001",
+      "approved_at": "2026-01-04T16:00:00+08:00",
+      "confidence": "CONFIRMED",
+      "source_evidence_ids": [
+        "EV-CASE-F131-01-1",
+        "EV-CASE-F131-01-2",
+        "EV-CASE-F131-01-CASE"
+      ],
+      "evidence": [
+        {
+          "evidence_id": "EV-CASE-F131-01-1",
+          "source_type": "DOCUMENT_VERSION",
+          "source_id": "DOC-FC-001-V1_0",
+          "locator": "section:Evidence",
+          "claim_supported": "Synthetic rack vibration isolation condition",
+          "evidence_status": "VALID"
+        },
+        {
+          "evidence_id": "EV-CASE-F131-01-2",
+          "source_type": "DOCUMENT_VERSION",
+          "source_id": "DOC-QA-ESC-001-V1_0",
+          "locator": "section:Evidence",
+          "claim_supported": "Synthetic rack vibration isolation condition",
+          "evidence_status": "VALID"
+        },
+        {
+          "evidence_id": "EV-CASE-F131-01-CASE",
+          "source_type": "CASE",
+          "source_id": "CASE-F131-01",
+          "locator": "section:Root Cause",
+          "claim_supported": "Synthetic rack vibration isolation condition",
+          "evidence_status": "VALID"
+        }
+      ],
+      "confidentiality": "INTERNAL"
+    },
+    {
+      "case_id": "CASE-F131-02",
+      "title": "F131 synthetic investigation 2",
+      "summary": "F131 investigation concluded: Synthetic rack vibration isolation condition.",
+      "status": "PUBLISHED",
+      "product_ids": [
+        "PRD-HY2002"
+      ],
+      "product_family": "HY",
+      "line_ids": [
+        "LINE-01"
+      ],
+      "station_ids": [
+        "ST-02"
+      ],
+      "equipment_types": [
+        "SELFTEST_RACK"
+      ],
+      "failure_codes": [
+        "F131"
+      ],
+      "symptoms": [
+        "seek_settle_variance",
+        "selftest_excursion"
+      ],
+      "material_lot_ids": [
+        "HSA-L2402"
+      ],
+      "firmware_versions": [
+        "4.0.1"
+      ],
+      "test_program_versions": [
+        "SW-TP-5.1"
+      ],
+      "detected_at": "2026-02-07T08:20:00+08:00",
+      "impact_summary": "Synthetic FPY excursion detected during SelfTest.",
+      "checks_performed": [
+        {
+          "step": "scope_comparison",
+          "result": "completed"
+        },
+        {
+          "step": "context_comparison",
+          "result": "completed"
+        },
+        {
+          "step": "evidence_review",
+          "result": "completed"
+        }
+      ],
+      "excluded_causes": [
+        "F127_ROOT_CAUSES"
+      ],
+      "confirmed_root_cause": "Synthetic rack vibration isolation condition",
+      "root_cause_category": "EQUIPMENT",
+      "containment_action": "Synthetic controlled containment recorded; authorization required for any real action.",
+      "corrective_action": "Synthetic corrective action for category EQUIPMENT; see cited approved process.",
+      "validation_result": "Three synthetic observation windows returned to the demonstration baseline.",
+      "applicable_conditions": [
+        "seek_settle_variance"
+      ],
+      "non_applicable_conditions": [
+        "different_failure_mode"
+      ],
+      "owner_team_id": "TEAM-PE",
+      "approved_by": "USR-QA-001",
+      "approved_at": "2026-02-07T16:00:00+08:00",
+      "confidence": "CONFIRMED",
+      "source_evidence_ids": [
+        "EV-CASE-F131-02-1",
+        "EV-CASE-F131-02-2",
+        "EV-CASE-F131-02-CASE"
+      ],
+      "evidence": [
+        {
+          "evidence_id": "EV-CASE-F131-02-1",
+          "source_type": "DOCUMENT_VERSION",
+          "source_id": "DOC-FC-001-V1_0",
+          "locator": "section:Evidence",
+          "claim_supported": "Synthetic rack vibration isolation condition",
+          "evidence_status": "VALID"
+        },
+        {
+          "evidence_id": "EV-CASE-F131-02-2",
+          "source_type": "DOCUMENT_VERSION",
+          "source_id": "DOC-QA-ESC-001-V1_0",
+          "locator": "section:Evidence",
+          "claim_supported": "Synthetic rack vibration isolation condition",
+          "evidence_status": "VALID"
+        },
+        {
+          "evidence_id": "EV-CASE-F131-02-CASE",
+          "source_type": "CASE",
+          "source_id": "CASE-F131-02",
+          "locator": "section:Root Cause",
+          "claim_supported": "Synthetic rack vibration isolation condition",
+          "evidence_status": "VALID"
+        }
+      ],
+      "confidentiality": "INTERNAL"
+    },
+    {
+      "case_id": "CASE-F131-03",
+      "title": "F131 synthetic investigation 3",
+      "summary": "F131 investigation concluded: Synthetic rack vibration isolation condition.",
+      "status": "PUBLISHED",
+      "product_ids": [
+        "PRD-HZ3001"
+      ],
+      "product_family": "HZ",
+      "line_ids": [
+        "LINE-01"
+      ],
+      "station_ids": [
+        "ST-03"
+      ],
+      "equipment_types": [
+        "SELFTEST_RACK"
+      ],
+      "failure_codes": [
+        "F131"
+      ],
+      "symptoms": [
+        "seek_settle_variance",
+        "selftest_excursion"
+      ],
+      "material_lot_ids": [
+        "HSA-L2403"
+      ],
+      "firmware_versions": [
+        "4.0.1"
+      ],
+      "test_program_versions": [
+        "SW-TP-5.1"
+      ],
+      "detected_at": "2026-03-10T08:20:00+08:00",
+      "impact_summary": "Synthetic FPY excursion detected during SelfTest.",
+      "checks_performed": [
+        {
+          "step": "scope_comparison",
+          "result": "completed"
+        },
+        {
+          "step": "context_comparison",
+          "result": "completed"
+        },
+        {
+          "step": "evidence_review",
+          "result": "completed"
+        }
+      ],
+      "excluded_causes": [
+        "F127_ROOT_CAUSES"
+      ],
+      "confirmed_root_cause": "Synthetic rack vibration isolation condition",
+      "root_cause_category": "EQUIPMENT",
+      "containment_action": "Synthetic controlled containment recorded; authorization required for any real action.",
+      "corrective_action": "Synthetic corrective action for category EQUIPMENT; see cited approved process.",
+      "validation_result": "Three synthetic observation windows returned to the demonstration baseline.",
+      "applicable_conditions": [
+        "seek_settle_variance"
+      ],
+      "non_applicable_conditions": [
+        "different_failure_mode"
+      ],
+      "owner_team_id": "TEAM-PE",
+      "approved_by": "USR-QA-001",
+      "approved_at": "2026-03-10T16:00:00+08:00",
+      "confidence": "CONFIRMED",
+      "source_evidence_ids": [
+        "EV-CASE-F131-03-1",
+        "EV-CASE-F131-03-2",
+        "EV-CASE-F131-03-CASE"
+      ],
+      "evidence": [
+        {
+          "evidence_id": "EV-CASE-F131-03-1",
+          "source_type": "DOCUMENT_VERSION",
+          "source_id": "DOC-FC-001-V1_0",
+          "locator": "section:Evidence",
+          "claim_supported": "Synthetic rack vibration isolation condition",
+          "evidence_status": "VALID"
+        },
+        {
+          "evidence_id": "EV-CASE-F131-03-2",
+          "source_type": "DOCUMENT_VERSION",
+          "source_id": "DOC-QA-ESC-001-V1_0",
+          "locator": "section:Evidence",
+          "claim_supported": "Synthetic rack vibration isolation condition",
+          "evidence_status": "VALID"
+        },
+        {
+          "evidence_id": "EV-CASE-F131-03-CASE",
+          "source_type": "CASE",
+          "source_id": "CASE-F131-03",
+          "locator": "section:Root Cause",
+          "claim_supported": "Synthetic rack vibration isolation condition",
+          "evidence_status": "VALID"
+        }
+      ],
+      "confidentiality": "INTERNAL"
+    },
+    {
+      "case_id": "CASE-F131-04",
+      "title": "F131 synthetic investigation 4",
+      "summary": "F131 investigation concluded: Synthetic rack vibration isolation condition.",
+      "status": "PUBLISHED",
+      "product_ids": [
+        "PRD-HX1002"
+      ],
+      "product_family": "HX",
+      "line_ids": [
+        "LINE-02"
+      ],
+      "station_ids": [
+        "ST-04"
+      ],
+      "equipment_types": [
+        "SELFTEST_RACK"
+      ],
+      "failure_codes": [
+        "F131"
+      ],
+      "symptoms": [
+        "seek_settle_variance",
+        "selftest_excursion"
+      ],
+      "material_lot_ids": [
+        "HSA-L2404"
+      ],
+      "firmware_versions": [
+        "4.0.1"
+      ],
+      "test_program_versions": [
+        "SW-TP-5.1"
+      ],
+      "detected_at": "2026-04-13T08:20:00+08:00",
+      "impact_summary": "Synthetic FPY excursion detected during SelfTest.",
+      "checks_performed": [
+        {
+          "step": "scope_comparison",
+          "result": "completed"
+        },
+        {
+          "step": "context_comparison",
+          "result": "completed"
+        },
+        {
+          "step": "evidence_review",
+          "result": "completed"
+        }
+      ],
+      "excluded_causes": [
+        "F127_ROOT_CAUSES"
+      ],
+      "confirmed_root_cause": "Synthetic rack vibration isolation condition",
+      "root_cause_category": "EQUIPMENT",
+      "containment_action": "Synthetic controlled containment recorded; authorization required for any real action.",
+      "corrective_action": "Synthetic corrective action for category EQUIPMENT; see cited approved process.",
+      "validation_result": "Three synthetic observation windows returned to the demonstration baseline.",
+      "applicable_conditions": [
+        "seek_settle_variance"
+      ],
+      "non_applicable_conditions": [
+        "different_failure_mode"
+      ],
+      "owner_team_id": "TEAM-PE",
+      "approved_by": "USR-QA-001",
+      "approved_at": "2026-04-13T16:00:00+08:00",
+      "confidence": "CONFIRMED",
+      "source_evidence_ids": [
+        "EV-CASE-F131-04-1",
+        "EV-CASE-F131-04-2",
+        "EV-CASE-F131-04-CASE"
+      ],
+      "evidence": [
+        {
+          "evidence_id": "EV-CASE-F131-04-1",
+          "source_type": "DOCUMENT_VERSION",
+          "source_id": "DOC-FC-001-V1_0",
+          "locator": "section:Evidence",
+          "claim_supported": "Synthetic rack vibration isolation condition",
+          "evidence_status": "VALID"
+        },
+        {
+          "evidence_id": "EV-CASE-F131-04-2",
+          "source_type": "DOCUMENT_VERSION",
+          "source_id": "DOC-QA-ESC-001-V1_0",
+          "locator": "section:Evidence",
+          "claim_supported": "Synthetic rack vibration isolation condition",
+          "evidence_status": "VALID"
+        },
+        {
+          "evidence_id": "EV-CASE-F131-04-CASE",
+          "source_type": "CASE",
+          "source_id": "CASE-F131-04",
+          "locator": "section:Root Cause",
+          "claim_supported": "Synthetic rack vibration isolation condition",
+          "evidence_status": "VALID"
+        }
+      ],
+      "confidentiality": "INTERNAL"
+    },
+    {
+      "case_id": "CASE-F204-01",
+      "title": "F204 synthetic investigation 1",
+      "summary": "F204 investigation concluded: Synthetic calibration sequence condition.",
+      "status": "PUBLISHED",
+      "product_ids": [
+        "PRD-HY2001"
+      ],
+      "product_family": "HY",
+      "line_ids": [
+        "LINE-02"
+      ],
+      "station_ids": [
+        "ST-05"
+      ],
+      "equipment_types": [
+        "SELFTEST_RACK"
+      ],
+      "failure_codes": [
+        "F204"
+      ],
+      "symptoms": [
+        "read_channel_calibration",
+        "selftest_excursion"
+      ],
+      "material_lot_ids": [
+        "HSA-L2405"
+      ],
+      "firmware_versions": [
+        "4.0.1"
+      ],
+      "test_program_versions": [
+        "SW-TP-5.1"
+      ],
+      "detected_at": "2026-05-16T08:20:00+08:00",
+      "impact_summary": "Synthetic FPY excursion detected during SelfTest.",
+      "checks_performed": [
+        {
+          "step": "scope_comparison",
+          "result": "completed"
+        },
+        {
+          "step": "context_comparison",
+          "result": "completed"
+        },
+        {
+          "step": "evidence_review",
+          "result": "completed"
+        }
+      ],
+      "excluded_causes": [
+        "F127_ROOT_CAUSES"
+      ],
+      "confirmed_root_cause": "Synthetic calibration sequence condition",
+      "root_cause_category": "PROCESS",
+      "containment_action": "Synthetic controlled containment recorded; authorization required for any real action.",
+      "corrective_action": "Synthetic corrective action for category PROCESS; see cited approved process.",
+      "validation_result": "Three synthetic observation windows returned to the demonstration baseline.",
+      "applicable_conditions": [
+        "read_channel_calibration"
+      ],
+      "non_applicable_conditions": [
+        "different_failure_mode"
+      ],
+      "owner_team_id": "TEAM-PE",
+      "approved_by": "USR-QA-001",
+      "approved_at": "2026-05-16T16:00:00+08:00",
+      "confidence": "CONFIRMED",
+      "source_evidence_ids": [
+        "EV-CASE-F204-01-1",
+        "EV-CASE-F204-01-2",
+        "EV-CASE-F204-01-CASE"
+      ],
+      "evidence": [
+        {
+          "evidence_id": "EV-CASE-F204-01-1",
+          "source_type": "DOCUMENT_VERSION",
+          "source_id": "DOC-FC-001-V1_0",
+          "locator": "section:Evidence",
+          "claim_supported": "Synthetic calibration sequence condition",
+          "evidence_status": "VALID"
+        },
+        {
+          "evidence_id": "EV-CASE-F204-01-2",
+          "source_type": "DOCUMENT_VERSION",
+          "source_id": "DOC-QA-ESC-001-V1_0",
+          "locator": "section:Evidence",
+          "claim_supported": "Synthetic calibration sequence condition",
+          "evidence_status": "VALID"
+        },
+        {
+          "evidence_id": "EV-CASE-F204-01-CASE",
+          "source_type": "CASE",
+          "source_id": "CASE-F204-01",
+          "locator": "section:Root Cause",
+          "claim_supported": "Synthetic calibration sequence condition",
+          "evidence_status": "VALID"
+        }
+      ],
+      "confidentiality": "INTERNAL"
+    },
+    {
+      "case_id": "CASE-F204-02",
+      "title": "F204 synthetic investigation 2",
+      "summary": "F204 investigation concluded: Synthetic calibration sequence condition.",
+      "status": "PUBLISHED",
+      "product_ids": [
+        "PRD-HY2002"
+      ],
+      "product_family": "HY",
+      "line_ids": [
+        "LINE-02"
+      ],
+      "station_ids": [
+        "ST-06"
+      ],
+      "equipment_types": [
+        "SELFTEST_RACK"
+      ],
+      "failure_codes": [
+        "F204"
+      ],
+      "symptoms": [
+        "read_channel_calibration",
+        "selftest_excursion"
+      ],
+      "material_lot_ids": [
+        "HSA-L2406"
+      ],
+      "firmware_versions": [
+        "4.0.1"
+      ],
+      "test_program_versions": [
+        "SW-TP-5.1"
+      ],
+      "detected_at": "2026-06-19T08:20:00+08:00",
+      "impact_summary": "Synthetic FPY excursion detected during SelfTest.",
+      "checks_performed": [
+        {
+          "step": "scope_comparison",
+          "result": "completed"
+        },
+        {
+          "step": "context_comparison",
+          "result": "completed"
+        },
+        {
+          "step": "evidence_review",
+          "result": "completed"
+        }
+      ],
+      "excluded_causes": [
+        "F127_ROOT_CAUSES"
+      ],
+      "confirmed_root_cause": "Synthetic calibration sequence condition",
+      "root_cause_category": "PROCESS",
+      "containment_action": "Synthetic controlled containment recorded; authorization required for any real action.",
+      "corrective_action": "Synthetic corrective action for category PROCESS; see cited approved process.",
+      "validation_result": "Three synthetic observation windows returned to the demonstration baseline.",
+      "applicable_conditions": [
+        "read_channel_calibration"
+      ],
+      "non_applicable_conditions": [
+        "different_failure_mode"
+      ],
+      "owner_team_id": "TEAM-PE",
+      "approved_by": "USR-QA-001",
+      "approved_at": "2026-06-19T16:00:00+08:00",
+      "confidence": "CONFIRMED",
+      "source_evidence_ids": [
+        "EV-CASE-F204-02-1",
+        "EV-CASE-F204-02-2",
+        "EV-CASE-F204-02-CASE"
+      ],
+      "evidence": [
+        {
+          "evidence_id": "EV-CASE-F204-02-1",
+          "source_type": "DOCUMENT_VERSION",
+          "source_id": "DOC-FC-001-V1_0",
+          "locator": "section:Evidence",
+          "claim_supported": "Synthetic calibration sequence condition",
+          "evidence_status": "VALID"
+        },
+        {
+          "evidence_id": "EV-CASE-F204-02-2",
+          "source_type": "DOCUMENT_VERSION",
+          "source_id": "DOC-QA-ESC-001-V1_0",
+          "locator": "section:Evidence",
+          "claim_supported": "Synthetic calibration sequence condition",
+          "evidence_status": "VALID"
+        },
+        {
+          "evidence_id": "EV-CASE-F204-02-CASE",
+          "source_type": "CASE",
+          "source_id": "CASE-F204-02",
+          "locator": "section:Root Cause",
+          "claim_supported": "Synthetic calibration sequence condition",
+          "evidence_status": "VALID"
+        }
+      ],
+      "confidentiality": "INTERNAL"
+    },
+    {
+      "case_id": "CASE-F204-03",
+      "title": "F204 synthetic investigation 3",
+      "summary": "F204 investigation concluded: Synthetic calibration sequence condition.",
+      "status": "PUBLISHED",
+      "product_ids": [
+        "PRD-HZ3001"
+      ],
+      "product_family": "HZ",
+      "line_ids": [
+        "LINE-01"
+      ],
+      "station_ids": [
+        "ST-01"
+      ],
+      "equipment_types": [
+        "SELFTEST_RACK"
+      ],
+      "failure_codes": [
+        "F204"
+      ],
+      "symptoms": [
+        "read_channel_calibration",
+        "selftest_excursion"
+      ],
+      "material_lot_ids": [
+        "HSA-L2407"
+      ],
+      "firmware_versions": [
+        "4.0.1"
+      ],
+      "test_program_versions": [
+        "SW-TP-5.1"
+      ],
+      "detected_at": "2026-01-22T08:20:00+08:00",
+      "impact_summary": "Synthetic FPY excursion detected during SelfTest.",
+      "checks_performed": [
+        {
+          "step": "scope_comparison",
+          "result": "completed"
+        },
+        {
+          "step": "context_comparison",
+          "result": "completed"
+        },
+        {
+          "step": "evidence_review",
+          "result": "completed"
+        }
+      ],
+      "excluded_causes": [
+        "F127_ROOT_CAUSES"
+      ],
+      "confirmed_root_cause": "Synthetic calibration sequence condition",
+      "root_cause_category": "PROCESS",
+      "containment_action": "Synthetic controlled containment recorded; authorization required for any real action.",
+      "corrective_action": "Synthetic corrective action for category PROCESS; see cited approved process.",
+      "validation_result": "Three synthetic observation windows returned to the demonstration baseline.",
+      "applicable_conditions": [
+        "read_channel_calibration"
+      ],
+      "non_applicable_conditions": [
+        "different_failure_mode"
+      ],
+      "owner_team_id": "TEAM-PE",
+      "approved_by": "USR-QA-001",
+      "approved_at": "2026-01-22T16:00:00+08:00",
+      "confidence": "CONFIRMED",
+      "source_evidence_ids": [
+        "EV-CASE-F204-03-1",
+        "EV-CASE-F204-03-2",
+        "EV-CASE-F204-03-CASE"
+      ],
+      "evidence": [
+        {
+          "evidence_id": "EV-CASE-F204-03-1",
+          "source_type": "DOCUMENT_VERSION",
+          "source_id": "DOC-FC-001-V1_0",
+          "locator": "section:Evidence",
+          "claim_supported": "Synthetic calibration sequence condition",
+          "evidence_status": "VALID"
+        },
+        {
+          "evidence_id": "EV-CASE-F204-03-2",
+          "source_type": "DOCUMENT_VERSION",
+          "source_id": "DOC-QA-ESC-001-V1_0",
+          "locator": "section:Evidence",
+          "claim_supported": "Synthetic calibration sequence condition",
+          "evidence_status": "VALID"
+        },
+        {
+          "evidence_id": "EV-CASE-F204-03-CASE",
+          "source_type": "CASE",
+          "source_id": "CASE-F204-03",
+          "locator": "section:Root Cause",
+          "claim_supported": "Synthetic calibration sequence condition",
+          "evidence_status": "VALID"
+        }
+      ],
+      "confidentiality": "INTERNAL"
+    },
+    {
+      "case_id": "CASE-F204-04",
+      "title": "F204 synthetic investigation 4",
+      "summary": "F204 investigation concluded: Synthetic calibration sequence condition.",
+      "status": "PUBLISHED",
+      "product_ids": [
+        "PRD-HX1002"
+      ],
+      "product_family": "HX",
+      "line_ids": [
+        "LINE-01"
+      ],
+      "station_ids": [
+        "ST-02"
+      ],
+      "equipment_types": [
+        "SELFTEST_RACK"
+      ],
+      "failure_codes": [
+        "F204"
+      ],
+      "symptoms": [
+        "read_channel_calibration",
+        "selftest_excursion"
+      ],
+      "material_lot_ids": [
+        "HSA-L2408"
+      ],
+      "firmware_versions": [
+        "4.0.1"
+      ],
+      "test_program_versions": [
+        "SW-TP-5.1"
+      ],
+      "detected_at": "2026-02-01T08:20:00+08:00",
+      "impact_summary": "Synthetic FPY excursion detected during SelfTest.",
+      "checks_performed": [
+        {
+          "step": "scope_comparison",
+          "result": "completed"
+        },
+        {
+          "step": "context_comparison",
+          "result": "completed"
+        },
+        {
+          "step": "evidence_review",
+          "result": "completed"
+        }
+      ],
+      "excluded_causes": [
+        "F127_ROOT_CAUSES"
+      ],
+      "confirmed_root_cause": "Synthetic calibration sequence condition",
+      "root_cause_category": "PROCESS",
+      "containment_action": "Synthetic controlled containment recorded; authorization required for any real action.",
+      "corrective_action": "Synthetic corrective action for category PROCESS; see cited approved process.",
+      "validation_result": "Three synthetic observation windows returned to the demonstration baseline.",
+      "applicable_conditions": [
+        "read_channel_calibration"
+      ],
+      "non_applicable_conditions": [
+        "different_failure_mode"
+      ],
+      "owner_team_id": "TEAM-PE",
+      "approved_by": "USR-QA-001",
+      "approved_at": "2026-02-01T16:00:00+08:00",
+      "confidence": "CONFIRMED",
+      "source_evidence_ids": [
+        "EV-CASE-F204-04-1",
+        "EV-CASE-F204-04-2",
+        "EV-CASE-F204-04-CASE"
+      ],
+      "evidence": [
+        {
+          "evidence_id": "EV-CASE-F204-04-1",
+          "source_type": "DOCUMENT_VERSION",
+          "source_id": "DOC-FC-001-V1_0",
+          "locator": "section:Evidence",
+          "claim_supported": "Synthetic calibration sequence condition",
+          "evidence_status": "VALID"
+        },
+        {
+          "evidence_id": "EV-CASE-F204-04-2",
+          "source_type": "DOCUMENT_VERSION",
+          "source_id": "DOC-QA-ESC-001-V1_0",
+          "locator": "section:Evidence",
+          "claim_supported": "Synthetic calibration sequence condition",
+          "evidence_status": "VALID"
+        },
+        {
+          "evidence_id": "EV-CASE-F204-04-CASE",
+          "source_type": "CASE",
+          "source_id": "CASE-F204-04",
+          "locator": "section:Root Cause",
+          "claim_supported": "Synthetic calibration sequence condition",
+          "evidence_status": "VALID"
+        }
+      ],
+      "confidentiality": "INTERNAL"
+    },
+    {
+      "case_id": "CASE-F219-01",
+      "title": "F219 synthetic investigation 1",
+      "summary": "F219 investigation concluded: Synthetic head signal margin material condition.",
+      "status": "PUBLISHED",
+      "product_ids": [
+        "PRD-HY2001"
+      ],
+      "product_family": "HY",
+      "line_ids": [
+        "LINE-01"
+      ],
+      "station_ids": [
+        "ST-03"
+      ],
+      "equipment_types": [
+        "SELFTEST_RACK"
+      ],
+      "failure_codes": [
+        "F219"
+      ],
+      "symptoms": [
+        "signal_margin_low",
+        "selftest_excursion"
+      ],
+      "material_lot_ids": [
+        "HSA-L2409"
+      ],
+      "firmware_versions": [
+        "4.0.1"
+      ],
+      "test_program_versions": [
+        "SW-TP-5.1"
+      ],
+      "detected_at": "2026-03-04T08:20:00+08:00",
+      "impact_summary": "Synthetic FPY excursion detected during SelfTest.",
+      "checks_performed": [
+        {
+          "step": "scope_comparison",
+          "result": "completed"
+        },
+        {
+          "step": "context_comparison",
+          "result": "completed"
+        },
+        {
+          "step": "evidence_review",
+          "result": "completed"
+        }
+      ],
+      "excluded_causes": [
+        "F127_ROOT_CAUSES"
+      ],
+      "confirmed_root_cause": "Synthetic head signal margin material condition",
+      "root_cause_category": "MATERIAL",
+      "containment_action": "Synthetic controlled containment recorded; authorization required for any real action.",
+      "corrective_action": "Synthetic corrective action for category MATERIAL; see cited approved process.",
+      "validation_result": "Three synthetic observation windows returned to the demonstration baseline.",
+      "applicable_conditions": [
+        "signal_margin_low"
+      ],
+      "non_applicable_conditions": [
+        "different_failure_mode"
+      ],
+      "owner_team_id": "TEAM-FA",
+      "approved_by": "USR-QA-001",
+      "approved_at": "2026-03-04T16:00:00+08:00",
+      "confidence": "CONFIRMED",
+      "source_evidence_ids": [
+        "EV-CASE-F219-01-1",
+        "EV-CASE-F219-01-2",
+        "EV-CASE-F219-01-CASE"
+      ],
+      "evidence": [
+        {
+          "evidence_id": "EV-CASE-F219-01-1",
+          "source_type": "DOCUMENT_VERSION",
+          "source_id": "DOC-FC-001-V1_0",
+          "locator": "section:Evidence",
+          "claim_supported": "Synthetic head signal margin material condition",
+          "evidence_status": "VALID"
+        },
+        {
+          "evidence_id": "EV-CASE-F219-01-2",
+          "source_type": "DOCUMENT_VERSION",
+          "source_id": "DOC-QA-ESC-001-V1_0",
+          "locator": "section:Evidence",
+          "claim_supported": "Synthetic head signal margin material condition",
+          "evidence_status": "VALID"
+        },
+        {
+          "evidence_id": "EV-CASE-F219-01-CASE",
+          "source_type": "CASE",
+          "source_id": "CASE-F219-01",
+          "locator": "section:Root Cause",
+          "claim_supported": "Synthetic head signal margin material condition",
+          "evidence_status": "VALID"
+        }
+      ],
+      "confidentiality": "INTERNAL"
+    },
+    {
+      "case_id": "CASE-F219-02",
+      "title": "F219 synthetic investigation 2",
+      "summary": "F219 investigation concluded: Synthetic head signal margin material condition.",
+      "status": "PUBLISHED",
+      "product_ids": [
+        "PRD-HY2002"
+      ],
+      "product_family": "HY",
+      "line_ids": [
+        "LINE-02"
+      ],
+      "station_ids": [
+        "ST-04"
+      ],
+      "equipment_types": [
+        "SELFTEST_RACK"
+      ],
+      "failure_codes": [
+        "F219"
+      ],
+      "symptoms": [
+        "signal_margin_low",
+        "selftest_excursion"
+      ],
+      "material_lot_ids": [
+        "HSA-L2410"
+      ],
+      "firmware_versions": [
+        "4.0.1"
+      ],
+      "test_program_versions": [
+        "SW-TP-5.1"
+      ],
+      "detected_at": "2026-04-07T08:20:00+08:00",
+      "impact_summary": "Synthetic FPY excursion detected during SelfTest.",
+      "checks_performed": [
+        {
+          "step": "scope_comparison",
+          "result": "completed"
+        },
+        {
+          "step": "context_comparison",
+          "result": "completed"
+        },
+        {
+          "step": "evidence_review",
+          "result": "completed"
+        }
+      ],
+      "excluded_causes": [
+        "F127_ROOT_CAUSES"
+      ],
+      "confirmed_root_cause": "Synthetic head signal margin material condition",
+      "root_cause_category": "MATERIAL",
+      "containment_action": "Synthetic controlled containment recorded; authorization required for any real action.",
+      "corrective_action": "Synthetic corrective action for category MATERIAL; see cited approved process.",
+      "validation_result": "Three synthetic observation windows returned to the demonstration baseline.",
+      "applicable_conditions": [
+        "signal_margin_low"
+      ],
+      "non_applicable_conditions": [
+        "different_failure_mode"
+      ],
+      "owner_team_id": "TEAM-FA",
+      "approved_by": "USR-QA-001",
+      "approved_at": "2026-04-07T16:00:00+08:00",
+      "confidence": "CONFIRMED",
+      "source_evidence_ids": [
+        "EV-CASE-F219-02-1",
+        "EV-CASE-F219-02-2",
+        "EV-CASE-F219-02-CASE"
+      ],
+      "evidence": [
+        {
+          "evidence_id": "EV-CASE-F219-02-1",
+          "source_type": "DOCUMENT_VERSION",
+          "source_id": "DOC-FC-001-V1_0",
+          "locator": "section:Evidence",
+          "claim_supported": "Synthetic head signal margin material condition",
+          "evidence_status": "VALID"
+        },
+        {
+          "evidence_id": "EV-CASE-F219-02-2",
+          "source_type": "DOCUMENT_VERSION",
+          "source_id": "DOC-QA-ESC-001-V1_0",
+          "locator": "section:Evidence",
+          "claim_supported": "Synthetic head signal margin material condition",
+          "evidence_status": "VALID"
+        },
+        {
+          "evidence_id": "EV-CASE-F219-02-CASE",
+          "source_type": "CASE",
+          "source_id": "CASE-F219-02",
+          "locator": "section:Root Cause",
+          "claim_supported": "Synthetic head signal margin material condition",
+          "evidence_status": "VALID"
+        }
+      ],
+      "confidentiality": "INTERNAL"
+    },
+    {
+      "case_id": "CASE-F219-03",
+      "title": "F219 synthetic investigation 3",
+      "summary": "F219 investigation concluded: Synthetic head signal margin material condition.",
+      "status": "PUBLISHED",
+      "product_ids": [
+        "PRD-HZ3001"
+      ],
+      "product_family": "HZ",
+      "line_ids": [
+        "LINE-02"
+      ],
+      "station_ids": [
+        "ST-05"
+      ],
+      "equipment_types": [
+        "SELFTEST_RACK"
+      ],
+      "failure_codes": [
+        "F219"
+      ],
+      "symptoms": [
+        "signal_margin_low",
+        "selftest_excursion"
+      ],
+      "material_lot_ids": [
+        "HSA-L2411"
+      ],
+      "firmware_versions": [
+        "4.0.1"
+      ],
+      "test_program_versions": [
+        "SW-TP-5.1"
+      ],
+      "detected_at": "2026-05-10T08:20:00+08:00",
+      "impact_summary": "Synthetic FPY excursion detected during SelfTest.",
+      "checks_performed": [
+        {
+          "step": "scope_comparison",
+          "result": "completed"
+        },
+        {
+          "step": "context_comparison",
+          "result": "completed"
+        },
+        {
+          "step": "evidence_review",
+          "result": "completed"
+        }
+      ],
+      "excluded_causes": [
+        "F127_ROOT_CAUSES"
+      ],
+      "confirmed_root_cause": "Synthetic head signal margin material condition",
+      "root_cause_category": "MATERIAL",
+      "containment_action": "Synthetic controlled containment recorded; authorization required for any real action.",
+      "corrective_action": "Synthetic corrective action for category MATERIAL; see cited approved process.",
+      "validation_result": "Three synthetic observation windows returned to the demonstration baseline.",
+      "applicable_conditions": [
+        "signal_margin_low"
+      ],
+      "non_applicable_conditions": [
+        "different_failure_mode"
+      ],
+      "owner_team_id": "TEAM-FA",
+      "approved_by": "USR-QA-001",
+      "approved_at": "2026-05-10T16:00:00+08:00",
+      "confidence": "CONFIRMED",
+      "source_evidence_ids": [
+        "EV-CASE-F219-03-1",
+        "EV-CASE-F219-03-2",
+        "EV-CASE-F219-03-CASE"
+      ],
+      "evidence": [
+        {
+          "evidence_id": "EV-CASE-F219-03-1",
+          "source_type": "DOCUMENT_VERSION",
+          "source_id": "DOC-FC-001-V1_0",
+          "locator": "section:Evidence",
+          "claim_supported": "Synthetic head signal margin material condition",
+          "evidence_status": "VALID"
+        },
+        {
+          "evidence_id": "EV-CASE-F219-03-2",
+          "source_type": "DOCUMENT_VERSION",
+          "source_id": "DOC-QA-ESC-001-V1_0",
+          "locator": "section:Evidence",
+          "claim_supported": "Synthetic head signal margin material condition",
+          "evidence_status": "VALID"
+        },
+        {
+          "evidence_id": "EV-CASE-F219-03-CASE",
+          "source_type": "CASE",
+          "source_id": "CASE-F219-03",
+          "locator": "section:Root Cause",
+          "claim_supported": "Synthetic head signal margin material condition",
+          "evidence_status": "VALID"
+        }
+      ],
+      "confidentiality": "INTERNAL"
+    },
+    {
+      "case_id": "CASE-F219-04",
+      "title": "F219 synthetic investigation 4",
+      "summary": "F219 investigation concluded: Synthetic head signal margin material condition.",
+      "status": "PUBLISHED",
+      "product_ids": [
+        "PRD-HX1002"
+      ],
+      "product_family": "HX",
+      "line_ids": [
+        "LINE-02"
+      ],
+      "station_ids": [
+        "ST-06"
+      ],
+      "equipment_types": [
+        "SELFTEST_RACK"
+      ],
+      "failure_codes": [
+        "F219"
+      ],
+      "symptoms": [
+        "signal_margin_low",
+        "selftest_excursion"
+      ],
+      "material_lot_ids": [
+        "HSA-L2412"
+      ],
+      "firmware_versions": [
+        "4.0.1"
+      ],
+      "test_program_versions": [
+        "SW-TP-5.1"
+      ],
+      "detected_at": "2026-06-13T08:20:00+08:00",
+      "impact_summary": "Synthetic FPY excursion detected during SelfTest.",
+      "checks_performed": [
+        {
+          "step": "scope_comparison",
+          "result": "completed"
+        },
+        {
+          "step": "context_comparison",
+          "result": "completed"
+        },
+        {
+          "step": "evidence_review",
+          "result": "completed"
+        }
+      ],
+      "excluded_causes": [
+        "F127_ROOT_CAUSES"
+      ],
+      "confirmed_root_cause": "Synthetic head signal margin material condition",
+      "root_cause_category": "MATERIAL",
+      "containment_action": "Synthetic controlled containment recorded; authorization required for any real action.",
+      "corrective_action": "Synthetic corrective action for category MATERIAL; see cited approved process.",
+      "validation_result": "Three synthetic observation windows returned to the demonstration baseline.",
+      "applicable_conditions": [
+        "signal_margin_low"
+      ],
+      "non_applicable_conditions": [
+        "different_failure_mode"
+      ],
+      "owner_team_id": "TEAM-FA",
+      "approved_by": "USR-QA-001",
+      "approved_at": "2026-06-13T16:00:00+08:00",
+      "confidence": "CONFIRMED",
+      "source_evidence_ids": [
+        "EV-CASE-F219-04-1",
+        "EV-CASE-F219-04-2",
+        "EV-CASE-F219-04-CASE"
+      ],
+      "evidence": [
+        {
+          "evidence_id": "EV-CASE-F219-04-1",
+          "source_type": "DOCUMENT_VERSION",
+          "source_id": "DOC-FC-001-V1_0",
+          "locator": "section:Evidence",
+          "claim_supported": "Synthetic head signal margin material condition",
+          "evidence_status": "VALID"
+        },
+        {
+          "evidence_id": "EV-CASE-F219-04-2",
+          "source_type": "DOCUMENT_VERSION",
+          "source_id": "DOC-QA-ESC-001-V1_0",
+          "locator": "section:Evidence",
+          "claim_supported": "Synthetic head signal margin material condition",
+          "evidence_status": "VALID"
+        },
+        {
+          "evidence_id": "EV-CASE-F219-04-CASE",
+          "source_type": "CASE",
+          "source_id": "CASE-F219-04",
+          "locator": "section:Root Cause",
+          "claim_supported": "Synthetic head signal margin material condition",
+          "evidence_status": "VALID"
+        }
+      ],
+      "confidentiality": "RESTRICTED"
+    },
+    {
+      "case_id": "CASE-F302-01",
+      "title": "F302 synthetic investigation 1",
+      "summary": "F302 investigation concluded: Synthetic airflow stabilization condition.",
+      "status": "PUBLISHED",
+      "product_ids": [
+        "PRD-HY2001"
+      ],
+      "product_family": "HY",
+      "line_ids": [
+        "LINE-01"
+      ],
+      "station_ids": [
+        "ST-01"
+      ],
+      "equipment_types": [
+        "SELFTEST_RACK"
+      ],
+      "failure_codes": [
+        "F302"
+      ],
+      "symptoms": [
+        "thermal_stabilization",
+        "selftest_excursion"
+      ],
+      "material_lot_ids": [
+        "HSA-L2401"
+      ],
+      "firmware_versions": [
+        "4.0.1"
+      ],
+      "test_program_versions": [
+        "SW-TP-5.1"
+      ],
+      "detected_at": "2026-01-16T08:20:00+08:00",
+      "impact_summary": "Synthetic FPY excursion detected during SelfTest.",
+      "checks_performed": [
+        {
+          "step": "scope_comparison",
+          "result": "completed"
+        },
+        {
+          "step": "context_comparison",
+          "result": "completed"
+        },
+        {
+          "step": "evidence_review",
+          "result": "completed"
+        }
+      ],
+      "excluded_causes": [
+        "F127_ROOT_CAUSES"
+      ],
+      "confirmed_root_cause": "Synthetic airflow stabilization condition",
+      "root_cause_category": "PROCESS",
+      "containment_action": "Synthetic controlled containment recorded; authorization required for any real action.",
+      "corrective_action": "Synthetic corrective action for category PROCESS; see cited approved process.",
+      "validation_result": "Three synthetic observation windows returned to the demonstration baseline.",
+      "applicable_conditions": [
+        "thermal_stabilization"
+      ],
+      "non_applicable_conditions": [
+        "different_failure_mode"
+      ],
+      "owner_team_id": "TEAM-PE",
+      "approved_by": "USR-QA-001",
+      "approved_at": "2026-01-16T16:00:00+08:00",
+      "confidence": "CONFIRMED",
+      "source_evidence_ids": [
+        "EV-CASE-F302-01-1",
+        "EV-CASE-F302-01-2",
+        "EV-CASE-F302-01-CASE"
+      ],
+      "evidence": [
+        {
+          "evidence_id": "EV-CASE-F302-01-1",
+          "source_type": "DOCUMENT_VERSION",
+          "source_id": "DOC-FC-001-V1_0",
+          "locator": "section:Evidence",
+          "claim_supported": "Synthetic airflow stabilization condition",
+          "evidence_status": "VALID"
+        },
+        {
+          "evidence_id": "EV-CASE-F302-01-2",
+          "source_type": "DOCUMENT_VERSION",
+          "source_id": "DOC-QA-ESC-001-V1_0",
+          "locator": "section:Evidence",
+          "claim_supported": "Synthetic airflow stabilization condition",
+          "evidence_status": "VALID"
+        },
+        {
+          "evidence_id": "EV-CASE-F302-01-CASE",
+          "source_type": "CASE",
+          "source_id": "CASE-F302-01",
+          "locator": "section:Root Cause",
+          "claim_supported": "Synthetic airflow stabilization condition",
+          "evidence_status": "VALID"
+        }
+      ],
+      "confidentiality": "INTERNAL"
+    },
+    {
+      "case_id": "CASE-F302-02",
+      "title": "F302 synthetic investigation 2",
+      "summary": "F302 investigation concluded: Synthetic airflow stabilization condition.",
+      "status": "PUBLISHED",
+      "product_ids": [
+        "PRD-HY2002"
+      ],
+      "product_family": "HY",
+      "line_ids": [
+        "LINE-01"
+      ],
+      "station_ids": [
+        "ST-02"
+      ],
+      "equipment_types": [
+        "SELFTEST_RACK"
+      ],
+      "failure_codes": [
+        "F302"
+      ],
+      "symptoms": [
+        "thermal_stabilization",
+        "selftest_excursion"
+      ],
+      "material_lot_ids": [
+        "HSA-L2402"
+      ],
+      "firmware_versions": [
+        "4.0.1"
+      ],
+      "test_program_versions": [
+        "SW-TP-5.1"
+      ],
+      "detected_at": "2026-02-19T08:20:00+08:00",
+      "impact_summary": "Synthetic FPY excursion detected during SelfTest.",
+      "checks_performed": [
+        {
+          "step": "scope_comparison",
+          "result": "completed"
+        },
+        {
+          "step": "context_comparison",
+          "result": "completed"
+        },
+        {
+          "step": "evidence_review",
+          "result": "completed"
+        }
+      ],
+      "excluded_causes": [
+        "F127_ROOT_CAUSES"
+      ],
+      "confirmed_root_cause": "Synthetic airflow stabilization condition",
+      "root_cause_category": "PROCESS",
+      "containment_action": "Synthetic controlled containment recorded; authorization required for any real action.",
+      "corrective_action": "Synthetic corrective action for category PROCESS; see cited approved process.",
+      "validation_result": "Three synthetic observation windows returned to the demonstration baseline.",
+      "applicable_conditions": [
+        "thermal_stabilization"
+      ],
+      "non_applicable_conditions": [
+        "different_failure_mode"
+      ],
+      "owner_team_id": "TEAM-PE",
+      "approved_by": "USR-QA-001",
+      "approved_at": "2026-02-19T16:00:00+08:00",
+      "confidence": "CONFIRMED",
+      "source_evidence_ids": [
+        "EV-CASE-F302-02-1",
+        "EV-CASE-F302-02-2",
+        "EV-CASE-F302-02-CASE"
+      ],
+      "evidence": [
+        {
+          "evidence_id": "EV-CASE-F302-02-1",
+          "source_type": "DOCUMENT_VERSION",
+          "source_id": "DOC-FC-001-V1_0",
+          "locator": "section:Evidence",
+          "claim_supported": "Synthetic airflow stabilization condition",
+          "evidence_status": "VALID"
+        },
+        {
+          "evidence_id": "EV-CASE-F302-02-2",
+          "source_type": "DOCUMENT_VERSION",
+          "source_id": "DOC-QA-ESC-001-V1_0",
+          "locator": "section:Evidence",
+          "claim_supported": "Synthetic airflow stabilization condition",
+          "evidence_status": "VALID"
+        },
+        {
+          "evidence_id": "EV-CASE-F302-02-CASE",
+          "source_type": "CASE",
+          "source_id": "CASE-F302-02",
+          "locator": "section:Root Cause",
+          "claim_supported": "Synthetic airflow stabilization condition",
+          "evidence_status": "VALID"
+        }
+      ],
+      "confidentiality": "INTERNAL"
+    },
+    {
+      "case_id": "CASE-F302-03",
+      "title": "F302 synthetic investigation 3",
+      "summary": "F302 investigation concluded: Synthetic airflow stabilization condition.",
+      "status": "PUBLISHED",
+      "product_ids": [
+        "PRD-HZ3001"
+      ],
+      "product_family": "HZ",
+      "line_ids": [
+        "LINE-01"
+      ],
+      "station_ids": [
+        "ST-03"
+      ],
+      "equipment_types": [
+        "SELFTEST_RACK"
+      ],
+      "failure_codes": [
+        "F302"
+      ],
+      "symptoms": [
+        "thermal_stabilization",
+        "selftest_excursion"
+      ],
+      "material_lot_ids": [
+        "HSA-L2403"
+      ],
+      "firmware_versions": [
+        "4.0.1"
+      ],
+      "test_program_versions": [
+        "SW-TP-5.1"
+      ],
+      "detected_at": "2026-03-22T08:20:00+08:00",
+      "impact_summary": "Synthetic FPY excursion detected during SelfTest.",
+      "checks_performed": [
+        {
+          "step": "scope_comparison",
+          "result": "completed"
+        },
+        {
+          "step": "context_comparison",
+          "result": "completed"
+        },
+        {
+          "step": "evidence_review",
+          "result": "completed"
+        }
+      ],
+      "excluded_causes": [
+        "F127_ROOT_CAUSES"
+      ],
+      "confirmed_root_cause": "Synthetic airflow stabilization condition",
+      "root_cause_category": "PROCESS",
+      "containment_action": "Synthetic controlled containment recorded; authorization required for any real action.",
+      "corrective_action": "Synthetic corrective action for category PROCESS; see cited approved process.",
+      "validation_result": "Three synthetic observation windows returned to the demonstration baseline.",
+      "applicable_conditions": [
+        "thermal_stabilization"
+      ],
+      "non_applicable_conditions": [
+        "different_failure_mode"
+      ],
+      "owner_team_id": "TEAM-PE",
+      "approved_by": "USR-QA-001",
+      "approved_at": "2026-03-22T16:00:00+08:00",
+      "confidence": "CONFIRMED",
+      "source_evidence_ids": [
+        "EV-CASE-F302-03-1",
+        "EV-CASE-F302-03-2",
+        "EV-CASE-F302-03-CASE"
+      ],
+      "evidence": [
+        {
+          "evidence_id": "EV-CASE-F302-03-1",
+          "source_type": "DOCUMENT_VERSION",
+          "source_id": "DOC-FC-001-V1_0",
+          "locator": "section:Evidence",
+          "claim_supported": "Synthetic airflow stabilization condition",
+          "evidence_status": "VALID"
+        },
+        {
+          "evidence_id": "EV-CASE-F302-03-2",
+          "source_type": "DOCUMENT_VERSION",
+          "source_id": "DOC-QA-ESC-001-V1_0",
+          "locator": "section:Evidence",
+          "claim_supported": "Synthetic airflow stabilization condition",
+          "evidence_status": "VALID"
+        },
+        {
+          "evidence_id": "EV-CASE-F302-03-CASE",
+          "source_type": "CASE",
+          "source_id": "CASE-F302-03",
+          "locator": "section:Root Cause",
+          "claim_supported": "Synthetic airflow stabilization condition",
+          "evidence_status": "VALID"
+        }
+      ],
+      "confidentiality": "INTERNAL"
+    },
+    {
+      "case_id": "CASE-F411-01",
+      "title": "F411 synthetic investigation 1",
+      "summary": "F411 investigation concluded: Synthetic firmware compatibility condition.",
+      "status": "PUBLISHED",
+      "product_ids": [
+        "PRD-HX1002"
+      ],
+      "product_family": "HX",
+      "line_ids": [
+        "LINE-02"
+      ],
+      "station_ids": [
+        "ST-04"
+      ],
+      "equipment_types": [
+        "SELFTEST_RACK"
+      ],
+      "failure_codes": [
+        "F411"
+      ],
+      "symptoms": [
+        "firmware_selfcheck",
+        "selftest_excursion"
+      ],
+      "material_lot_ids": [
+        "HSA-L2404"
+      ],
+      "firmware_versions": [
+        "4.0.1"
+      ],
+      "test_program_versions": [
+        "SW-TP-5.1"
+      ],
+      "detected_at": "2026-04-01T08:20:00+08:00",
+      "impact_summary": "Synthetic FPY excursion detected during SelfTest.",
+      "checks_performed": [
+        {
+          "step": "scope_comparison",
+          "result": "completed"
+        },
+        {
+          "step": "context_comparison",
+          "result": "completed"
+        },
+        {
+          "step": "evidence_review",
+          "result": "completed"
+        }
+      ],
+      "excluded_causes": [
+        "F127_ROOT_CAUSES"
+      ],
+      "confirmed_root_cause": "Synthetic firmware compatibility condition",
+      "root_cause_category": "FIRMWARE",
+      "containment_action": "Synthetic controlled containment recorded; authorization required for any real action.",
+      "corrective_action": "Synthetic corrective action for category FIRMWARE; see cited approved process.",
+      "validation_result": "Three synthetic observation windows returned to the demonstration baseline.",
+      "applicable_conditions": [
+        "firmware_selfcheck"
+      ],
+      "non_applicable_conditions": [
+        "different_failure_mode"
+      ],
+      "owner_team_id": "TEAM-PE",
+      "approved_by": "USR-QA-001",
+      "approved_at": "2026-04-01T16:00:00+08:00",
+      "confidence": "CONFIRMED",
+      "source_evidence_ids": [
+        "EV-CASE-F411-01-1",
+        "EV-CASE-F411-01-2",
+        "EV-CASE-F411-01-CASE"
+      ],
+      "evidence": [
+        {
+          "evidence_id": "EV-CASE-F411-01-1",
+          "source_type": "DOCUMENT_VERSION",
+          "source_id": "DOC-FC-001-V1_0",
+          "locator": "section:Evidence",
+          "claim_supported": "Synthetic firmware compatibility condition",
+          "evidence_status": "VALID"
+        },
+        {
+          "evidence_id": "EV-CASE-F411-01-2",
+          "source_type": "DOCUMENT_VERSION",
+          "source_id": "DOC-QA-ESC-001-V1_0",
+          "locator": "section:Evidence",
+          "claim_supported": "Synthetic firmware compatibility condition",
+          "evidence_status": "VALID"
+        },
+        {
+          "evidence_id": "EV-CASE-F411-01-CASE",
+          "source_type": "CASE",
+          "source_id": "CASE-F411-01",
+          "locator": "section:Root Cause",
+          "claim_supported": "Synthetic firmware compatibility condition",
+          "evidence_status": "VALID"
+        }
+      ],
+      "confidentiality": "INTERNAL"
+    },
+    {
+      "case_id": "CASE-F411-02",
+      "title": "F411 synthetic investigation 2",
+      "summary": "F411 investigation concluded: Synthetic firmware compatibility condition.",
+      "status": "PUBLISHED",
+      "product_ids": [
+        "PRD-HY2001"
+      ],
+      "product_family": "HY",
+      "line_ids": [
+        "LINE-02"
+      ],
+      "station_ids": [
+        "ST-05"
+      ],
+      "equipment_types": [
+        "SELFTEST_RACK"
+      ],
+      "failure_codes": [
+        "F411"
+      ],
+      "symptoms": [
+        "firmware_selfcheck",
+        "selftest_excursion"
+      ],
+      "material_lot_ids": [
+        "HSA-L2405"
+      ],
+      "firmware_versions": [
+        "4.0.1"
+      ],
+      "test_program_versions": [
+        "SW-TP-5.1"
+      ],
+      "detected_at": "2026-05-04T08:20:00+08:00",
+      "impact_summary": "Synthetic FPY excursion detected during SelfTest.",
+      "checks_performed": [
+        {
+          "step": "scope_comparison",
+          "result": "completed"
+        },
+        {
+          "step": "context_comparison",
+          "result": "completed"
+        },
+        {
+          "step": "evidence_review",
+          "result": "completed"
+        }
+      ],
+      "excluded_causes": [
+        "F127_ROOT_CAUSES"
+      ],
+      "confirmed_root_cause": "Synthetic firmware compatibility condition",
+      "root_cause_category": "FIRMWARE",
+      "containment_action": "Synthetic controlled containment recorded; authorization required for any real action.",
+      "corrective_action": "Synthetic corrective action for category FIRMWARE; see cited approved process.",
+      "validation_result": "Three synthetic observation windows returned to the demonstration baseline.",
+      "applicable_conditions": [
+        "firmware_selfcheck"
+      ],
+      "non_applicable_conditions": [
+        "different_failure_mode"
+      ],
+      "owner_team_id": "TEAM-PE",
+      "approved_by": "USR-QA-001",
+      "approved_at": "2026-05-04T16:00:00+08:00",
+      "confidence": "CONFIRMED",
+      "source_evidence_ids": [
+        "EV-CASE-F411-02-1",
+        "EV-CASE-F411-02-2",
+        "EV-CASE-F411-02-CASE"
+      ],
+      "evidence": [
+        {
+          "evidence_id": "EV-CASE-F411-02-1",
+          "source_type": "DOCUMENT_VERSION",
+          "source_id": "DOC-FC-001-V1_0",
+          "locator": "section:Evidence",
+          "claim_supported": "Synthetic firmware compatibility condition",
+          "evidence_status": "VALID"
+        },
+        {
+          "evidence_id": "EV-CASE-F411-02-2",
+          "source_type": "DOCUMENT_VERSION",
+          "source_id": "DOC-QA-ESC-001-V1_0",
+          "locator": "section:Evidence",
+          "claim_supported": "Synthetic firmware compatibility condition",
+          "evidence_status": "VALID"
+        },
+        {
+          "evidence_id": "EV-CASE-F411-02-CASE",
+          "source_type": "CASE",
+          "source_id": "CASE-F411-02",
+          "locator": "section:Root Cause",
+          "claim_supported": "Synthetic firmware compatibility condition",
+          "evidence_status": "VALID"
+        }
+      ],
+      "confidentiality": "INTERNAL"
+    },
+    {
+      "case_id": "CASE-F508-01",
+      "title": "F508 synthetic investigation 1",
+      "summary": "F508 investigation concluded: Synthetic interface cable condition.",
+      "status": "PUBLISHED",
+      "product_ids": [
+        "PRD-HY2002"
+      ],
+      "product_family": "HY",
+      "line_ids": [
+        "LINE-02"
+      ],
+      "station_ids": [
+        "ST-06"
+      ],
+      "equipment_types": [
+        "SELFTEST_RACK"
+      ],
+      "failure_codes": [
+        "F508"
+      ],
+      "symptoms": [
+        "interface_retry",
+        "selftest_excursion"
+      ],
+      "material_lot_ids": [
+        "HSA-L2406"
+      ],
+      "firmware_versions": [
+        "4.0.1"
+      ],
+      "test_program_versions": [
+        "SW-TP-5.1"
+      ],
+      "detected_at": "2026-06-07T08:20:00+08:00",
+      "impact_summary": "Synthetic FPY excursion detected during SelfTest.",
+      "checks_performed": [
+        {
+          "step": "scope_comparison",
+          "result": "completed"
+        },
+        {
+          "step": "context_comparison",
+          "result": "completed"
+        },
+        {
+          "step": "evidence_review",
+          "result": "completed"
+        }
+      ],
+      "excluded_causes": [
+        "F127_ROOT_CAUSES"
+      ],
+      "confirmed_root_cause": "Synthetic interface cable condition",
+      "root_cause_category": "EQUIPMENT",
+      "containment_action": "Synthetic controlled containment recorded; authorization required for any real action.",
+      "corrective_action": "Synthetic corrective action for category EQUIPMENT; see cited approved process.",
+      "validation_result": "Three synthetic observation windows returned to the demonstration baseline.",
+      "applicable_conditions": [
+        "interface_retry"
+      ],
+      "non_applicable_conditions": [
+        "different_failure_mode"
+      ],
+      "owner_team_id": "TEAM-PE",
+      "approved_by": "USR-QA-001",
+      "approved_at": "2026-06-07T16:00:00+08:00",
+      "confidence": "CONFIRMED",
+      "source_evidence_ids": [
+        "EV-CASE-F508-01-1",
+        "EV-CASE-F508-01-2",
+        "EV-CASE-F508-01-CASE"
+      ],
+      "evidence": [
+        {
+          "evidence_id": "EV-CASE-F508-01-1",
+          "source_type": "DOCUMENT_VERSION",
+          "source_id": "DOC-FC-001-V1_0",
+          "locator": "section:Evidence",
+          "claim_supported": "Synthetic interface cable condition",
+          "evidence_status": "VALID"
+        },
+        {
+          "evidence_id": "EV-CASE-F508-01-2",
+          "source_type": "DOCUMENT_VERSION",
+          "source_id": "DOC-QA-ESC-001-V1_0",
+          "locator": "section:Evidence",
+          "claim_supported": "Synthetic interface cable condition",
+          "evidence_status": "VALID"
+        },
+        {
+          "evidence_id": "EV-CASE-F508-01-CASE",
+          "source_type": "CASE",
+          "source_id": "CASE-F508-01",
+          "locator": "section:Root Cause",
+          "claim_supported": "Synthetic interface cable condition",
+          "evidence_status": "VALID"
+        }
+      ],
+      "confidentiality": "INTERNAL"
+    },
+    {
+      "case_id": "CASE-F508-02",
+      "title": "F508 synthetic investigation 2",
+      "summary": "F508 investigation concluded: Synthetic interface cable condition.",
+      "status": "PUBLISHED",
+      "product_ids": [
+        "PRD-HZ3001"
+      ],
+      "product_family": "HZ",
+      "line_ids": [
+        "LINE-01"
+      ],
+      "station_ids": [
+        "ST-01"
+      ],
+      "equipment_types": [
+        "SELFTEST_RACK"
+      ],
+      "failure_codes": [
+        "F508"
+      ],
+      "symptoms": [
+        "interface_retry",
+        "selftest_excursion"
+      ],
+      "material_lot_ids": [
+        "HSA-L2407"
+      ],
+      "firmware_versions": [
+        "4.0.1"
+      ],
+      "test_program_versions": [
+        "SW-TP-5.1"
+      ],
+      "detected_at": "2026-01-10T08:20:00+08:00",
+      "impact_summary": "Synthetic FPY excursion detected during SelfTest.",
+      "checks_performed": [
+        {
+          "step": "scope_comparison",
+          "result": "completed"
+        },
+        {
+          "step": "context_comparison",
+          "result": "completed"
+        },
+        {
+          "step": "evidence_review",
+          "result": "completed"
+        }
+      ],
+      "excluded_causes": [
+        "F127_ROOT_CAUSES"
+      ],
+      "confirmed_root_cause": "Synthetic interface cable condition",
+      "root_cause_category": "EQUIPMENT",
+      "containment_action": "Synthetic controlled containment recorded; authorization required for any real action.",
+      "corrective_action": "Synthetic corrective action for category EQUIPMENT; see cited approved process.",
+      "validation_result": "Three synthetic observation windows returned to the demonstration baseline.",
+      "applicable_conditions": [
+        "interface_retry"
+      ],
+      "non_applicable_conditions": [
+        "different_failure_mode"
+      ],
+      "owner_team_id": "TEAM-PE",
+      "approved_by": "USR-QA-001",
+      "approved_at": "2026-01-10T16:00:00+08:00",
+      "confidence": "CONFIRMED",
+      "source_evidence_ids": [
+        "EV-CASE-F508-02-1",
+        "EV-CASE-F508-02-2",
+        "EV-CASE-F508-02-CASE"
+      ],
+      "evidence": [
+        {
+          "evidence_id": "EV-CASE-F508-02-1",
+          "source_type": "DOCUMENT_VERSION",
+          "source_id": "DOC-FC-001-V1_0",
+          "locator": "section:Evidence",
+          "claim_supported": "Synthetic interface cable condition",
+          "evidence_status": "VALID"
+        },
+        {
+          "evidence_id": "EV-CASE-F508-02-2",
+          "source_type": "DOCUMENT_VERSION",
+          "source_id": "DOC-QA-ESC-001-V1_0",
+          "locator": "section:Evidence",
+          "claim_supported": "Synthetic interface cable condition",
+          "evidence_status": "VALID"
+        },
+        {
+          "evidence_id": "EV-CASE-F508-02-CASE",
+          "source_type": "CASE",
+          "source_id": "CASE-F508-02",
+          "locator": "section:Root Cause",
+          "claim_supported": "Synthetic interface cable condition",
+          "evidence_status": "VALID"
+        }
+      ],
+      "confidentiality": "INTERNAL"
+    },
+    {
+      "case_id": "CASE-F620-01",
+      "title": "F620 synthetic investigation 1",
+      "summary": "F620 investigation concluded: Synthetic mechanical response condition.",
+      "status": "PUBLISHED",
+      "product_ids": [
+        "PRD-HX1002"
+      ],
+      "product_family": "HX",
+      "line_ids": [
+        "LINE-01"
+      ],
+      "station_ids": [
+        "ST-02"
+      ],
+      "equipment_types": [
+        "SELFTEST_RACK"
+      ],
+      "failure_codes": [
+        "F620"
+      ],
+      "symptoms": [
+        "mechanical_resonance",
+        "selftest_excursion"
+      ],
+      "material_lot_ids": [
+        "HSA-L2408"
+      ],
+      "firmware_versions": [
+        "4.0.1"
+      ],
+      "test_program_versions": [
+        "SW-TP-5.1"
+      ],
+      "detected_at": "2026-02-13T08:20:00+08:00",
+      "impact_summary": "Synthetic FPY excursion detected during SelfTest.",
+      "checks_performed": [
+        {
+          "step": "scope_comparison",
+          "result": "completed"
+        },
+        {
+          "step": "context_comparison",
+          "result": "completed"
+        },
+        {
+          "step": "evidence_review",
+          "result": "completed"
+        }
+      ],
+      "excluded_causes": [
+        "F127_ROOT_CAUSES"
+      ],
+      "confirmed_root_cause": "Synthetic mechanical response condition",
+      "root_cause_category": "PRODUCT_DESIGN",
+      "containment_action": "Synthetic controlled containment recorded; authorization required for any real action.",
+      "corrective_action": "Synthetic corrective action for category PRODUCT_DESIGN; see cited approved process.",
+      "validation_result": "Three synthetic observation windows returned to the demonstration baseline.",
+      "applicable_conditions": [
+        "mechanical_resonance"
+      ],
+      "non_applicable_conditions": [
+        "different_failure_mode"
+      ],
+      "owner_team_id": "TEAM-FA",
+      "approved_by": "USR-QA-001",
+      "approved_at": "2026-02-13T16:00:00+08:00",
+      "confidence": "CONFIRMED",
+      "source_evidence_ids": [
+        "EV-CASE-F620-01-1",
+        "EV-CASE-F620-01-2",
+        "EV-CASE-F620-01-CASE"
+      ],
+      "evidence": [
+        {
+          "evidence_id": "EV-CASE-F620-01-1",
+          "source_type": "DOCUMENT_VERSION",
+          "source_id": "DOC-FC-001-V1_0",
+          "locator": "section:Evidence",
+          "claim_supported": "Synthetic mechanical response condition",
+          "evidence_status": "VALID"
+        },
+        {
+          "evidence_id": "EV-CASE-F620-01-2",
+          "source_type": "DOCUMENT_VERSION",
+          "source_id": "DOC-QA-ESC-001-V1_0",
+          "locator": "section:Evidence",
+          "claim_supported": "Synthetic mechanical response condition",
+          "evidence_status": "VALID"
+        },
+        {
+          "evidence_id": "EV-CASE-F620-01-CASE",
+          "source_type": "CASE",
+          "source_id": "CASE-F620-01",
+          "locator": "section:Root Cause",
+          "claim_supported": "Synthetic mechanical response condition",
+          "evidence_status": "VALID"
+        }
+      ],
+      "confidentiality": "INTERNAL"
+    },
+    {
+      "case_id": "CASE-F620-02",
+      "title": "F620 synthetic investigation 2",
+      "summary": "F620 investigation concluded: Synthetic mechanical response condition.",
+      "status": "UNDER_REVIEW",
+      "product_ids": [
+        "PRD-HY2001"
+      ],
+      "product_family": "HY",
+      "line_ids": [
+        "LINE-01"
+      ],
+      "station_ids": [
+        "ST-03"
+      ],
+      "equipment_types": [
+        "SELFTEST_RACK"
+      ],
+      "failure_codes": [
+        "F620"
+      ],
+      "symptoms": [
+        "mechanical_resonance",
+        "selftest_excursion"
+      ],
+      "material_lot_ids": [
+        "HSA-L2409"
+      ],
+      "firmware_versions": [
+        "4.0.1"
+      ],
+      "test_program_versions": [
+        "SW-TP-5.1"
+      ],
+      "detected_at": "2026-03-16T08:20:00+08:00",
+      "impact_summary": "Synthetic FPY excursion detected during SelfTest.",
+      "checks_performed": [
+        {
+          "step": "scope_comparison",
+          "result": "completed"
+        },
+        {
+          "step": "context_comparison",
+          "result": "completed"
+        },
+        {
+          "step": "evidence_review",
+          "result": "completed"
+        }
+      ],
+      "excluded_causes": [
+        "F127_ROOT_CAUSES"
+      ],
+      "confirmed_root_cause": null,
+      "root_cause_category": "PRODUCT_DESIGN",
+      "containment_action": "Synthetic controlled containment recorded; authorization required for any real action.",
+      "corrective_action": "Synthetic corrective action for category PRODUCT_DESIGN; see cited approved process.",
+      "validation_result": "Three synthetic observation windows returned to the demonstration baseline.",
+      "applicable_conditions": [
+        "mechanical_resonance"
+      ],
+      "non_applicable_conditions": [
+        "different_failure_mode"
+      ],
+      "owner_team_id": "TEAM-FA",
+      "approved_by": null,
+      "approved_at": null,
+      "confidence": "PROBABLE",
+      "source_evidence_ids": [
+        "EV-CASE-F620-02-1",
+        "EV-CASE-F620-02-2",
+        "EV-CASE-F620-02-CASE"
+      ],
+      "evidence": [
+        {
+          "evidence_id": "EV-CASE-F620-02-1",
+          "source_type": "DOCUMENT_VERSION",
+          "source_id": "DOC-FC-001-V1_0",
+          "locator": "section:Evidence",
+          "claim_supported": "Synthetic mechanical response condition",
+          "evidence_status": "UNREVIEWED"
+        },
+        {
+          "evidence_id": "EV-CASE-F620-02-2",
+          "source_type": "DOCUMENT_VERSION",
+          "source_id": "DOC-QA-ESC-001-V1_0",
+          "locator": "section:Evidence",
+          "claim_supported": "Synthetic mechanical response condition",
+          "evidence_status": "UNREVIEWED"
+        },
+        {
+          "evidence_id": "EV-CASE-F620-02-CASE",
+          "source_type": "CASE",
+          "source_id": "CASE-F620-02",
+          "locator": "section:Root Cause",
+          "claim_supported": "Synthetic mechanical response condition",
+          "evidence_status": "UNREVIEWED"
+        }
+      ],
+      "confidentiality": "INTERNAL"
+    }
+  ]
+}

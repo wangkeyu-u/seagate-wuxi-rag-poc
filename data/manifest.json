@@ -1,0 +1,17 @@
+{
+  "banner": "SYNTHETIC DEMO DATA — FICTIONAL — NOT SEAGATE INTERNAL DATA",
+  "generated_at": "2026-07-28T00:00:00+08:00",
+  "seed": 20260728,
+  "counts": {
+    "products": 5,
+    "lines": 2,
+    "stations": 6,
+    "failure_codes": 8,
+    "material_lots": 12,
+    "documents": 12,
+    "cases": 30,
+    "observations": 240,
+    "change_records": 3,
+    "evaluations": 24
+  }
+}

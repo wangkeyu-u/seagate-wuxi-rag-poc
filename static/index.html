@@ -1,0 +1,277 @@
+<!doctype html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="description" content="Synthetic SeaTrack-style yield anomaly and RCA evidence triage copilot" />
+    <title>Yield Intelligence — SeaTrack RCA Evidence Triage</title>
+    <link rel="stylesheet" href="/styles.css" />
+  </head>
+  <body>
+    <div class="grain" aria-hidden="true"></div>
+    <div class="app-shell">
+      <aside class="rail">
+        <div class="brand-mark" aria-label="Yield Intelligence">
+          <span class="brand-index">YI</span>
+          <div>
+            <strong>Yield<br />Intelligence</strong>
+            <small>WUXI / SYNTHETIC</small>
+          </div>
+        </div>
+
+        <nav class="rail-nav" aria-label="主导航">
+          <button class="rail-link active" data-scroll="command-section">
+            <span>01</span>异常排查
+          </button>
+          <button class="rail-link" data-scroll="result-section">
+            <span>02</span>调查结果
+          </button>
+          <button class="rail-link" data-scroll="recent-section">
+            <span>03</span>最近记录
+          </button>
+        </nav>
+
+        <div class="rail-status">
+          <div class="pulse-dot"></div>
+          <div>
+            <small>ENGINE STATUS</small>
+            <strong>OFFLINE / READY</strong>
+          </div>
+        </div>
+        <p class="rail-warning">FICTIONAL DEMO<br />NO INTERNAL DATA</p>
+      </aside>
+
+      <main>
+        <header class="topbar">
+          <div>
+            <span class="eyebrow">SELFTEST / INVESTIGATION CONSOLE</span>
+            <h1>把异常变成可验证的排查路径。</h1>
+          </div>
+          <div class="topbar-meta">
+            <label for="role-select">已验证身份角色</label>
+            <select id="role-select" aria-label="开发模式身份角色"></select>
+            <div class="clock" id="clock">--:--:--</div>
+          </div>
+        </header>
+
+        <section class="signal-strip" aria-label="演示状态">
+          <span><i></i> SYNTHETIC SIGNAL</span>
+          <span id="signal-fpy">FPY --</span>
+          <span id="signal-peak">F127 PEAK --</span>
+          <span id="signal-knowledge">CASES -- / DOCS --</span>
+        </section>
+
+        <section class="command-section" id="command-section">
+          <div class="section-index">
+            <span>01</span>
+            <p>CREATE<br />TRIAGE</p>
+          </div>
+
+          <div class="command-panel">
+            <div class="command-heading">
+              <div>
+                <span class="kicker">现场问题输入</span>
+                <h2>描述你看到的异常，而不是猜测根因。</h2>
+              </div>
+              <span class="mode-badge">HYBRID RAG</span>
+            </div>
+
+            <div class="scenario-row" aria-label="快速演示场景">
+              <button class="scenario active" data-scenario="equipment"><span>A</span>单站异常</button>
+              <button class="scenario" data-scenario="material"><span>B</span>物料集中</button>
+              <button class="scenario" data-scenario="program"><span>C</span>程序变更</button>
+              <button class="scenario" data-scenario="unknown"><span>D</span>无答案</button>
+              <button class="scenario" data-scenario="guardrail"><span>E</span>安全边界</button>
+            </div>
+
+            <label class="query-box">
+              <span class="query-prefix">ASK /</span>
+              <textarea id="query-input" rows="3" placeholder="例如：HDD-X 在 ST-04 单站出现 F127，其他站正常，历史上有没有类似问题？"></textarea>
+              <span class="query-count" id="query-count">0 / 600</span>
+            </label>
+
+            <div class="context-grid">
+              <label>
+                <span>产品</span>
+                <select id="product-select"></select>
+              </label>
+              <label>
+                <span>产线</span>
+                <select id="line-select"></select>
+              </label>
+              <label>
+                <span>测试站</span>
+                <select id="station-select"></select>
+              </label>
+              <label>
+                <span>Failure Code</span>
+                <select id="failure-select"></select>
+              </label>
+              <label>
+                <span>HSA 批次</span>
+                <select id="material-select"></select>
+              </label>
+              <label>
+                <span>测试程序</span>
+                <select id="program-select"></select>
+              </label>
+              <label>
+                <span>异常范围</span>
+                <select id="scope-select">
+                  <option value="">待确认</option>
+                  <option value="SINGLE_STATION">单站</option>
+                  <option value="MULTI_STATION">多站</option>
+                  <option value="CROSS_LINE">跨线</option>
+                  <option value="UNKNOWN">未知</option>
+                </select>
+              </label>
+              <label>
+                <span>近期变更</span>
+                <select id="change-select">
+                  <option value="">无 / 未知</option>
+                  <option value="TEST_PROGRAM">测试程序</option>
+                  <option value="FIRMWARE">固件</option>
+                  <option value="MATERIAL">物料</option>
+                  <option value="EQUIPMENT">设备</option>
+                </select>
+              </label>
+            </div>
+
+            <div class="command-footer">
+              <p><strong>系统边界</strong> 只读检索与建议；不控制设备、不调整参数、不决定隔离或放行。</p>
+              <button class="run-button" id="run-button">
+                <span>开始调查</span>
+                <b>↗</b>
+              </button>
+            </div>
+          </div>
+        </section>
+
+        <section class="overview-grid" id="overview-section">
+          <article class="telemetry-card">
+            <div class="card-label"><span>LIVE / 04</span><small>ST-04 F127 RATE</small></div>
+            <div class="chart-wrap" id="trend-chart" aria-label="ST-04 F127 趋势图"></div>
+            <div class="chart-legend"><span><i class="line-current"></i>当前</span><span><i class="line-baseline"></i>基线</span></div>
+          </article>
+          <article class="knowledge-card">
+            <div class="card-label"><span>INDEX / K</span><small>KNOWLEDGE COVERAGE</small></div>
+            <div class="knowledge-number" id="case-count">30</div>
+            <p>已审核案例用于相似性比较；文档版本状态在生成答案之前完成过滤。</p>
+            <div class="knowledge-bars">
+              <div><span>案例结构化</span><b style="--value: 100%"></b><em>100%</em></div>
+              <div><span>证据可追溯</span><b style="--value: 100%"></b><em>100%</em></div>
+              <div><span>真实工厂覆盖</span><b class="warning" style="--value: 0%"></b><em>0%</em></div>
+            </div>
+          </article>
+        </section>
+
+        <section class="result-section hidden" id="result-section" aria-live="polite">
+          <div class="section-index">
+            <span>02</span>
+            <p>EVIDENCE<br />TRIAGE</p>
+          </div>
+          <div class="result-content">
+            <div class="decision-banner" id="decision-banner">
+              <div>
+                <span class="kicker" id="decision-action">DECISION SUPPORT</span>
+                <h2 id="decision-headline">正在形成判断…</h2>
+              </div>
+              <div class="confidence-block">
+                <small>CONFIDENCE</small>
+                <strong id="decision-confidence">--</strong>
+              </div>
+            </div>
+
+            <div class="result-grid">
+              <div class="result-primary">
+                <article class="result-card facts-card">
+                  <header><span>01</span><h3>已知事实</h3><small>FACTS / NOT INFERENCE</small></header>
+                  <div class="fact-grid" id="known-facts"></div>
+                  <div class="missing-box hidden" id="missing-box"></div>
+                </article>
+
+                <article class="result-card steps-card">
+                  <header><span>02</span><h3>首轮排查路径</h3><small>HUMAN-IN-THE-LOOP</small></header>
+                  <ol class="triage-steps" id="triage-steps"></ol>
+                </article>
+
+                <article class="result-card cases-card">
+                  <header><span>03</span><h3>历史相似案例</h3><small>CONTEXT-WEIGHTED</small></header>
+                  <div class="case-list" id="case-list"></div>
+                </article>
+              </div>
+
+              <aside class="evidence-column">
+                <article class="evidence-card">
+                  <header>
+                    <div><span class="kicker">EVIDENCE STACK</span><h3>证据来源</h3></div>
+                    <span class="evidence-count" id="evidence-count">0</span>
+                  </header>
+                  <div class="evidence-list" id="evidence-list"></div>
+                </article>
+
+                <article class="guardrail-card">
+                  <span class="guardrail-icon">!</span>
+                  <div>
+                    <h3>系统警戒线</h3>
+                    <ul id="warning-list"></ul>
+                  </div>
+                </article>
+
+                <article class="escalation-card" id="escalation-card">
+                  <small>ESCALATION</small>
+                  <h3 id="escalation-status">--</h3>
+                  <p id="escalation-copy">--</p>
+                </article>
+
+                <article class="feedback-card">
+                  <small>ENGINEER FEEDBACK</small>
+                  <h3>这个结果有帮助吗？</h3>
+                  <div class="feedback-actions">
+                    <button data-rating="USEFUL">有用</button>
+                    <button data-rating="PARTIALLY_USEFUL">部分有用</button>
+                    <button data-rating="NOT_USEFUL">无用</button>
+                    <button data-rating="RISKY">有风险</button>
+                  </div>
+                  <p id="feedback-status"></p>
+                </article>
+              </aside>
+            </div>
+          </div>
+        </section>
+
+        <section class="recent-section" id="recent-section">
+          <div class="section-index">
+            <span>03</span>
+            <p>RECENT<br />TRACE</p>
+          </div>
+          <div class="recent-content">
+            <div class="recent-heading">
+              <div><span class="kicker">AUDITABLE HISTORY</span><h2>最近调查</h2></div>
+              <button id="refresh-history">刷新记录</button>
+            </div>
+            <div class="recent-list" id="recent-list"></div>
+          </div>
+        </section>
+
+        <footer>
+          <span>YIELD INTELLIGENCE / MVP 0.1</span>
+          <p>Synthetic demo data only. Not affiliated with or endorsed by Seagate Technology.</p>
+          <span>WUXI SCENARIO / 2026</span>
+        </footer>
+      </main>
+    </div>
+
+    <div class="drawer-backdrop hidden" id="drawer-backdrop"></div>
+    <aside class="source-drawer" id="source-drawer" aria-hidden="true">
+      <button class="drawer-close" id="drawer-close" aria-label="关闭证据详情">×</button>
+      <span class="kicker" id="drawer-type">SOURCE</span>
+      <h2 id="drawer-title">证据详情</h2>
+      <div class="drawer-meta" id="drawer-meta"></div>
+      <pre id="drawer-content"></pre>
+    </aside>
+
+    <div class="toast hidden" id="toast" role="status"></div>
+    <script src="/app.js" defer></script>
+  </body>
+</html>

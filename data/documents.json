@@ -1,0 +1,291 @@
+{
+  "banner": "SYNTHETIC DEMO DATA — FICTIONAL — NOT SEAGATE INTERNAL DATA",
+  "documents": [
+    {
+      "document_id": "DOC-SOP-ST-001",
+      "document_version_id": "DOC-SOP-ST-001-V1_0",
+      "document_type": "SOP",
+      "title": "SelfTest F127 Initial Triage / F127 初步排查",
+      "version": "1.0",
+      "status": "SUPERSEDED",
+      "language": "BILINGUAL",
+      "effective_from": "2025-01-01T00:00:00+08:00",
+      "effective_to": "2026-06-01T00:00:00+08:00",
+      "owner_team_id": "TEAM-PE",
+      "confidentiality": "INTERNAL",
+      "source_system": "SYNTHETIC_DMS",
+      "canonical_uri": "synthetic://documents/DOC-SOP-ST-001-V1_0",
+      "content_path": "data/documents/DOC-SOP-ST-001-V1_0.md",
+      "applicable_failure_codes": [
+        "F127"
+      ],
+      "applicable_products": [
+        "HDD-X"
+      ],
+      "supersedes_version_id": null,
+      "summary": "## Purpose / 目的\n用于虚构演示环境中的 F127 初步排查。本版本已失效，不得作为当前操作依据。"
+    },
+    {
+      "document_id": "DOC-SOP-ST-001",
+      "document_version_id": "DOC-SOP-ST-001-V2_0",
+      "document_type": "SOP",
+      "title": "SelfTest F127 Initial Triage / F127 初步排查",
+      "version": "2.0",
+      "status": "EFFECTIVE",
+      "language": "BILINGUAL",
+      "effective_from": "2026-06-01T00:00:00+08:00",
+      "effective_to": null,
+      "owner_team_id": "TEAM-PE",
+      "confidentiality": "INTERNAL",
+      "source_system": "SYNTHETIC_DMS",
+      "canonical_uri": "synthetic://documents/DOC-SOP-ST-001-V2_0",
+      "content_path": "data/documents/DOC-SOP-ST-001-V2_0.md",
+      "applicable_failure_codes": [
+        "F127"
+      ],
+      "applicable_products": [
+        "HDD-X"
+      ],
+      "supersedes_version_id": "DOC-SOP-ST-001-V1_0",
+      "summary": "## Purpose / 目的\n规定虚构演示环境中 F127 异常的低风险首轮检查顺序。"
+    },
+    {
+      "document_id": "DOC-FC-001",
+      "document_version_id": "DOC-FC-001-V1_0",
+      "document_type": "FAILURE_CODE_GUIDE",
+      "title": "SelfTest Failure Code Guide / SelfTest 失败代码说明",
+      "version": "1.0",
+      "status": "EFFECTIVE",
+      "language": "BILINGUAL",
+      "effective_from": "2026-01-01T00:00:00+08:00",
+      "effective_to": null,
+      "owner_team_id": "TEAM-PE",
+      "confidentiality": "INTERNAL",
+      "source_system": "SYNTHETIC_DMS",
+      "canonical_uri": "synthetic://documents/DOC-FC-001-V1_0",
+      "content_path": "data/documents/DOC-FC-001-V1_0.md",
+      "applicable_failure_codes": [
+        "F127",
+        "F131",
+        "F204",
+        "F219",
+        "F302",
+        "F411",
+        "F508",
+        "F620"
+      ],
+      "applicable_products": [],
+      "supersedes_version_id": null,
+      "summary": "## F127 — Positioning Timeout / 定位超时\n表示 SelfTest 阶段未在规定演示时间内完成定位。F127 是失败类型，不是根因。设备、物料、测试程序或其他因素均可能产生相似表现。"
+    },
+    {
+      "document_id": "DOC-FA-EQP-001",
+      "document_version_id": "DOC-FA-EQP-001-V1_0",
+      "document_type": "FA_REPORT",
+      "title": "FA Report: single-station F127 calibration drift",
+      "version": "1.0",
+      "status": "EFFECTIVE",
+      "language": "BILINGUAL",
+      "effective_from": "2026-05-15T00:00:00+08:00",
+      "effective_to": null,
+      "owner_team_id": "TEAM-FA",
+      "confidentiality": "RESTRICTED",
+      "source_system": "SYNTHETIC_DMS",
+      "canonical_uri": "synthetic://documents/DOC-FA-EQP-001-V1_0",
+      "content_path": "data/documents/DOC-FA-EQP-001-V1_0.md",
+      "applicable_failure_codes": [
+        "F127"
+      ],
+      "applicable_products": [
+        "HDD-X"
+      ],
+      "supersedes_version_id": null,
+      "summary": "## Symptom\nF127 increase was isolated to one SelfTest station while peer stations remained within baseline."
+    },
+    {
+      "document_id": "DOC-FA-MAT-001",
+      "document_version_id": "DOC-FA-MAT-001-V1_0",
+      "document_type": "FA_REPORT",
+      "title": "FA Report: multi-station F127 associated with HSA lot",
+      "version": "1.0",
+      "status": "EFFECTIVE",
+      "language": "BILINGUAL",
+      "effective_from": "2026-04-21T00:00:00+08:00",
+      "effective_to": null,
+      "owner_team_id": "TEAM-FA",
+      "confidentiality": "RESTRICTED",
+      "source_system": "SYNTHETIC_DMS",
+      "canonical_uri": "synthetic://documents/DOC-FA-MAT-001-V1_0",
+      "content_path": "data/documents/DOC-FA-MAT-001-V1_0.md",
+      "applicable_failure_codes": [
+        "F127"
+      ],
+      "applicable_products": [
+        "HDD-X"
+      ],
+      "supersedes_version_id": null,
+      "summary": "## Symptom\nF127 increased across multiple stations and followed one synthetic HSA material lot."
+    },
+    {
+      "document_id": "DOC-FA-TP-001",
+      "document_version_id": "DOC-FA-TP-001-V1_0",
+      "document_type": "FA_REPORT",
+      "title": "Engineering Report: cross-line F127 after test-program release",
+      "version": "1.0",
+      "status": "EFFECTIVE",
+      "language": "BILINGUAL",
+      "effective_from": "2026-07-02T00:00:00+08:00",
+      "effective_to": null,
+      "owner_team_id": "TEAM-PE",
+      "confidentiality": "INTERNAL",
+      "source_system": "SYNTHETIC_DMS",
+      "canonical_uri": "synthetic://documents/DOC-FA-TP-001-V1_0",
+      "content_path": "data/documents/DOC-FA-TP-001-V1_0.md",
+      "applicable_failure_codes": [
+        "F127"
+      ],
+      "applicable_products": [
+        "HDD-X"
+      ],
+      "supersedes_version_id": null,
+      "summary": "## Symptom\nF127 increased across more than one line shortly after a synthetic test-program release."
+    },
+    {
+      "document_id": "DOC-CHG-TP38",
+      "document_version_id": "DOC-CHG-TP38-V1_0",
+      "document_type": "CHANGE_NOTICE",
+      "title": "Change Notice: test program 3.8 pilot release",
+      "version": "1.0",
+      "status": "EFFECTIVE",
+      "language": "BILINGUAL",
+      "effective_from": "2026-07-15T10:00:00+08:00",
+      "effective_to": null,
+      "owner_team_id": "TEAM-PE",
+      "confidentiality": "INTERNAL",
+      "source_system": "SYNTHETIC_DMS",
+      "canonical_uri": "synthetic://documents/DOC-CHG-TP38-V1_0",
+      "content_path": "data/documents/DOC-CHG-TP38-V1_0.md",
+      "applicable_failure_codes": [
+        "F127"
+      ],
+      "applicable_products": [
+        "HDD-X"
+      ],
+      "supersedes_version_id": null,
+      "summary": "## Change summary\nTest program 3.8 is a fictional pilot release for PRD-HX1001. It modifies demonstration SelfTest decision timing."
+    },
+    {
+      "document_id": "DOC-MAINT-CAL-001",
+      "document_version_id": "DOC-MAINT-CAL-001-V1_0",
+      "document_type": "MAINTENANCE_GUIDE",
+      "title": "SelfTest Station Calibration Review Guide",
+      "version": "1.0",
+      "status": "EFFECTIVE",
+      "language": "BILINGUAL",
+      "effective_from": "2026-01-15T00:00:00+08:00",
+      "effective_to": null,
+      "owner_team_id": "TEAM-PROC",
+      "confidentiality": "INTERNAL",
+      "source_system": "SYNTHETIC_DMS",
+      "canonical_uri": "synthetic://documents/DOC-MAINT-CAL-001-V1_0",
+      "content_path": "data/documents/DOC-MAINT-CAL-001-V1_0.md",
+      "applicable_failure_codes": [
+        "F127",
+        "F131"
+      ],
+      "applicable_products": [],
+      "supersedes_version_id": null,
+      "summary": "## Review scope\nUse this fictional guide to review whether a station-specific anomaly coincides with maintenance, connection or calibration history."
+    },
+    {
+      "document_id": "DOC-QA-ESC-001",
+      "document_version_id": "DOC-QA-ESC-001-V1_0",
+      "document_type": "SOP",
+      "title": "Quality Escalation Guide for SelfTest Excursions",
+      "version": "1.0",
+      "status": "EFFECTIVE",
+      "language": "BILINGUAL",
+      "effective_from": "2026-02-01T00:00:00+08:00",
+      "effective_to": null,
+      "owner_team_id": "TEAM-QA",
+      "confidentiality": "INTERNAL",
+      "source_system": "SYNTHETIC_DMS",
+      "canonical_uri": "synthetic://documents/DOC-QA-ESC-001-V1_0",
+      "content_path": "data/documents/DOC-QA-ESC-001-V1_0.md",
+      "applicable_failure_codes": [],
+      "applicable_products": [],
+      "supersedes_version_id": null,
+      "summary": "## Escalation triggers\nEscalate a fictional demonstration investigation when an anomaly spans multiple stations, affects a material lot, presents potential quality risk, conflicts with approved guidance, or cannot be explained by standard checks."
+    },
+    {
+      "document_id": "DOC-HSA-LOT-001",
+      "document_version_id": "DOC-HSA-LOT-001-V1_0",
+      "document_type": "SOP",
+      "title": "HSA Lot Comparison Checklist",
+      "version": "1.0",
+      "status": "EFFECTIVE",
+      "language": "BILINGUAL",
+      "effective_from": "2026-03-01T00:00:00+08:00",
+      "effective_to": null,
+      "owner_team_id": "TEAM-PROC",
+      "confidentiality": "INTERNAL",
+      "source_system": "SYNTHETIC_DMS",
+      "canonical_uri": "synthetic://documents/DOC-HSA-LOT-001-V1_0",
+      "content_path": "data/documents/DOC-HSA-LOT-001-V1_0.md",
+      "applicable_failure_codes": [
+        "F127",
+        "F219"
+      ],
+      "applicable_products": [
+        "HDD-X"
+      ],
+      "supersedes_version_id": null,
+      "summary": "## Purpose\nCompare failure distribution between fictional HSA lots without assuming that correlation proves causation."
+    },
+    {
+      "document_id": "DOC-FW-REL-001",
+      "document_version_id": "DOC-FW-REL-001-V1_0",
+      "document_type": "CHANGE_NOTICE",
+      "title": "Firmware 2.1.4 Release Context",
+      "version": "1.0",
+      "status": "EFFECTIVE",
+      "language": "BILINGUAL",
+      "effective_from": "2026-07-10T10:00:00+08:00",
+      "effective_to": null,
+      "owner_team_id": "TEAM-PE",
+      "confidentiality": "INTERNAL",
+      "source_system": "SYNTHETIC_DMS",
+      "canonical_uri": "synthetic://documents/DOC-FW-REL-001-V1_0",
+      "content_path": "data/documents/DOC-FW-REL-001-V1_0.md",
+      "applicable_failure_codes": [
+        "F127",
+        "F411"
+      ],
+      "applicable_products": [
+        "HDD-X"
+      ],
+      "supersedes_version_id": null,
+      "summary": "## Release context\nFirmware 2.1.4 is a fictional active release for PRD-HX1001. No approved evidence in this demo directly links the release to the single-station F127 scenario."
+    },
+    {
+      "document_id": "DOC-CASE-TEMPLATE-001",
+      "document_version_id": "DOC-CASE-TEMPLATE-001-V1_0",
+      "document_type": "CASE_TEMPLATE",
+      "title": "Manufacturing Investigation Knowledge Case Template",
+      "version": "1.0",
+      "status": "EFFECTIVE",
+      "language": "BILINGUAL",
+      "effective_from": "2026-01-01T00:00:00+08:00",
+      "effective_to": null,
+      "owner_team_id": "TEAM-QA",
+      "confidentiality": "INTERNAL",
+      "source_system": "SYNTHETIC_DMS",
+      "canonical_uri": "synthetic://documents/DOC-CASE-TEMPLATE-001-V1_0",
+      "content_path": "data/documents/DOC-CASE-TEMPLATE-001-V1_0.md",
+      "applicable_failure_codes": [],
+      "applicable_products": [],
+      "supersedes_version_id": null,
+      "summary": "## Required sections\nSymptom, impact, scope, product context, checks performed, excluded causes, confirmed root cause, containment, corrective action, validation, applicability and evidence."
+    }
+  ]
+}

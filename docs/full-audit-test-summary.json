@@ -1,0 +1,78 @@
+{
+  "audit_date": "2026-07-29",
+  "scope": "synthetic offline PoC, API integration, retrieval, evidence, safety, authorization, persistence, concurrency, bypass review, and deliverable integrity",
+  "environment": {
+    "python": "3.14.5",
+    "node": "26.0.0",
+    "data_mode": "synthetic demo only"
+  },
+  "baseline_before_remediation": {
+    "passed": 24,
+    "failed": 11,
+    "total": 35
+  },
+  "regression_after_remediation": {
+    "unit_tests": {"passed": 18, "total": 18},
+    "synthetic_evaluations": {"passed": 24, "total": 24},
+    "data_validation": "passed",
+    "python_compile": "passed",
+    "javascript_syntax": "passed"
+  },
+  "full_system_after_remediation": {
+    "passed": 42,
+    "failed": 0,
+    "total": 42,
+    "categories": {
+      "functional": {"passed": 16, "failed": 0},
+      "authorization": {"passed": 2, "failed": 0},
+      "evidence": {"passed": 2, "failed": 0},
+      "safety": {"passed": 5, "failed": 0},
+      "performance": {"passed": 1, "failed": 0},
+      "persistence": {"passed": 1, "failed": 0},
+      "production_control": {"passed": 8, "failed": 0},
+      "business_logic": {"passed": 1, "failed": 0},
+      "security_bypass": {"passed": 6, "failed": 0}
+    },
+    "concurrency": {
+      "requests": 32,
+      "successful": 32,
+      "unique_investigation_ids": 32,
+      "latest_local_p95_ms": 94.72,
+      "observed_local_p95_range_ms": [12.45, 94.72],
+      "warning": "local deterministic PoC result with scheduler variance; not a production capacity claim"
+    }
+  },
+  "remediated_findings": [
+    {"severity": "P0", "check": "server-derived authenticated role", "status": "fixed", "control": "signed gateway identity; request roles rejected"},
+    {"severity": "P0", "check": "authenticated investigation history", "status": "fixed", "control": "all business APIs authenticated; investigation owner isolation"},
+    {"severity": "P1", "check": "high-risk paraphrase recall", "status": "fixed for encoded regression set", "control": "expanded bilingual policy patterns and 5/5 paraphrase regression"},
+    {"severity": "P1", "check": "context schema validation", "status": "fixed", "control": "non-object context returns JSON HTTP 400"},
+    {"severity": "P1", "check": "context field type validation", "status": "fixed", "control": "strict array, enum, length, known-ID and ABAC checks"},
+    {"severity": "P1", "check": "domain-general triage wording", "status": "fixed", "control": "step text derives from the active failure code"},
+    {"severity": "P1", "check": "evidence closure", "status": "fixed", "control": "all step evidence IDs are returned as authorized effective citations"},
+    {"severity": "P2", "check": "role allowlist", "status": "fixed", "control": "token role allowlist and request role rejection"},
+    {"severity": "P2", "check": "pagination validation", "status": "fixed", "control": "limit constrained to 1..50"},
+    {"severity": "P2", "check": "API not-found semantics", "status": "fixed", "control": "unknown authenticated /api route returns JSON HTTP 404"},
+    {"severity": "P2", "check": "CORS allowlist", "status": "fixed", "control": "approved-origin echo; wildcard removed; unapproved origins rejected"}
+  ],
+  "bypass_checks": [
+    "anonymous business API access",
+    "tampered identity signature",
+    "unapproved browser origin",
+    "cross-user investigation read",
+    "cross-station case read",
+    "development token endpoint in production mode"
+  ],
+  "remaining_external_dependencies": [
+    "Seagate-approved SSO/OIDC and identity claim mapping",
+    "SeaTrack read-only context API",
+    "real document ACL, version, retention, and deletion synchronization",
+    "enterprise-approved embedding, reranker, LLM, deployment, and data-egress decision",
+    "expert-labeled real factory golden set and shadow-mode acceptance"
+  ],
+  "deliverables": {
+    "pptx_archive_integrity": "passed",
+    "pptx_overflow": "passed",
+    "xlsx_archive_integrity": "passed"
+  }
+}

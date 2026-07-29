@@ -1,0 +1,7 @@
+__pycache__/
+*.py[cod]
+.DS_Store
+.tmp/
+runtime/*.sqlite3
+runtime/*.sqlite3-*
+runtime/evaluation_report.json

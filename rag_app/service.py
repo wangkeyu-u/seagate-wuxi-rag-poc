@@ -1,6 +1,15 @@
+"""Application orchestration for evidence triage and human investigation flow.
+
+``TriageService`` is deliberately deterministic in the repository version: it
+assembles authorized evidence, applies refusal/escalation gates, verifies every
+recommended step has a returned citation, and persists the investigation. A
+future model gateway belongs inside those gates, never around them.
+"""
+
 from __future__ import annotations
 
 import re
+import secrets
 import time
 import uuid
 from datetime import datetime, timedelta, timezone
@@ -10,11 +19,13 @@ from typing import Any
 from .auth import Identity
 from .repository import DataRepository
 from .retrieval import HybridRetriever
-from .storage import RuntimeStorage
+from .storage import DuplicateInvestigationError, RuntimeStorage
 from .validation import enforce_identity_scope, validate_triage_payload
 
 
 TZ = timezone(timedelta(hours=8))
+MIN_ANSWER_CASE_SCORE = 0.36
+MIN_ESCALATION_CASE_SCORE = 0.30
 ROLE_LABELS = {
     "PRODUCT_ENGINEER": "产品工程师",
     "PROCESS_ENGINEER": "工艺工程师",
@@ -28,12 +39,14 @@ ROLE_LABELS = {
 class TriageService:
     def __init__(self, root: Path, runtime_db_path: Path | None = None):
         self.root = root
-        self.repository = DataRepository(root)
-        self.retriever = HybridRetriever(self.repository)
         self.storage = RuntimeStorage(runtime_db_path or root / "runtime" / "rag_mvp.sqlite3")
+        self.repository = DataRepository(root, self.storage.list_active_source_records())
+        self.retriever = HybridRetriever(self.repository)
 
     def triage(self, payload: dict[str, Any], identity: Identity) -> dict[str, Any]:
         started = time.perf_counter()
+        # The order is a security invariant: validate input, infer structured
+        # context, enforce identity scope, then retrieve already-filtered data.
         query, supplied_context = validate_triage_payload(payload, self.repository)
         role = identity.role
         context = self.retriever.infer_context(query, supplied_context)
@@ -47,48 +60,73 @@ class TriageService:
             allowed_line_ids=identity.line_ids,
             allowed_station_ids=identity.station_ids,
         )
-        document_results = self.retriever.retrieve_documents(query, context, role, limit=7)
+        document_results = self.retriever.retrieve_documents(
+            query,
+            context,
+            role,
+            limit=7,
+            allowed_line_ids=identity.line_ids,
+            allowed_station_ids=identity.station_ids,
+        )
 
         if action == "ASK_FOR_CONTEXT" and not context.get("failure_code"):
             case_results = []
-        if action == "ANSWER" and (not case_results or case_results[0]["score"] < 0.36):
+        # Weak evidence becomes an explicit escalation instead of a plausible-
+        # sounding root cause. Thresholds are demo baselines pending a golden set.
+        if action == "ANSWER" and (
+            not case_results or case_results[0]["score"] < MIN_ANSWER_CASE_SCORE
+        ):
             action = "ESCALATE"
         if context.get("failure_code") and context.get("failure_code") not in self.repository.failure_codes_by_id and not action.startswith("REFUSE"):
             action = "ESCALATE"
             case_results = []
-        elif action == "ESCALATE" and (not case_results or case_results[0]["score"] < 0.30):
+        elif action == "ESCALATE" and (
+            not case_results or case_results[0]["score"] < MIN_ESCALATION_CASE_SCORE
+        ):
             case_results = []
 
-        investigation_id = f"INV-{datetime.now(TZ).strftime('%Y%m%d')}-{uuid.uuid4().hex[:6].upper()}"
         created_at = datetime.now(TZ).isoformat(timespec="seconds")
-        answer = self._compose_answer(
-            investigation_id=investigation_id,
-            query=query,
-            context=context,
-            role=role,
-            action=action,
-            missing=missing,
-            case_results=case_results,
-            document_results=document_results,
-        )
-        answer["metrics"] = {
-            "latency_ms": round((time.perf_counter() - started) * 1000, 2),
-            "cases_considered": len(self.repository.accessible_cases(role, identity.line_ids, identity.station_ids)),
-            "documents_considered": len(self.repository.accessible_documents(role)),
-            "retrieval_mode": "hybrid: lexical + hashed-vector + structured context",
-            "generation_mode": "deterministic evidence synthesis",
-        }
-        record = {
-            "investigation_id": investigation_id,
-            "created_at": created_at,
-            "subject": identity.subject,
-            "role": role,
-            "query": query,
-            "context": context,
-            "answer": answer,
-        }
-        self.storage.save_investigation(record)
-        return record
+        for _attempt in range(3):
+            investigation_id = (
+                f"INV-{datetime.now(TZ).strftime('%Y%m%d')}-"
+                f"{uuid.uuid4().hex.upper()}-{secrets.token_hex(8).upper()}"
+            )
+            answer = self._compose_answer(
+                investigation_id=investigation_id,
+                query=query,
+                context=context,
+                role=role,
+                action=action,
+                missing=missing,
+                case_results=case_results,
+                document_results=document_results,
+                allowed_line_ids=identity.line_ids,
+                allowed_station_ids=identity.station_ids,
+            )
+            answer["metrics"] = {
+                "latency_ms": round((time.perf_counter() - started) * 1000, 2),
+                "cases_considered": len(self.repository.accessible_cases(role, identity.line_ids, identity.station_ids)),
+                "documents_considered": len(
+                    self.repository.accessible_documents(role, identity.line_ids, identity.station_ids)
+                ),
+                "retrieval_mode": "hybrid: lexical + hashed-vector + structured context",
+                "generation_mode": "deterministic evidence synthesis",
+            }
+            record = {
+                "investigation_id": investigation_id,
+                "created_at": created_at,
+                "subject": identity.subject,
+                "role": role,
+                "query": query,
+                "context": context,
+                "answer": answer,
+            }
+            try:
+                self.storage.save_investigation(record)
+            except DuplicateInvestigationError:
+                continue
+            return record
+        raise RuntimeError("could not allocate a unique investigation id")
 
     def _determine_action(self, query: str, context: dict[str, Any], role: str) -> tuple[str, list[str]]:
         if context.get("high_risk_request"):
@@ -117,6 +155,8 @@ class TriageService:
         missing: list[str],
         case_results: list[dict[str, Any]],
         document_results: list[dict[str, Any]],
+        allowed_line_ids: tuple[str, ...],
+        allowed_station_ids: tuple[str, ...],
     ) -> dict[str, Any]:
         facts = self._facts(context)
         historical = self._historical(case_results, action)
@@ -126,7 +166,14 @@ class TriageService:
             for step in steps
             for evidence_id in step.get("evidence_ids", [])
         }
-        citations = self._build_citations(case_results, document_results, role, required_evidence)
+        citations = self._build_citations(
+            case_results,
+            document_results,
+            role,
+            required_evidence,
+            allowed_line_ids=allowed_line_ids,
+            allowed_station_ids=allowed_station_ids,
+        )
         escalation = self._escalation(action, context)
         confidence = self._confidence(action, case_results, context)
         headline = self._headline(action, context, case_results)
@@ -324,6 +371,9 @@ class TriageService:
         docs: list[dict[str, Any]],
         role: str,
         required_evidence: set[str] | None = None,
+        *,
+        allowed_line_ids: tuple[str, ...] = (),
+        allowed_station_ids: tuple[str, ...] = (),
     ) -> list[dict[str, Any]]:
         citations: list[dict[str, Any]] = []
         seen: set[str] = set()
@@ -331,8 +381,13 @@ class TriageService:
         for version_id in sorted(required_evidence or set()):
             if any(result["document"]["document_version_id"] == version_id for result in enriched_docs):
                 continue
-            document = self.repository.get_document(version_id, role)
-            if document and document.get("status") == "EFFECTIVE":
+            document = self.repository.get_document(
+                version_id,
+                role,
+                allowed_line_ids,
+                allowed_station_ids,
+            )
+            if document and self.repository.is_document_effective(document):
                 enriched_docs.append({"document": document, "score": 1.0, "matched_on": ["推荐步骤依据"]})
         for result in enriched_docs:
             doc = result["document"]

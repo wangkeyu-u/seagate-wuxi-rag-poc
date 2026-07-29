@@ -4,7 +4,7 @@ const state = {
   current: null,
   accessToken: window.sessionStorage.getItem("rag_access_token") || "",
   identity: null,
-  developmentAuth: false,
+  developmentAuth: window.sessionStorage.getItem("rag_development_auth") === "1",
   scenarios: {
     equipment: {
       query: "HDD-X 在 ST-04 单站出现 F127，其他测试站正常。当前使用测试程序 3.8，历史上有没有类似问题？建议先检查什么？",
@@ -27,6 +27,22 @@ const state = {
       product: "PRD-HX1001", line: "LINE-02", station: "ST-04", failure: "F127", material: "HSA-L2407", program: "3.8", scope: "SINGLE_STATION", change: "",
     },
   },
+};
+
+const WORKFLOW_STATES = [
+  { code: "TRIAGE", label: "初始分诊", gate: "调查所有者" },
+  { code: "INVESTIGATING", label: "执行检查", gate: "调查所有者" },
+  { code: "CHECKED", label: "检查完成", gate: "调查所有者" },
+  { code: "ROOT_CAUSE_REVIEW", label: "根因复核", gate: "质量角色" },
+  { code: "CLOSED", label: "审核关闭", gate: "质量角色" },
+  { code: "PUBLISHED", label: "正式发布", gate: "质量角色" },
+];
+const QUALITY_ROLES = new Set(["QUALITY_ENGINEER", "ADMIN"]);
+const CHECK_OUTCOME_LABELS = {
+  PASS: "通过",
+  FAIL: "未通过",
+  INCONCLUSIVE: "证据不足",
+  NOT_APPLICABLE: "不适用",
 };
 
 const $ = (selector) => document.querySelector(selector);
@@ -63,6 +79,7 @@ async function requestDevelopmentIdentity(role = "PRODUCT_ENGINEER") {
   state.identity = payload.identity;
   state.developmentAuth = Boolean(payload.development_only);
   window.sessionStorage.setItem("rag_access_token", state.accessToken);
+  if (state.developmentAuth) window.sessionStorage.setItem("rag_development_auth", "1");
 }
 
 async function ensureIdentity() {
@@ -72,8 +89,18 @@ async function ensureIdentity() {
       return;
     } catch (_error) {
       state.accessToken = "";
+      state.developmentAuth = false;
       window.sessionStorage.removeItem("rag_access_token");
+      window.sessionStorage.removeItem("rag_development_auth");
     }
+  }
+  try {
+    state.identity = await api("/api/whoami", { skipAuth: true });
+    state.developmentAuth = false;
+    return;
+  } catch (_error) {
+    // A same-origin enterprise identity proxy may inject the verified bearer
+    // token upstream. If it is absent, fall through to the explicit local demo.
   }
   await requestDevelopmentIdentity();
 }
@@ -172,11 +199,10 @@ async function runTriage() {
   button.disabled = true;
   button.querySelector("span").textContent = "正在检索证据";
   try {
-    const record = await api("/api/triage", { method: "POST", body: JSON.stringify(payload) });
-    state.current = record;
-    renderResult(record.answer);
+    const created = await api("/api/triage", { method: "POST", body: JSON.stringify(payload) });
+    const record = await api(`/api/investigations/${encodeURIComponent(created.investigation_id)}`);
+    renderInvestigation(record);
     await loadHistory();
-    $("#result-section").classList.remove("hidden");
     $("#result-section").scrollIntoView({ behavior: "smooth", block: "start" });
   } catch (error) {
     toast(`调查失败：${error.message}`);
@@ -186,12 +212,24 @@ async function runTriage() {
   }
 }
 
+function renderInvestigation(record) {
+  record.status = record.status || record.answer?.status || "TRIAGE";
+  record.check_results = Array.isArray(record.check_results) ? record.check_results : [];
+  record.reviews = Array.isArray(record.reviews) ? record.reviews : [];
+  if (record.answer) record.answer.status = record.status;
+  state.current = record;
+  renderResult(record.answer);
+  renderWorkflow(record);
+  $("#result-section").classList.remove("hidden");
+  $("#workflow-section").classList.remove("hidden");
+}
+
 function renderResult(answer) {
   const action = answer.decision.action;
   const banner = $("#decision-banner");
   banner.classList.toggle("warning", ["ASK_FOR_CONTEXT", "ESCALATE"].includes(action));
   banner.classList.toggle("danger", action.startsWith("REFUSE"));
-  $("#decision-action").textContent = action.replaceAll("_", " / ");
+  $("#decision-action").textContent = `${action.replaceAll("_", " / ")} · ${answer.status || "TRIAGE"}`;
   $("#decision-headline").textContent = answer.decision.headline;
   $("#decision-confidence").textContent = answer.decision.confidence;
 
@@ -239,6 +277,269 @@ function renderResult(answer) {
   $$('[data-source-uri]').forEach((button) => button.addEventListener("click", () => openSource(button.dataset.sourceUri)));
 }
 
+function workflowLabel(status) {
+  return WORKFLOW_STATES.find((item) => item.code === status)?.label || status;
+}
+
+function renderWorkflow(record) {
+  const status = record.status || "TRIAGE";
+  const currentIndex = Math.max(0, WORKFLOW_STATES.findIndex((item) => item.code === status));
+  const isOwner = state.identity?.subject === record.subject;
+  const isQuality = QUALITY_ROLES.has(state.identity?.role);
+  const checks = record.check_results || [];
+  const reviews = record.reviews || [];
+
+  $("#workflow-id").textContent = record.investigation_id;
+  $("#workflow-track").innerHTML = WORKFLOW_STATES.map((item, index) => {
+    const phase = index < currentIndex ? "complete" : index === currentIndex ? "active" : "pending";
+    return `<li class="workflow-state ${phase}" ${phase === "active" ? 'aria-current="step"' : ""}>
+      <span class="workflow-node">${phase === "complete" ? "✓" : String(index + 1).padStart(2, "0")}</span>
+      <strong>${escapeHtml(item.label)}</strong>
+      <small>${escapeHtml(item.gate)}</small>
+    </li>`;
+  }).join("");
+
+  $("#check-count").textContent = checks.length;
+  $("#review-count").textContent = reviews.length;
+  renderWorkflowLedger(checks, reviews);
+
+  const actor = isOwner ? `OWNER / ${state.identity?.role || "UNKNOWN"}` : isQuality ? `QUALITY GATE / ${state.identity?.role}` : "READ ONLY";
+  $("#workflow-actor-boundary").textContent = actor;
+  const action = workflowActionMarkup(record, { isOwner, isQuality });
+  $("#workflow-action-title").textContent = action.title;
+  $("#workflow-action-body").innerHTML = action.markup;
+  bindWorkflowActions(record, { isOwner, isQuality });
+}
+
+function renderWorkflowLedger(checks, reviews) {
+  const events = [
+    ...checks.map((item) => ({ ...item, ledgerType: "CHECK" })),
+    ...reviews.map((item) => ({ ...item, ledgerType: "REVIEW" })),
+  ].sort((left, right) => String(left.created_at).localeCompare(String(right.created_at)));
+
+  $("#workflow-ledger").innerHTML = events.length ? events.map((item) => {
+    if (item.ledgerType === "CHECK") {
+      const evidence = (item.evidence_ids || []).map((id) => `<span>${escapeHtml(id)}</span>`).join("");
+      return `<article class="ledger-entry">
+        <div class="ledger-rail"><i class="outcome-${escapeHtml(item.outcome.toLowerCase())}"></i></div>
+        <div>
+          <div class="ledger-entry-head"><b>CHECK ${String(item.step_sequence).padStart(2, "0")}</b><span>${escapeHtml(CHECK_OUTCOME_LABELS[item.outcome] || item.outcome)}</span></div>
+          <p>${escapeHtml(item.notes || "未填写检查备注")}</p>
+          <div class="ledger-evidence">${evidence || "<em>NO EVIDENCE ID</em>"}</div>
+          <small>${escapeHtml(item.actor_subject)} · ${escapeHtml(new Date(item.created_at).toLocaleString("zh-CN", { hour12: false }))}</small>
+        </div>
+      </article>`;
+    }
+    return `<article class="ledger-entry review-entry">
+      <div class="ledger-rail"><i></i></div>
+      <div>
+        <div class="ledger-entry-head"><b>QUALITY REVIEW</b><span>${escapeHtml(item.decision)}</span></div>
+        <p>${escapeHtml(item.notes || "未填写审核意见")}</p>
+        <small>${escapeHtml(item.reviewer_subject)} · ${escapeHtml(new Date(item.created_at).toLocaleString("zh-CN", { hour12: false }))}</small>
+      </div>
+    </article>`;
+  }).join("") : `<div class="ledger-empty"><span>00</span><p>尚无执行记录。开始调查后，每次检查和审核都会在这里形成不可覆盖的证据轨迹。</p></div>`;
+}
+
+function waitingMarkup(code, title, copy) {
+  return `<div class="workflow-waiting">
+    <span>${escapeHtml(code)}</span>
+    <div><h4>${escapeHtml(title)}</h4><p>${escapeHtml(copy)}</p></div>
+  </div>`;
+}
+
+function workflowActionMarkup(record, permissions) {
+  const { isOwner, isQuality } = permissions;
+  const status = record.status;
+  const checks = record.check_results || [];
+  const steps = record.answer?.triage_steps || [];
+
+  if (status === "TRIAGE") {
+    return isOwner ? {
+      title: "确认接手调查",
+      markup: `<p class="workflow-lead">建议已经生成，但尚未构成执行记录。确认接手后，才可以填写现场检查结果。</p>
+        <div class="workflow-boundary-note"><b>责任边界</b><span>系统提供证据路径；调查所有者对检查内容和升级决定负责。</span></div>
+        <button class="workflow-primary" id="workflow-start" type="button"><span>开始执行检查</span><b>01 → 02</b></button>`,
+    } : {
+      title: "等待调查所有者接手",
+      markup: waitingMarkup("OWNER GATE", "当前身份不能启动此调查", `调查归属 ${record.subject}，请由调查所有者确认接手。`),
+    };
+  }
+
+  if (status === "INVESTIGATING") {
+    if (!isOwner) return {
+      title: "现场检查进行中",
+      markup: waitingMarkup("OWNER GATE", "等待现场检查记录", `调查所有者 ${record.subject} 正在执行首轮检查。`),
+    };
+    const options = steps.map((step, index) => `<option value="${Number(step.sequence) || index + 1}">${String(Number(step.sequence) || index + 1).padStart(2, "0")} · ${escapeHtml(step.title)}</option>`).join("");
+    return {
+      title: "记录一项检查结果",
+      markup: `<form class="workflow-form" id="check-form">
+        <div class="workflow-form-grid">
+          <label><span>检查步骤</span><select id="check-step" required>${options}</select></label>
+          <label><span>检查结论</span><select id="check-outcome" required>
+            <option value="PASS">通过 / PASS</option>
+            <option value="FAIL">未通过 / FAIL</option>
+            <option value="INCONCLUSIVE">证据不足 / INCONCLUSIVE</option>
+            <option value="NOT_APPLICABLE">不适用 / N/A</option>
+          </select></label>
+        </div>
+        <label class="workflow-notes"><span>现场备注</span><textarea id="check-notes" aria-label="现场备注" maxlength="4000" rows="4" placeholder="记录观察值、对比范围和未决问题。不要在这里写最终放行决定。"></textarea><small aria-hidden="true"><b id="check-note-count">0</b> / 4000</small></label>
+        <fieldset class="evidence-selector"><legend>绑定步骤证据</legend><div id="workflow-evidence-options"></div></fieldset>
+        <div class="workflow-button-row">
+          <button class="workflow-secondary" id="record-check" type="submit">写入检查记录</button>
+          <button class="workflow-primary" id="workflow-checked" type="button" ${checks.length ? "" : "disabled"}><span>完成首轮检查</span><b>02 → 03</b></button>
+        </div>
+        ${checks.length ? "" : '<p class="workflow-hint">至少写入一项检查记录后，才能完成首轮检查。</p>'}
+      </form>`,
+    };
+  }
+
+  if (status === "CHECKED") {
+    return isOwner ? {
+      title: "提交质量复核",
+      markup: `<p class="workflow-lead">已记录 ${checks.length} 项检查。提交后，调查进入质量角色复核；如证据不足，审核人可以退回继续调查。</p>
+        <div class="workflow-boundary-note"><b>提交前确认</b><span>检查结论和引用证据已完整，且没有把历史相似性写成已确认根因。</span></div>
+        <button class="workflow-primary" id="workflow-submit-review" type="button"><span>提交根因复核</span><b>03 → 04</b></button>`,
+    } : {
+      title: "等待调查所有者提交",
+      markup: waitingMarkup("OWNER GATE", "检查已经完成", "调查所有者尚未把记录提交到质量复核队列。"),
+    };
+  }
+
+  if (status === "ROOT_CAUSE_REVIEW") {
+    if (!isQuality) return {
+      title: "质量复核进行中",
+      markup: waitingMarkup("QUALITY GATE", "等待独立质量复核", "只有质量工程师或管理员可以批准或退回这项调查。"),
+    };
+    return {
+      title: "审核证据闭环",
+      markup: `<form class="workflow-form" id="review-form">
+        <p class="workflow-lead">复核 ${checks.length} 项现场记录。批准会关闭调查；退回会重新进入检查阶段。</p>
+        <label class="workflow-notes"><span>审核意见</span><textarea id="review-notes" aria-label="审核意见" maxlength="4000" rows="5" required placeholder="说明证据是否支持结论，以及批准或退回的具体理由。"></textarea><small aria-hidden="true"><b id="review-note-count">0</b> / 4000</small></label>
+        <div class="workflow-button-row review-buttons">
+          <button class="workflow-danger" id="workflow-reject" type="button">退回继续调查</button>
+          <button class="workflow-primary" id="workflow-approve" type="submit"><span>批准并关闭</span><b>04 → 05</b></button>
+        </div>
+      </form>`,
+    };
+  }
+
+  if (status === "CLOSED") {
+    return isQuality ? {
+      title: "发布已审核调查",
+      markup: `<p class="workflow-lead">质量审核已经完成。发布会把当前记录标记为正式可复用状态，且不能再回退。</p>
+        <div class="workflow-boundary-note"><b>不可逆边界</b><span>确认记录不含敏感原文，引用版本有效，审核意见足以支持后续复用。</span></div>
+        <button class="workflow-primary publish-button" id="workflow-publish" type="button"><span>正式发布调查</span><b>05 → 06</b></button>`,
+    } : {
+      title: "等待质量角色发布",
+      markup: waitingMarkup("QUALITY GATE", "调查已经审核关闭", "只有质量工程师或管理员可以发布为正式记录。"),
+    };
+  }
+
+  return {
+    title: "调查已正式发布",
+    markup: `<div class="workflow-published"><span>✓</span><div><h4>证据闭环完成</h4><p>该记录已通过质量复核并发布。后续使用仍需核对适用条件，不能直接替代当前批次的工程判断。</p></div></div>`,
+  };
+}
+
+function renderEvidenceOptions(record, sequence) {
+  const step = (record.answer?.triage_steps || []).find((item) => Number(item.sequence) === Number(sequence));
+  const evidence = step?.evidence_ids || [];
+  $("#workflow-evidence-options").innerHTML = evidence.length
+    ? evidence.map((id) => `<label><input type="checkbox" name="workflow-evidence" value="${escapeHtml(id)}" checked /><span>${escapeHtml(id)}</span></label>`).join("")
+    : `<p>该步骤没有预绑定证据；可以先记录观察结果。</p>`;
+}
+
+function bindWorkflowActions(record, permissions) {
+  const status = record.status;
+  if (status === "TRIAGE" && permissions.isOwner) {
+    $("#workflow-start").addEventListener("click", () => transitionWorkflow("INVESTIGATING", "调查已开始"));
+  }
+  if (status === "INVESTIGATING" && permissions.isOwner) {
+    const step = $("#check-step");
+    renderEvidenceOptions(record, step.value);
+    step.addEventListener("change", () => renderEvidenceOptions(record, step.value));
+    $("#check-notes").addEventListener("input", (event) => { $("#check-note-count").textContent = event.target.value.length; });
+    $("#check-form").addEventListener("submit", recordWorkflowCheck);
+    if ($("#workflow-checked")) $("#workflow-checked").addEventListener("click", () => transitionWorkflow("CHECKED", "首轮检查已完成"));
+  }
+  if (status === "CHECKED" && permissions.isOwner) {
+    $("#workflow-submit-review").addEventListener("click", () => transitionWorkflow("ROOT_CAUSE_REVIEW", "已提交质量复核"));
+  }
+  if (status === "ROOT_CAUSE_REVIEW" && permissions.isQuality) {
+    $("#review-notes").addEventListener("input", (event) => { $("#review-note-count").textContent = event.target.value.length; });
+    $("#review-form").addEventListener("submit", (event) => { event.preventDefault(); submitWorkflowReview("APPROVE"); });
+    $("#workflow-reject").addEventListener("click", () => submitWorkflowReview("REJECT"));
+  }
+  if (status === "CLOSED" && permissions.isQuality) {
+    $("#workflow-publish").addEventListener("click", () => transitionWorkflow("PUBLISHED", "调查已正式发布"));
+  }
+}
+
+async function workflowMutation(path, payload, successMessage) {
+  const actionBody = $("#workflow-action-body");
+  actionBody.setAttribute("aria-busy", "true");
+  actionBody.querySelectorAll("button, select, textarea, input").forEach((element) => { element.disabled = true; });
+  try {
+    await api(path, { method: "POST", body: JSON.stringify(payload) });
+    await refreshCurrentInvestigation();
+    await loadHistory();
+    toast(successMessage);
+  } catch (error) {
+    renderWorkflow(state.current);
+    toast(`工作流操作失败：${error.message}`);
+  }
+}
+
+async function transitionWorkflow(targetStatus, successMessage) {
+  if (!state.current) return;
+  await workflowMutation(
+    `/api/investigations/${encodeURIComponent(state.current.investigation_id)}/status`,
+    { status: targetStatus },
+    successMessage,
+  );
+}
+
+async function recordWorkflowCheck(event) {
+  event.preventDefault();
+  if (!state.current) return;
+  const evidenceIds = $$('input[name="workflow-evidence"]:checked').map((input) => input.value);
+  await workflowMutation(
+    `/api/investigations/${encodeURIComponent(state.current.investigation_id)}/checks`,
+    {
+      step_sequence: Number($("#check-step").value),
+      outcome: $("#check-outcome").value,
+      notes: $("#check-notes").value.trim(),
+      evidence_ids: evidenceIds,
+    },
+    "检查结果已写入证据账本",
+  );
+}
+
+async function submitWorkflowReview(decision) {
+  if (!state.current) return;
+  const notes = $("#review-notes").value.trim();
+  if (!notes) return toast("请填写审核意见，再做出质量决定");
+  await workflowMutation(
+    `/api/investigations/${encodeURIComponent(state.current.investigation_id)}/reviews`,
+    { decision, notes },
+    decision === "APPROVE" ? "质量审核已批准" : "调查已退回继续检查",
+  );
+}
+
+async function refreshCurrentInvestigation() {
+  if (!state.current) return;
+  const record = await api(`/api/investigations/${encodeURIComponent(state.current.investigation_id)}`);
+  renderInvestigation(record);
+}
+
+async function openInvestigation(investigationId, { scroll = true } = {}) {
+  const record = await api(`/api/investigations/${encodeURIComponent(investigationId)}`);
+  renderInvestigation(record);
+  if (scroll) $("#workflow-section").scrollIntoView({ behavior: "smooth", block: "start" });
+}
+
 async function openSource(uri) {
   try {
     const item = await api(uri);
@@ -282,13 +583,16 @@ async function loadHistory() {
     const payload = await api("/api/investigations?limit=8");
     $("#recent-list").innerHTML = payload.items.length
       ? payload.items.map((item) => `
-        <div class="recent-item">
+        <button class="recent-item ${state.current?.investigation_id === item.investigation_id ? "current" : ""}" type="button" data-investigation-id="${escapeHtml(item.investigation_id)}">
           <time>${escapeHtml(new Date(item.created_at).toLocaleString("zh-CN", { hour12: false }))}</time>
           <h4 title="${escapeHtml(item.query)}">${escapeHtml(item.query)}</h4>
-          <span>${escapeHtml(item.answer.decision.action)}</span>
+          <span>${escapeHtml(workflowLabel(item.status || item.answer.status || item.answer.decision.action))}</span>
           <b>↗</b>
-        </div>`).join("")
+        </button>`).join("")
       : `<div class="empty-state">还没有调查记录</div>`;
+    $$('[data-investigation-id]').forEach((button) => button.addEventListener("click", () => {
+      openInvestigation(button.dataset.investigationId).catch((error) => toast(`无法打开调查：${error.message}`));
+    }));
   } catch (error) {
     $("#recent-list").innerHTML = `<div class="empty-state">无法加载记录：${escapeHtml(error.message)}</div>`;
   }
@@ -324,6 +628,15 @@ function bindEvents() {
     if (!state.developmentAuth) return;
     try {
       await requestDevelopmentIdentity(event.target.value);
+      if (state.current) {
+        try {
+          await refreshCurrentInvestigation();
+        } catch (_error) {
+          state.current = null;
+          $("#result-section").classList.add("hidden");
+          $("#workflow-section").classList.add("hidden");
+        }
+      }
       await loadHistory();
       toast(`开发身份已切换为 ${event.target.value}`);
     } catch (error) {
@@ -347,6 +660,7 @@ async function bootstrap() {
     const [meta, stats] = await Promise.all([api("/api/meta"), api("/api/stats")]);
     initializeMeta(meta);
     renderStats(stats);
+    $("#engine-status").textContent = "ONLINE / VERIFIED";
     applyScenario("equipment");
     await loadHistory();
   } catch (error) {

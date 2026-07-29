@@ -75,7 +75,7 @@ flowchart LR
 - `owner`、`approved_by`、`ingested_at`、`content_hash`；
 - 可追溯的原文定位和删除/撤销状态。
 
-当前代码实现的是标准库签名的 PoC 身份封装，用来关闭“客户端自报角色”漏洞。真实上线必须替换为希捷批准的 SSO/OIDC 验证链和密钥管理系统。
+当前代码除标准库签名的 PoC 身份封装外，已提供可配置的 `RS256` / HTTPS JWKS 校验路径、企业组到单一应用角色的失败关闭映射，以及 line/station/permission 声明规范化。它仍未连接真实企业 IdP；真实上线必须使用身份团队批准的 issuer、audience、JWKS、组和 entitlement 配置，并完成代理、轮换、故障和权限生命周期验收。部署契约见 [OIDC / JWKS authentication boundary](./oidc-deployment.md)。
 
 ### 3.2 知识采集不是简单上传文件
 
@@ -210,12 +210,13 @@ OpenAI 的评测指南强调使用代表性数据和 ground truth；本项目必
 
 | 能力 | 当前代码 | 目标状态 |
 | --- | --- | --- |
-| 身份 | 签名 PoC 身份封装 | 希捷 SSO/OIDC + 企业密钥管理 |
+| 身份 | 签名 PoC 身份封装 + 未配置的 OIDC/JWKS 验证路径 | 希捷批准并完成验收的 SSO/OIDC、身份代理与企业密钥管理 |
 | 授权 | 角色、产线、站点前置过滤 | 与 SeaTrack/文档 ACL 同步的策略引擎 |
 | 检索 | 词法 + 哈希向量 + 结构化评分 | BM25 + 多语言 embedding + reranker |
 | 生成 | 确定性模板 | 企业批准模型 + JSON Schema + 确定性验证器 |
 | 数据 | 30 案例、12 文档的合成集 | 脱敏真实案例、SOP、ECN 与版本关系 |
-| 评测 | 24 个合成业务题 + 42 项系统检查 | 现场 golden set、红队集、线上 trace grading |
-| 集成 | 独立 Web UI | SeaTrack 页面入口和只读上下文 API |
+| 来源运营 | RS256 签名清单、固定信任根、元数据检疫、主数据对账、租约锁、游标/回滚和脱敏健康告警 | 企业传输身份/HSM、有效期主数据、内容检疫、集中监控和撤销传播 SLO |
+| 评测 | 24 个合成业务题 + 62 项系统检查 | 现场 golden set、红队集、线上 trace grading |
+| 集成 | 独立 Web UI + 受控离线一次性同步作业 | SeaTrack 页面入口和只读上下文 API |
 
 因此，当前仓库已经具备更可信的安全和测试底座，但仍是 PoC，不应标注为“已适合希捷生产”。完成现场数据、企业身份、真实检索和影子模式验收后，才有资格进入受控试点。

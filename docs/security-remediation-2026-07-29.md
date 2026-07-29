@@ -30,26 +30,34 @@
 ## 2. 采用的最小完整策略
 
 - 新增标准库 HMAC-SHA256 短时签名身份封装，校验签名、issuer、有效期、角色白名单和范围声明。
+- 新增可配置的 OIDC `RS256` / HTTPS JWKS 校验路径，固定算法和密钥来源，校验 issuer、audience、时间声明与多 audience `azp`，并支持受节流的 `kid` 轮换刷新。
+- 企业组通过部署映射得到唯一应用角色；零角色和多角色冲突均失败关闭，permission 只有显式白名单成员会进入内部身份。
 - HTTP 层统一从 `Authorization: Bearer` 派生身份；请求体中的角色被明确拒绝，查询参数无法改变权限。
 - 增加请求 schema、枚举、长度、已知 ID、列表类型和 ABAC 校验。
 - 调查表增加 `subject` 并按所有者查询；全量审计访问需要 `investigations:read:all`。
+- 来源健康端点只返回脱敏聚合信息，并要求独立的 `sources:monitor` 权限。
+- 来源交付可强制固定 JWKS 的 RS256 清单验签；清单绑定摘要、大小、来源和短有效期，失败进入元数据检疫账本。
+- 检疫读取与处置分别使用 `sources:monitor` 和 `sources:quarantine:manage`，处置不触发导入或文件操作。
 - CORS 改为允许域名回显；不受信任 Origin 返回 403；未知业务路由返回 JSON 404。
 - 扩展中英文高风险表达回归集。
 - 引用编译阶段补齐所有步骤依赖的有效授权文档。
 - 单站步骤使用当前 `failure_code`，不再写死 F127。
 - 开发身份端点仅在 `--dev-auth` 下启用；生产式启动必须提供环境密钥。
 
-这是当前零第三方依赖 PoC 中关闭边界的最小仓库原生方案。它没有伪造 OIDC 集成；目标架构明确要求真实部署由希捷批准的企业身份网关验证 SSO/OIDC 后再提供规范化声明。
+这是当前零第三方依赖 PoC 中关闭边界的仓库原生方案。OIDC 代码路径没有真实企业配置，不能被描述成已经接通 SSO；目标架构仍要求真实部署使用身份团队批准的 issuer、audience、JWKS、企业组、entitlement 和身份代理，并完成轮换与故障验收。
 
 ## 3. 修改文件
 
 - `rag_app/auth.py`：签名身份、角色白名单、身份范围和验证错误。
+- `rag_app/oidc.py`：OIDC 配置、严格 JWT/JWKS 解析、RS256 校验、密钥缓存轮换和企业组映射。
 - `rag_app/validation.py`：分诊请求 schema 与身份范围校验。
 - `server.py`：业务 API 鉴权、服务端角色、CORS、错误边界、开发身份模式。
 - `rag_app/repository.py`：案例角色、产线和站点前置过滤。
 - `rag_app/retrieval.py`：范围过滤和高风险语义覆盖。
 - `rag_app/service.py`：身份驱动分诊、引用闭环和动态故障码步骤。
-- `rag_app/storage.py`：调查所有者隔离、迁移和连接关闭。
+- `rag_app/storage.py`：调查所有者隔离、来源账本、同步租约、健康聚合、迁移和连接关闭。
+- `rag_app/reconciliation.py`、`rag_app/source_operations.py`：主数据对账和受控一次性同步作业。
+- `rag_app/source_manifest.py`：固定信任根清单验签、规范化签名输入与单次读取的文件完整性绑定。
 - `static/app.js`：Bearer 身份、开发角色切换、移除客户端角色声明。
 - `tests/test_auth.py`、`tests/test_retrieval.py`：签名、ABAC、证据和泛化回归。
 - `scripts/full_system_test.py`：42 项真实 HTTP 边界、绕过和开发模式正向检查。
@@ -107,14 +115,15 @@ make check
 make full-test
 ```
 
-最终结果：数据生成、数据验证、18 个单元测试、24 个评测和 42 个全系统检查全部通过。
+当前结果：数据生成、数据验证、72 个单元/回归测试、24 个评测和 62 个全系统检查全部通过。
 
 ## 5. 剩余风险和不确定性
 
-- 签名身份封装不是希捷 SSO/OIDC；真实 issuer、签名算法、密钥轮换、吊销和组映射尚未接入。
+- OIDC/JWKS 验证路径尚未接入真实企业 issuer、audience、组、entitlement 或身份代理；吊销、企业 logout 和真实轮换演练仍未完成，标准库 RS256 实现也需要企业安全评审或替换为批准的 JOSE 库。
 - 高风险语义回归证明的是当前测试集，不是所有自然语言变体；生产必须增加独立分类器、策略引擎、红队集和持续回归。
 - 当前检索仍使用哈希向量，尚未实现正式多语 embedding、BM25 和 reranker。
 - 当前数据全部合成，没有验证真实文档 ACL、版本撤销、保留期限和跨系统删除传播。
+- 签名清单路径尚未接入企业传输服务身份、私钥托管、真实导出器、密钥轮换/吊销或恶意文件扫描；本地固定 JWKS 只构成接入边界，不代表传输通道已经生产化。
 - 当前性能是本机小数据结果，不代表 SeaTrack、向量库或大模型链路。
 - 没有真实工程师 golden set、影子模式结果或希捷安全团队签字，因此不能把 `fixed` 解读为“生产系统已认证”。
 

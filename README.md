@@ -1,5 +1,7 @@
 # SeaTrack Yield RCA Evidence Copilot
 
+[![CI](https://github.com/wangkeyu-u/seagate-wuxi-rag-poc/actions/workflows/ci.yml/badge.svg)](https://github.com/wangkeyu-u/seagate-wuxi-rag-poc/actions/workflows/ci.yml)
+
 一个面向硬盘制造良率异常调查的 RCA 证据分诊系统。当 SeaTrack 类 MES 发现 Failure Code 异常时，它帮助产品、工艺和质量工程师更快找到与当前产品、站点、物料和软件版本真正相关的历史证据，形成可验证的首轮排查路径，并把调查结果沉淀为下一次可复用的知识。
 
 > 本项目全部使用虚构合成数据，不包含 Seagate 内部资料，也不代表其真实流程、产品编号、工艺参数或系统实现。项目未获得 Seagate Technology 的认可或背书。

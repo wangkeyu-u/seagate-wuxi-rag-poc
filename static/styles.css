@@ -271,6 +271,22 @@ select {
 .result-card > header span { color: var(--acid); font: 10px var(--mono); }
 .result-card h3, .evidence-card h3 { margin: 0; font: 650 22px var(--display); }
 .result-card header small { margin-left: auto; color: #647067; font: 8px var(--mono); letter-spacing: 0.12em; }
+.model-analysis-card { border-color: rgba(102, 215, 205, 0.28); }
+.model-summary { margin: 0; padding: 18px 20px; color: #c9d4cc; border-bottom: 1px solid var(--line); font-size: 12px; line-height: 1.7; }
+.hypothesis-list { display: grid; gap: 1px; background: var(--line); }
+.hypothesis-item { display: grid; grid-template-columns: 42px minmax(0, 1fr); gap: 14px; padding: 18px 20px; background: #18211c; }
+.hypothesis-rank { color: var(--cyan); font: 700 11px var(--mono); letter-spacing: .08em; }
+.hypothesis-item h4 { margin: 0 0 7px; color: var(--paper); font: 650 16px var(--display); }
+.hypothesis-item p { margin: 0 0 13px; color: #909d94; font-size: 11px; line-height: 1.65; }
+.hypothesis-evidence { display: flex; flex-wrap: wrap; align-items: center; gap: 6px; }
+.hypothesis-evidence + .hypothesis-evidence { margin-top: 7px; }
+.hypothesis-evidence small { min-width: 62px; color: #637069; font: 8px var(--mono); letter-spacing: .1em; }
+.hypothesis-evidence button, .hypothesis-evidence span { padding: 4px 7px; color: var(--cyan); border: 1px solid rgba(102, 215, 205, .23); background: rgba(102, 215, 205, .06); font: 8px var(--mono); }
+.hypothesis-evidence button { cursor: pointer; }
+.hypothesis-evidence button:hover { border-color: var(--cyan); }
+.hypothesis-evidence.contradict span { color: var(--amber); border-color: rgba(255, 180, 91, .25); background: rgba(255, 180, 91, .06); }
+.model-missing { margin: 0; padding: 12px 20px; color: #a8a194; background: rgba(255, 180, 91, .05); font-size: 10px; line-height: 1.6; }
+.model-missing strong { color: var(--amber); }
 .fact-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1px; background: var(--line); }
 .fact-item { min-height: 92px; padding: 17px; background: var(--panel); }
 .fact-item small { display: block; color: #788279; font: 8px var(--mono); letter-spacing: 0.1em; }

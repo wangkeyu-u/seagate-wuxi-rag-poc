@@ -26,13 +26,14 @@ from urllib.parse import parse_qs, unquote, urlparse
 
 from rag_app import TriageService
 from rag_app.auth import ALLOWED_ROLES, AuthenticationError, AuthorizationError, Identity, TokenAuthenticator
+from rag_app.generation import build_answer_generator
 from rag_app.oidc import OidcAuthenticator
 from rag_app.storage import DEFAULT_SOURCE_STALE_SECONDS, MAX_FEEDBACK_COMMENT_CHARS
 
 
 ROOT = Path(__file__).resolve().parent
 STATIC_DIR = ROOT / "static"
-APPLICATION_VERSION = "0.5.0"
+APPLICATION_VERSION = "0.6.0"
 REQUEST_ID = re.compile(r"^[A-Za-z0-9][A-Za-z0-9._:-]{0,127}$")
 
 
@@ -154,6 +155,11 @@ class AppHandler(BaseHTTPRequestHandler):
                         "mode": "synthetic-demo",
                         "version": APPLICATION_VERSION,
                         "authentication": "required-for-business-apis",
+                        "generation": getattr(
+                            self.server,
+                            "generation_mode",
+                            "deterministic evidence synthesis",
+                        ),
                     }
                 )
             if not path.startswith("/api/"):
@@ -525,6 +531,7 @@ def main() -> None:
     try:
         authenticator, auth_mode = build_authenticator(os.environ, dev_auth=args.dev_auth)
         source_stale_after_seconds = parse_source_stale_thresholds(os.environ)
+        answer_generator = build_answer_generator(os.environ)
     except ValueError as exc:
         parser.error(str(exc))
     configured_origins = {
@@ -538,14 +545,16 @@ def main() -> None:
     }
     server = ThreadingHTTPServer((args.host, args.port), AppHandler)
     server.authenticator = authenticator
-    server.service = TriageService(ROOT)
+    server.service = TriageService(ROOT, answer_generator=answer_generator)
     server.allowed_origins = allowed_origins
     server.dev_auth_enabled = args.dev_auth
     server.auth_mode = auth_mode
     server.source_stale_after_seconds = source_stale_after_seconds
+    server.generation_mode = server.service.generation_mode
     print(f"SeaTrack-style Yield RCA Evidence Copilot running at http://{args.host}:{args.port}")
     print("Synthetic demo only — no Seagate internal data is included.")
     print(f"Authentication mode: {auth_mode}")
+    print(f"Generation mode: {server.generation_mode}")
     if args.dev_auth:
         print("Development authentication is enabled. Do not expose this process outside localhost.")
     try:

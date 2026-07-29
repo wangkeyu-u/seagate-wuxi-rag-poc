@@ -245,6 +245,41 @@ function renderResult(answer) {
     missingBox.classList.add("hidden");
   }
 
+  const generated = answer.generated_analysis;
+  const modelCard = $("#model-analysis-card");
+  if (generated?.hypotheses?.length) {
+    modelCard.classList.remove("hidden");
+    $("#model-summary").textContent = generated.summary;
+    $("#hypothesis-list").innerHTML = generated.hypotheses.map((item, index) => {
+      const supporting = item.supporting_evidence_ids.map((id) => {
+        const citation = answer.citations.find((source) => source.citation_id === id);
+        return citation
+          ? `<button type="button" data-source-uri="${escapeHtml(citation.uri)}">${escapeHtml(id)}</button>`
+          : `<span>${escapeHtml(id)}</span>`;
+      }).join("");
+      const contradicting = item.contradicting_evidence_ids.map((id) => `<span>${escapeHtml(id)}</span>`).join("");
+      return `<article class="hypothesis-item">
+        <div class="hypothesis-rank">H${String(index + 1).padStart(2, "0")}</div>
+        <div><h4>${escapeHtml(item.label)}</h4><p>${escapeHtml(item.analysis)}</p>
+          <div class="hypothesis-evidence"><small>SUPPORT</small>${supporting}</div>
+          ${contradicting ? `<div class="hypothesis-evidence contradict"><small>CONTRADICT</small>${contradicting}</div>` : ""}
+        </div>
+      </article>`;
+    }).join("");
+    const modelMissing = $("#model-missing");
+    if (generated.missing_information?.length) {
+      modelMissing.classList.remove("hidden");
+      modelMissing.innerHTML = `<strong>模型认为仍需补充：</strong>${generated.missing_information.map(escapeHtml).join("、")}`;
+    } else {
+      modelMissing.classList.add("hidden");
+    }
+  } else {
+    modelCard.classList.add("hidden");
+    $("#model-summary").textContent = "";
+    $("#hypothesis-list").innerHTML = "";
+    $("#model-missing").classList.add("hidden");
+  }
+
   $("#triage-steps").innerHTML = answer.triage_steps.map((step) => `
     <li class="triage-step">
       <div><h4>${escapeHtml(step.title)}</h4><p>${escapeHtml(step.purpose)}</p><span class="step-basis">${escapeHtml(step.basis)}</span></div>

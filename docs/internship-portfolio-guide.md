@@ -26,9 +26,9 @@
 | 希捷公开方向 | 仓库中的可演示证据 | 面试中要诚实说明的差距 |
 | --- | --- | --- |
 | SeaTrack MES 的 GenAI 知识管理、RAG、后端服务和微服务思维 | 上下文驱动混合检索、REST API、证据化答案、人工调查状态机 | 未接真实 SeaTrack；当前是单体 PoC，不是假装微服务 |
-| Python、SQL、测试、调试、性能和文档 | 标准库 Python、SQLite 迁移/事务、72 个单元测试、24 个评测、62 个 HTTP 系统检查、并发场景和完整文档 | 还没有真实流量、容量规划和分布式压测 |
+| Python、SQL、测试、调试、性能和文档 | 标准库 Python、SQLite 迁移/事务、80 个单元测试、24 个评测、62 个 HTTP 系统检查、并发场景和完整文档 | 还没有真实流量、容量规划和分布式压测 |
 | 消息/事件驱动集成 | 幂等来源作业、租约锁、游标、重放识别、版本历史、检疫和恢复语义 | 这是事件系统的可靠性语义，不是已经接入 Kafka |
-| RAG、Copilot、Agent/MCP 和企业知识集成 | 权限前置检索、版本化证据、拒答/升级和可替换的模型/检索适配点 | 没有为了追热点伪造 Agent；MCP、LLM 和向量库是下一阶段适配器 |
+| RAG、Copilot、Agent/MCP 和企业知识集成 | 权限前置检索、版本化证据、拒答/升级，以及带严格结构和确定性降级的可选模型网关 | 没有为了追热点伪造 Agent；企业模型审批、MCP 和真实向量库仍是下一阶段工作 |
 | 制造良率监控、早期问题发现与工厂 IT 部署 | Failure Code、站点、物料、程序版本、异常范围和趋势上下文 | 数据和 Failure Code 全部虚构，没有生产业务收益数据 |
 | 安全、质量和跨团队交付 | OIDC/JWKS 路径、RBAC+ABAC、签名交付、主数据对账、引用闭环、质量审核和 runbook | 企业 IdP、DLP、告警、审批与安全验收仍需现场团队完成 |
 
@@ -40,13 +40,13 @@
 >
 > 我没有只做问答效果，而是把生产边界一起实现了：身份来自服务端验证的 OIDC 或签名令牌；角色、产线和站点权限在检索前过滤；每个建议步骤必须能打开有效证据；低置信度和高风险动作会升级或拒绝。离线数据接入也有严格 schema、主数据对账、签名清单、幂等游标、回滚和检疫。
 >
-> 项目全部使用合成数据，当前通过 72 个单元测试、24 个业务评测和 62 个 HTTP 全系统检查。下一步不是声称已经生产化，而是接真实只读上下文、企业检索与模型网关，并在工程师 golden set 和影子模式中验证引用准确率与首轮取证时间。
+> 项目全部使用合成数据，当前通过 80 个单元测试、24 个业务评测和 62 个 HTTP 全系统检查。它已实现可选的 Responses API 兼容模型网关，但下一步不是声称已经生产化，而是接真实只读上下文、企业检索和批准的模型端点，并在工程师 golden set 与影子模式中验证语义引用准确率和首轮取证时间。
 
 ## 4. 60 秒英文版本
 
 > I built an evidence-grounded yield anomaly copilot for a SeaTrack-like manufacturing workflow. Given a failure code plus product, station, material lot, and software context, it ranks similar investigations and effective engineering documents, then proposes a traceable first-pass checklist. It never makes production-control decisions.
 >
-> The main engineering work is around trustworthy boundaries: server-verified identity, RBAC and station-level ABAC before retrieval, version-aware citations, deterministic escalation, an auditable human review workflow, and governed offline ingestion with signed manifests, master-data reconciliation, idempotency, rollback, and quarantine. The repository uses synthetic data and currently passes 72 unit tests, 24 business evaluations, and 62 end-to-end HTTP checks. For production, I would replace the demo retrieval layer with enterprise-approved sparse, vector, reranking, and model services, then validate it in shadow mode on a human-labeled factory dataset.
+> The main engineering work is around trustworthy boundaries: server-verified identity, RBAC and station-level ABAC before retrieval, version-aware citations, deterministic escalation, an optional Responses API gateway with strict structured output and safe fallback, an auditable human review workflow, and governed offline ingestion. The repository uses synthetic data and currently passes 80 unit tests, 24 business evaluations, and 62 end-to-end HTTP checks. For production, I would connect approved sparse, vector, reranking, and model services, then validate them in shadow mode on a human-labeled factory dataset.
 
 ## 5. 8 分钟演示路线
 
@@ -69,13 +69,13 @@ make run
 
 - 设计并实现面向 SeaTrack 类 MES 良率异常的证据分诊 PoC，融合 Failure Code、产品、站点、物料批次与软件版本上下文，对同码不同根因进行可解释混合排序，并为每个排查步骤建立版本化引用闭环。
 - 构建服务端身份与数据治理边界：OIDC RS256/JWKS、RBAC+产线/站点 ABAC、受控拒答、人工审核状态机，以及带签名清单、主数据对账、幂等游标、回滚与检疫的离线来源同步。
-- 建立可重复质量门禁，覆盖 72 个单元/回归测试、24 个合成业务评测和 62 个真实 HTTP 系统检查，包括越权、篡改、过期证据、持久化、32 请求并发和来源恢复路径。
+- 建立可重复质量门禁，覆盖 80 个单元/回归测试、24 个合成业务评测和 62 个真实 HTTP 系统检查，包括模型降级、越权、篡改、过期证据、持久化、32 请求并发和来源恢复路径。
 
 不要写“提升良率 X%”“减少停机 Y 小时”或“部署到希捷生产”，因为仓库没有这些事实。
 
 ## 7. 高频追问与回答框架
 
-**为什么不用 LLM 直接回答？** 生产调查的首要问题是证据、权限和可重复性。当前确定性合成器先把安全与证据契约做实；LLM 将来只接收授权证据包，输出结构化结果，并接受确定性引用校验。
+**为什么不用 LLM 直接回答？** 生产调查的首要问题是证据、权限和可重复性。当前确定性控制层先完成拒答、升级、步骤和引用闭环；可选 LLM 只接收授权证据包，输出结构化候选假设，并接受确定性引用校验，失败时不影响调查完成。
 
 **哈希向量算真正的向量检索吗？** 它是可重复、零依赖的检索替身，不是生产 embedding。价值在于接口、融合、权限和评测方法已经分离；下一步用真实 golden set 对比 BM25、多语言 embedding 与 reranker。
 

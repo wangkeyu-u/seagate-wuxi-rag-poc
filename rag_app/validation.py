@@ -1,3 +1,5 @@
+"""Strict business-request schema and authenticated manufacturing-scope checks."""
+
 from __future__ import annotations
 
 import re

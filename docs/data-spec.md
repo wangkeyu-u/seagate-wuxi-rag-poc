@@ -5,6 +5,7 @@
 - 文档状态：讨论稿
 - 上游文档：[业务需求文档](./requirements.md)
 - 上游文档：[用户故事与业务流程](./user-stories.md)
+- 实现契约：[SeaTrack / approved DMS 离线导出 v1](./source-export-contract.md)
 - 当前阶段：数据范围、字段定义与合成数据规划
 - 说明：本文中的产品、产线、设备、代码、人员和案例均为虚构设计，不代表 Seagate 真实内部数据
 

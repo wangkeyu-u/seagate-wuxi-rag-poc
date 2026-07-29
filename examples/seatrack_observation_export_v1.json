@@ -1,0 +1,35 @@
+{
+  "schema_version": "seatrack-export/v1",
+  "source_system": "SEATRACK_EXPORT",
+  "exported_at": "2026-07-30T09:05:00+08:00",
+  "cursor": "demo-observation-cursor-0001",
+  "records": [
+    {
+      "entity_type": "TEST_OBSERVATION",
+      "source_record_id": "OBS-DEMO-EXT-0001",
+      "source_updated_at": "2026-07-30T09:01:00+08:00",
+      "operation": "UPSERT",
+      "data": {
+        "observation_id": "OBS-DEMO-EXT-0001",
+        "window_start": "2026-07-30T08:00:00+08:00",
+        "window_end": "2026-07-30T09:00:00+08:00",
+        "product_id": "PRD-HX1001",
+        "line_id": "LINE-02",
+        "station_id": "ST-04",
+        "equipment_id": "EQ-ST-004",
+        "failure_code": "F127",
+        "material_lot_id": "HSA-L2405",
+        "firmware_version_id": "SW-FW-2.1.3",
+        "test_program_version_id": "SW-TP-3.8",
+        "units_tested": 100,
+        "units_passed": 95,
+        "units_failed": 5,
+        "first_pass_yield": 0.95,
+        "failure_count": 3,
+        "failure_rate": 0.03,
+        "baseline_failure_rate": 0.012,
+        "quality_status": "VALIDATED"
+      }
+    }
+  ]
+}

@@ -26,8 +26,11 @@
           <button class="rail-link" data-scroll="result-section">
             <span>02</span>调查结果
           </button>
+          <button class="rail-link" data-scroll="workflow-section">
+            <span>03</span>处置闭环
+          </button>
           <button class="rail-link" data-scroll="recent-section">
-            <span>03</span>最近记录
+            <span>04</span>最近记录
           </button>
         </nav>
 
@@ -35,7 +38,7 @@
           <div class="pulse-dot"></div>
           <div>
             <small>ENGINE STATUS</small>
-            <strong>OFFLINE / READY</strong>
+            <strong id="engine-status">OFFLINE / READY</strong>
           </div>
         </div>
         <p class="rail-warning">FICTIONAL DEMO<br />NO INTERNAL DATA</p>
@@ -240,9 +243,54 @@
           </div>
         </section>
 
-        <section class="recent-section" id="recent-section">
+        <section class="workflow-section hidden" id="workflow-section" aria-live="polite">
           <div class="section-index">
             <span>03</span>
+            <p>TRUSTED<br />WORKFLOW</p>
+          </div>
+          <div class="workflow-content">
+            <div class="workflow-heading">
+              <div>
+                <span class="kicker">HUMAN DECISION CHAIN</span>
+                <h2>把建议推进成可审核的调查记录。</h2>
+              </div>
+              <div class="workflow-reference">
+                <small>INVESTIGATION</small>
+                <strong id="workflow-id">--</strong>
+              </div>
+            </div>
+
+            <ol class="workflow-track" id="workflow-track" aria-label="调查状态进度"></ol>
+
+            <div class="workflow-layout">
+              <article class="workflow-console">
+                <header>
+                  <div>
+                    <span class="kicker">CONTROL DESK</span>
+                    <h3 id="workflow-action-title">下一步操作</h3>
+                  </div>
+                  <span class="actor-boundary" id="workflow-actor-boundary">--</span>
+                </header>
+                <div class="workflow-action-body" id="workflow-action-body"></div>
+              </article>
+
+              <aside class="workflow-ledger">
+                <header>
+                  <div><span class="kicker">EVIDENCE LEDGER</span><h3>执行与审核记录</h3></div>
+                  <div class="ledger-counts">
+                    <span><b id="check-count">0</b> CHECKS</span>
+                    <span><b id="review-count">0</b> REVIEWS</span>
+                  </div>
+                </header>
+                <div class="ledger-stream" id="workflow-ledger"></div>
+              </aside>
+            </div>
+          </div>
+        </section>
+
+        <section class="recent-section" id="recent-section">
+          <div class="section-index">
+            <span>04</span>
             <p>RECENT<br />TRACE</p>
           </div>
           <div class="recent-content">
@@ -255,7 +303,7 @@
         </section>
 
         <footer>
-          <span>YIELD INTELLIGENCE / MVP 0.1</span>
+          <span>YIELD INTELLIGENCE / TRUSTED WORKFLOW 0.2</span>
           <p>Synthetic demo data only. Not affiliated with or endorsed by Seagate Technology.</p>
           <span>WUXI SCENARIO / 2026</span>
         </footer>

@@ -1,0 +1,49 @@
+{
+  "schema_version": "seatrack-export/v1",
+  "source_system": "APPROVED_DMS_EXPORT",
+  "exported_at": "2026-07-30T09:10:00+08:00",
+  "cursor": "demo-document-cursor-0001",
+  "records": [
+    {
+      "entity_type": "DOCUMENT_VERSION",
+      "source_record_id": "DOC-DEMO-ST04-001-V1_0",
+      "source_updated_at": "2026-07-30T09:02:00+08:00",
+      "operation": "UPSERT",
+      "data": {
+        "document_id": "DOC-DEMO-ST04-001",
+        "document_version_id": "DOC-DEMO-ST04-001-V1_0",
+        "document_type": "SOP",
+        "title": "Synthetic ST-04 Evidence Review Guide",
+        "version": "1.0",
+        "status": "EFFECTIVE",
+        "language": "BILINGUAL",
+        "effective_from": "2026-07-30T00:00:00+08:00",
+        "effective_to": null,
+        "owner_team_id": "TEAM-PE",
+        "approved_by": "USR-DEMO-QA-001",
+        "confidentiality": "INTERNAL",
+        "canonical_uri": "approved-dms://documents/DOC-DEMO-ST04-001-V1_0",
+        "applicable_failure_codes": [
+          "F127"
+        ],
+        "applicable_products": [
+          "PRD-HX1001"
+        ],
+        "supersedes_version_id": null,
+        "summary": "A fictional, approved demonstration guide scoped to LINE-02 and ST-04.",
+        "content": "SYNTHETIC DEMO DATA — FICTIONAL — NOT SEAGATE INTERNAL DATA\n\nReview the approved evidence checklist for the fictional ST-04 scenario. This document does not authorize equipment control, parameter changes, product disposition, or root-cause confirmation.",
+        "allowed_roles": [
+          "PRODUCT_ENGINEER",
+          "QUALITY_ENGINEER",
+          "ADMIN"
+        ],
+        "line_ids": [
+          "LINE-02"
+        ],
+        "station_ids": [
+          "ST-04"
+        ]
+      }
+    }
+  ]
+}

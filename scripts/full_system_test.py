@@ -20,6 +20,8 @@ if str(ROOT) not in sys.path:
 import server as app_server
 from rag_app import TriageService
 from rag_app.auth import TokenAuthenticator
+from rag_app.ingestion import validate_export
+from rag_app.storage import RuntimeStorage
 
 
 RESULTS: list[dict[str, Any]] = []
@@ -83,13 +85,37 @@ def oversized_request(port: int, path: str, token: str) -> tuple[int, dict[str, 
 def main() -> None:
     with tempfile.TemporaryDirectory(prefix="seagate-rag-full-test-") as temp_dir:
         db_path = Path(temp_dir) / "runtime.sqlite3"
-        app_server.SERVICE = TriageService(ROOT, db_path)
+        source_storage = RuntimeStorage(db_path)
+        source_export = validate_export(
+            json.loads((ROOT / "examples" / "dms_document_export_v1.json").read_text(encoding="utf-8"))
+        )
+        source_storage.sync_source_records(
+            source_export.as_dict(),
+            created_at="2026-07-30T01:00:00+00:00",
+        )
+        seeded_quarantine = source_storage.create_source_quarantine(
+            job_id="JOB-FULL-SYSTEM-TEST",
+            created_at="2026-07-30T01:01:00+00:00",
+            source_system="SEATRACK_EXPORT",
+            manifest_id="MANIFEST-FULL-SYSTEM-TEST",
+            artifact_filename="rejected-export.json",
+            artifact_sha256="a" * 64,
+            stage="MANIFEST",
+            reason_code="MANIFEST_VERIFICATION_FAILED",
+            reason_summary="signed delivery manifest or artifact binding could not be verified",
+            severity="CRITICAL",
+        )
+        service = TriageService(ROOT, db_path)
         authenticator = TokenAuthenticator("full-system-test-secret-with-at-least-32-bytes")
         product_token = authenticator.issue_token(subject="test:product-engineer", role="PRODUCT_ENGINEER")
         quality_token = authenticator.issue_token(
             subject="test:quality-engineer",
             role="QUALITY_ENGINEER",
-            permissions=("investigations:read:all",),
+            permissions=(
+                "investigations:read:all",
+                "sources:monitor",
+                "sources:quarantine:manage",
+            ),
         )
         line_lead_token = authenticator.issue_token(subject="test:line-lead", role="LINE_LEAD")
         other_product_token = authenticator.issue_token(subject="test:other-product-engineer", role="PRODUCT_ENGINEER")
@@ -101,6 +127,7 @@ def main() -> None:
         )
         httpd = app_server.ThreadingHTTPServer(("127.0.0.1", 0), QuietHandler)
         httpd.authenticator = authenticator
+        httpd.service = service
         httpd.allowed_origins = {"http://127.0.0.1:8787"}
         httpd.dev_auth_enabled = False
         port = httpd.server_address[1]
@@ -108,19 +135,163 @@ def main() -> None:
         thread.start()
         try:
             status, headers, body = request(port, "GET", "/api/health")
-            record("health endpoint", status == 200 and body.get("status") == "ok", {"status": status, "body": body})
+            record(
+                "health endpoint",
+                status == 200
+                and body.get("status") == "ok"
+                and body.get("version") == app_server.APPLICATION_VERSION
+                and headers.get("x-request-id", "").startswith("REQ-"),
+                {"status": status, "body": body, "request_id": headers.get("x-request-id")},
+            )
+
+            status, headers, body = request(
+                port,
+                "GET",
+                "/api/whoami",
+                token=product_token,
+                extra_headers={"X-Request-ID": "factory-it-demo-0001"},
+            )
+            record(
+                "safe upstream request ID is preserved for correlation",
+                status == 200 and headers.get("x-request-id") == "factory-it-demo-0001",
+                {"status": status, "request_id": headers.get("x-request-id")},
+                "production_control",
+            )
 
             status, _, body = request(port, "GET", "/api/meta", token=product_token)
-            record("metadata counts", status == 200 and body["counts"]["cases"] == 30 and len(body["roles"]) == 5, {"status": status, "counts": body.get("counts")})
+            record(
+                "metadata counts",
+                status == 200
+                and body["counts"]["cases"] == 30
+                and body["counts"]["documents"] == 13
+                and len(body["roles"]) == 5,
+                {"status": status, "counts": body.get("counts")},
+            )
+
+            imported_version_id = "DOC-DEMO-ST04-001-V1_0"
+            status, _, body = request(
+                port,
+                "GET",
+                f"/api/documents/{imported_version_id}",
+                token=product_token,
+            )
+            record(
+                "imported document exposes source provenance to an allowed identity",
+                status == 200
+                and body.get("provenance", {}).get("source_system") == "APPROVED_DMS_EXPORT",
+                {"status": status, "provenance": body.get("provenance") if isinstance(body, dict) else None},
+                "ingestion_acl",
+            )
+            status, _, body = request(
+                port,
+                "GET",
+                f"/api/documents/{imported_version_id}",
+                token=station_limited_token,
+            )
+            record(
+                "station ACL hides an imported document from another station",
+                status == 404,
+                {"status": status},
+                "ingestion_acl",
+            )
+            status, _, body = request(
+                port,
+                "GET",
+                f"/api/documents/{imported_version_id}",
+                token=line_lead_token,
+            )
+            record(
+                "role ACL hides an imported document from an unlisted role",
+                status == 404,
+                {"status": status},
+                "ingestion_acl",
+            )
 
             status, _, body = request(port, "GET", "/api/stats", token=product_token)
             record("dashboard statistics", status == 200 and 0 < len(body.get("trend", [])) <= 12, {"status": status, "trend_points": len(body.get("trend", []))})
 
+            status, _, body = request(port, "GET", "/api/admin/source-health", token=product_token)
+            record(
+                "source health requires explicit monitoring permission",
+                status == 403,
+                {"status": status},
+                "authorization",
+            )
+            status, _, body = request(port, "GET", "/api/admin/source-health", token=quality_token)
+            record(
+                "authorized source health is available without rejection details",
+                status == 200
+                and body.get("status") in {"HEALTHY", "DEGRADED", "CRITICAL"}
+                and all("errors" not in (item.get("latest_run") or {}) for item in body.get("sources", [])),
+                {"status": status, "health": body.get("status"), "alerts": body.get("alerts")},
+                "source_operations",
+            )
+            status, _, body = request(
+                port,
+                "GET",
+                "/api/admin/source-quarantine",
+                token=quality_token,
+            )
+            record(
+                "authorized monitor can list redacted open source quarantine",
+                status == 200
+                and any(
+                    item.get("quarantine_id") == seeded_quarantine["quarantine_id"]
+                    and "content" not in item
+                    for item in body.get("items", [])
+                ),
+                {"status": status, "count": len(body.get("items", []))},
+                "source_operations",
+            )
+            status, _, body = request(
+                port,
+                "POST",
+                f"/api/admin/source-quarantine/{seeded_quarantine['quarantine_id']}/resolution",
+                {"resolution": "REJECT", "notes": "not authorized"},
+                token=product_token,
+            )
+            record(
+                "source quarantine disposition requires explicit manage permission",
+                status == 403,
+                {"status": status},
+                "authorization",
+            )
+            status, _, body = request(
+                port,
+                "POST",
+                f"/api/admin/source-quarantine/{seeded_quarantine['quarantine_id']}/resolution",
+                {"resolution": "REJECT", "notes": "synthetic manifest delivery rejected"},
+                token=quality_token,
+            )
+            record(
+                "authorized quality operator resolves source quarantine once",
+                status == 200 and body.get("status") == "RESOLVED_REJECTED",
+                {"status": status, "body": body},
+                "source_operations",
+            )
+
             status, _, body = request(port, "GET", "/")
-            record("frontend shell", status == 200 and "SeaTrack" in body and "SYNTHETIC" in body, {"status": status, "length": len(body)})
+            record(
+                "frontend shell",
+                status == 200
+                and "SeaTrack" in body
+                and "SYNTHETIC" in body
+                and 'id="workflow-section"' in body
+                and 'id="workflow-action-body"' in body,
+                {"status": status, "length": len(body)},
+            )
 
             status, _, body = request(port, "GET", "/app.js")
-            record("frontend JavaScript asset", status == 200 and "/api/triage" in body, {"status": status, "length": len(body)})
+            record(
+                "frontend JavaScript asset",
+                status == 200
+                and "/api/triage" in body
+                and "/checks" in body
+                and "/reviews" in body
+                and "renderWorkflow" in body
+                and 'api("/api/whoami", { skipAuth: true })' in body,
+                {"status": status, "length": len(body)},
+            )
 
             status, _, body = request(port, "GET", "/%2e%2e/README.md")
             record("static path traversal blocked", status == 403, {"status": status, "body": body})
@@ -158,6 +329,103 @@ def main() -> None:
                 token=product_token,
             )
             record("feedback persistence", status == 201 and body.get("rating") == "USEFUL", {"status": status, "body": body})
+
+            status, _, body = request(
+                port,
+                "POST",
+                f"/api/investigations/{investigation_id}/feedback",
+                {"rating": "USEFUL", "comment": "x" * 4001},
+                token=product_token,
+            )
+            record("oversized feedback comment rejected", status == 400, {"status": status, "body": body}, "security_bypass")
+
+            status, _, body = request(
+                port,
+                "POST",
+                f"/api/investigations/{investigation_id}/status",
+                {"status": "INVESTIGATING"},
+                token=product_token,
+            )
+            record("investigation workflow starts", status == 200 and body.get("status") == "INVESTIGATING", {"status": status, "body": body}, "workflow")
+
+            status, _, body = request(
+                port,
+                "POST",
+                f"/api/investigations/{investigation_id}/status",
+                {"status": "CHECKED"},
+                token=other_product_token,
+            )
+            record("another owner cannot advance investigation", status == 404, {"status": status, "body": body}, "authorization")
+
+            status, _, body = request(
+                port,
+                "POST",
+                f"/api/investigations/{investigation_id}/checks",
+                {
+                    "step_sequence": 1,
+                    "outcome": "PASS",
+                    "notes": "scope confirmed by synthetic test",
+                    "evidence_ids": ["DOC-SOP-ST-001-V2_0"],
+                },
+                token=product_token,
+            )
+            record("check result recorded", status == 201 and body.get("outcome") == "PASS", {"status": status, "body": body}, "workflow")
+
+            workflow_steps = []
+            for next_status in ("CHECKED", "ROOT_CAUSE_REVIEW"):
+                step_status, _, step_body = request(
+                    port,
+                    "POST",
+                    f"/api/investigations/{investigation_id}/status",
+                    {"status": next_status},
+                    token=product_token,
+                )
+                workflow_steps.append({"status": step_status, "body": step_body})
+            record(
+                "owner submits investigation for review",
+                all(item["status"] == 200 for item in workflow_steps)
+                and workflow_steps[-1]["body"].get("status") == "ROOT_CAUSE_REVIEW",
+                workflow_steps,
+                "workflow",
+            )
+
+            status, _, body = request(
+                port,
+                "POST",
+                f"/api/investigations/{investigation_id}/reviews",
+                {"decision": "APPROVE", "notes": "unauthorized"},
+                token=product_token,
+            )
+            record("non-quality owner cannot approve review", status == 403, {"status": status, "body": body}, "authorization")
+
+            status, _, body = request(
+                port,
+                "POST",
+                f"/api/investigations/{investigation_id}/reviews",
+                {"decision": "APPROVE", "notes": "synthetic evidence complete"},
+                token=quality_token,
+            )
+            record("quality review closes investigation", status == 201 and body.get("resulting_status") == "CLOSED", {"status": status, "body": body}, "workflow")
+
+            status, _, body = request(
+                port,
+                "POST",
+                f"/api/investigations/{investigation_id}/status",
+                {"status": "PUBLISHED"},
+                token=quality_token,
+            )
+            record("quality engineer publishes closed investigation", status == 200 and body.get("status") == "PUBLISHED", {"status": status, "body": body}, "workflow")
+
+            status, _, body = request(port, "GET", f"/api/investigations/{investigation_id}", token=product_token)
+            record(
+                "workflow evidence survives reload",
+                status == 200
+                and body.get("status") == "PUBLISHED"
+                and len(body.get("check_results", [])) == 1
+                and len(body.get("reviews", [])) == 1,
+                {"status": status, "workflow_status": body.get("status"), "checks": len(body.get("check_results", [])), "reviews": len(body.get("reviews", []))},
+                "workflow",
+            )
 
             status, _, body = request(
                 port,
@@ -308,6 +576,9 @@ def main() -> None:
             status, _, body = request(port, "GET", "/api/cases/CASE-F127-EQ-02", token=station_limited_token)
             record("station-scoped identity cannot read another station", status == 404, {"status": status}, "security_bypass")
 
+            status, _, body = request(port, "GET", "/api/cases/CASE-F127-MAT-01", token=station_limited_token)
+            record("partial station overlap cannot read full multi-station case", status == 404, {"status": status}, "security_bypass")
+
             status, _, body = request(
                 port,
                 "POST",
@@ -351,8 +622,19 @@ def main() -> None:
             httpd.server_close()
             thread.join(timeout=5)
 
-        persisted = TriageService(ROOT, db_path).storage.get_investigation(investigation_id)
+        reloaded_service = TriageService(ROOT, db_path)
+        persisted = reloaded_service.storage.get_investigation(investigation_id)
         record("record survives service restart", bool(persisted and persisted["investigation_id"] == investigation_id), {"id": persisted.get("investigation_id") if persisted else None}, "persistence")
+        reloaded_document = reloaded_service.repository.get_document(
+            "DOC-DEMO-ST04-001-V1_0",
+            "PRODUCT_ENGINEER",
+        )
+        record(
+            "source catalog survives service restart",
+            bool(reloaded_document and reloaded_document.get("provenance", {}).get("sync_run_id")),
+            {"document_version_id": reloaded_document.get("document_version_id") if reloaded_document else None},
+            "persistence",
+        )
 
     summary = {
         "total": len(RESULTS),

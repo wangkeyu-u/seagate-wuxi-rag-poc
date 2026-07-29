@@ -1,3 +1,10 @@
+"""Authentication primitives and the normalized identity used by every policy check.
+
+The application never accepts a role or manufacturing scope from a business
+request. Authenticators turn a trusted token into ``Identity`` once, and all
+downstream repository, workflow, and operations checks use that object.
+"""
+
 from __future__ import annotations
 
 import base64
@@ -38,6 +45,12 @@ class Identity:
 
     def can_read_all_investigations(self) -> bool:
         return "investigations:read:all" in self.permissions
+
+    def can_monitor_sources(self) -> bool:
+        return "sources:monitor" in self.permissions
+
+    def can_manage_source_quarantine(self) -> bool:
+        return "sources:quarantine:manage" in self.permissions
 
 
 def _b64url_encode(value: bytes) -> str:

@@ -51,6 +51,8 @@ flowchart LR
 - 24 个自动评测问题；
 - 中英文术语与现场缩写识别；
 - 词法、哈希向量和结构化上下文组成的混合检索；
+- 可选 Responses API 兼容模型网关，以严格 JSON Schema 生成带证据 ID 的候选假设；
+- 模型输出的字段、长度、重复项和授权证据 ID 二次校验，失败时确定性降级；
 - 相同 `F127`、不同根因的上下文排序；
 - 有效/失效文档过滤；
 - 权限过滤和受限资料拒答；
@@ -114,7 +116,7 @@ python3 scripts/full_system_test.py
 python3 server.py --port 8787 --dev-auth
 ```
 
-`full_system_test.py` 同时覆盖功能、身份、授权、输入校验、安全语义、证据闭环、调查工作流、导入文档 ACL、来源监控与检疫处置权限、持久化、并发、请求关联和绕过路径。2026-07-30 的当前结果为 62/62；通过结果不代表已经完成希捷企业 SSO、SeaTrack 或真实知识库对接。
+`full_system_test.py` 同时覆盖功能、身份、授权、输入校验、安全语义、证据闭环、调查工作流、导入文档 ACL、来源监控与检疫处置权限、持久化、并发、请求关联和绕过路径。当前另有 80 个单元测试覆盖模型网关契约和其他核心边界。2026-07-30 的 HTTP 全系统结果为 62/62；通过结果不代表已经完成希捷企业 SSO、SeaTrack、真实知识库或企业模型对接。
 
 ## 演示场景
 
@@ -139,6 +141,9 @@ flowchart LR
     CASES --> SYN["证据化答案合成"]
     DOCS --> SYN
     RULES --> SYN
+    SYN -."仅 ANSWER + 有证据".-> LLM["可选模型网关"]
+    LLM --> VERIFY["结构与证据 ID 校验"]
+    VERIFY --> SYN
     SYN --> UI
     API --> DB["SQLite 调查、审计与来源账本"]
     EXPORT["受控离线导出"] --> VALIDATE["严格 schema / 质量 / 内容校验"]
@@ -153,7 +158,21 @@ flowchart LR
 - 哈希向量：对中英文 token 进行轻量向量化和余弦相似度计算；
 - 结构化上下文：显式比较单站/多站/跨线、物料批次和版本信息。
 
-答案生成目前使用确定性的证据合成器，确保本地无需 API Key 也能完整运行。它不是生产级语义 RAG。目标版本应在保留权限过滤、结构化检索、引用校验和人工决策边界的前提下，接入企业批准的 embedding、稀疏检索、reranker 和大模型网关。完整目标架构见 `docs/seagate-production-architecture.md`。
+答案的决策、排查步骤和升级条件始终由确定性证据合成器控制，确保本地无需 API Key 也能完整运行。项目同时实现了可选的 Responses API 兼容生成适配器：它只在 `ANSWER` 且已有授权证据时接收证据包，输出带证据 ID 的候选假设；拒答、证据不足、超时、模型拒绝或未知引用都会跳过或降级。当前哈希向量仍是可重复演示基线，不是生产级 embedding。完整模型契约见 `docs/model-gateway.md`，目标架构见 `docs/seagate-production-architecture.md`。
+
+## 可选结构化模型生成
+
+默认模式不会进行任何外部模型调用。要连接经过批准的 Responses API 兼容网关，可通过环境变量显式开启：
+
+```bash
+RAG_GENERATION_MODE='responses-api' \
+RAG_MODEL_GATEWAY_URL='https://approved-model-gateway.example/v1/responses' \
+RAG_MODEL_GATEWAY_TOKEN='read-from-secret-manager' \
+RAG_MODEL_NAME='approved-model-deployment' \
+python3 server.py --host 127.0.0.1 --port 8787 --dev-auth
+```
+
+模型只能增加 `generated_analysis`，不能改变 `decision`、固定排查步骤、升级条件或授权引用。服务端会再次校验 JSON 字段和每个证据 ID；失败时保留原确定性答案并将 `generation_status` 标记为 `FALLBACK`。这条实现遵循 [OpenAI Structured Outputs](https://developers.openai.com/api/docs/guides/structured-outputs) 的请求结构，但代码不写死某个模型，真实制造数据能否进入任何网关仍需企业审批。
 
 ## 身份与启动模式
 
@@ -280,6 +299,7 @@ TRIAGE -> INVESTIGATING -> CHECKED -> ROOT_CAUSE_REVIEW -> CLOSED -> PUBLISHED
 ├── data/                    # 生成后的合成知识与制造数据
 ├── docs/                    # 需求、用户故事和数据字典
 ├── rag_app/                 # 检索、证据合成、数据访问和运行时存储
+│   ├── generation.py        # 可选 Responses API 网关、严格结构与引用校验
 ├── scripts/
 │   ├── generate_data.py     # 可重复的合成数据生成器
 │   ├── validate_data.py     # 数据完整性校验
@@ -300,7 +320,7 @@ TRIAGE -> INVESTIGATING -> CHECKED -> ROOT_CAUSE_REVIEW -> CLOSED -> PUBLISHED
 - 用企业批准的真实 issuer、audience、组和 entitlement 配置验收当前 OIDC 路径，并完成身份代理接入；
 - 对接 SeaTrack / 文档平台的正式服务身份与网络通道；
 - 用正式嵌入模型与重排序模型替换演示向量；
-- 接入企业批准的 LLM，并保留引用验证与拒答机制；
+- 用企业批准的真实端点、模型、证书和密钥管理验收现有模型网关适配器；
 - 把当前本地来源血缘、密级和同步审计接入企业留存、告警、DLP 与安全测试体系；
 - 在真实历史问题上建立人工标注评测集；
 - 采集首轮排查时间、案例复用率和引用准确率基线。
@@ -321,6 +341,7 @@ TRIAGE -> INVESTIGATING -> CHECKED -> ROOT_CAUSE_REVIEW -> CLOSED -> PUBLISHED
 - `docs/source-export-contract.md`：已实现的离线导出契约、增量语义、血缘、ACL 和回滚操作说明。
 - `docs/oidc-deployment.md`：OIDC RS256、JWKS 轮换、企业组映射、代理部署和失败关闭规则。
 - `docs/source-operations-runbook.md`：一次性同步作业、主数据对账、租约、来源告警和恢复手册。
+- `docs/model-gateway.md`：Responses API 兼容生成层、严格结构、引用校验和确定性降级契约。
 
 ## 重要边界
 

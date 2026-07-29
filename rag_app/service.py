@@ -1,9 +1,9 @@
 """Application orchestration for evidence triage and human investigation flow.
 
-``TriageService`` is deliberately deterministic in the repository version: it
-assembles authorized evidence, applies refusal/escalation gates, verifies every
-recommended step has a returned citation, and persists the investigation. A
-future model gateway belongs inside those gates, never around them.
+``TriageService`` assembles authorized evidence, applies refusal/escalation
+gates, verifies every recommended step has a returned citation, and persists
+the investigation.  An optional model gateway can enrich an approved answer,
+but it stays inside those gates and cannot alter the deterministic decision.
 """
 
 from __future__ import annotations
@@ -17,6 +17,7 @@ from pathlib import Path
 from typing import Any
 
 from .auth import Identity
+from .generation import AnswerGenerator, validate_generated_analysis
 from .repository import DataRepository
 from .retrieval import HybridRetriever
 from .storage import DuplicateInvestigationError, RuntimeStorage
@@ -37,11 +38,20 @@ ROLE_LABELS = {
 
 
 class TriageService:
-    def __init__(self, root: Path, runtime_db_path: Path | None = None):
+    def __init__(
+        self,
+        root: Path,
+        runtime_db_path: Path | None = None,
+        answer_generator: AnswerGenerator | None = None,
+    ):
         self.root = root
         self.storage = RuntimeStorage(runtime_db_path or root / "runtime" / "rag_mvp.sqlite3")
         self.repository = DataRepository(root, self.storage.list_active_source_records())
         self.retriever = HybridRetriever(self.repository)
+        self.answer_generator = answer_generator
+        self.generation_mode = (
+            answer_generator.mode if answer_generator else "deterministic evidence synthesis"
+        )
 
     def triage(self, payload: dict[str, Any], identity: Identity) -> dict[str, Any]:
         started = time.perf_counter()
@@ -103,6 +113,12 @@ class TriageService:
                 allowed_line_ids=identity.line_ids,
                 allowed_station_ids=identity.station_ids,
             )
+            generation_status = self._apply_generated_analysis(
+                answer=answer,
+                query=query,
+                context=context,
+                action=action,
+            )
             answer["metrics"] = {
                 "latency_ms": round((time.perf_counter() - started) * 1000, 2),
                 "cases_considered": len(self.repository.accessible_cases(role, identity.line_ids, identity.station_ids)),
@@ -110,7 +126,8 @@ class TriageService:
                     self.repository.accessible_documents(role, identity.line_ids, identity.station_ids)
                 ),
                 "retrieval_mode": "hybrid: lexical + hashed-vector + structured context",
-                "generation_mode": "deterministic evidence synthesis",
+                "generation_mode": self.generation_mode,
+                "generation_status": generation_status,
             }
             record = {
                 "investigation_id": investigation_id,
@@ -127,6 +144,49 @@ class TriageService:
                 continue
             return record
         raise RuntimeError("could not allocate a unique investigation id")
+
+    def _apply_generated_analysis(
+        self,
+        *,
+        answer: dict[str, Any],
+        query: str,
+        context: dict[str, Any],
+        action: str,
+    ) -> str:
+        """Apply optional model analysis without weakening deterministic gates.
+
+        The model is deliberately skipped for refusals, missing context and weak
+        evidence.  Any transport, refusal, parsing or citation-validation error
+        falls back to the already-composed answer and never blocks persistence.
+        """
+
+        if self.answer_generator is None:
+            return "DISABLED"
+        if action != "ANSWER":
+            return "SKIPPED_POLICY"
+        citations = answer.get("citations", [])
+        if not citations:
+            return "SKIPPED_NO_EVIDENCE"
+        try:
+            generated = self.answer_generator.generate(
+                query=query,
+                context=context,
+                citations=citations,
+                historical_assessment=answer.get("historical_assessment", []),
+            )
+            allowed_ids = {str(item["citation_id"]) for item in citations}
+            answer["generated_analysis"] = validate_generated_analysis(generated, allowed_ids)
+        except Exception:
+            # A model is an optional dependency, not part of the safety or
+            # availability boundary.  Do not expose upstream error details.
+            answer["warnings"].append(
+                "模型分析不可用或未通过证据校验；当前结果已自动使用确定性证据合成。"
+            )
+            return "FALLBACK"
+        answer["warnings"].append(
+            "候选假设由模型基于当前授权证据生成；证据 ID 已校验，但语义仍需工程师复核。"
+        )
+        return "APPLIED"
 
     def _determine_action(self, query: str, context: dict[str, Any], role: str) -> tuple[str, list[str]]:
         if context.get("high_risk_request"):

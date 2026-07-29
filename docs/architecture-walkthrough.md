@@ -12,6 +12,7 @@ sequenceDiagram
     participant SVC as service.py
     participant RET as retrieval.py
     participant REP as repository.py
+    participant GEN as generation.py（可选）
     participant DB as storage.py
     UI->>HTTP: Bearer token + query/context
     HTTP->>HTTP: 校验 OIDC/签名身份与请求 ID
@@ -22,6 +23,10 @@ sequenceDiagram
     REP-->>RET: 案例与文档
     RET-->>SVC: 词法 + 哈希向量 + 结构化分数
     SVC->>SVC: 引用闭环、阈值、拒答/升级
+    opt action = ANSWER 且存在授权证据
+        SVC->>GEN: 授权证据包 + 严格 JSON Schema
+        GEN-->>SVC: 已校验证据 ID 的候选假设或降级
+    end
     SVC->>DB: 调查与审计事件
     SVC-->>HTTP: 结构化证据包
     HTTP-->>UI: JSON + X-Request-ID
@@ -56,11 +61,13 @@ flowchart LR
 
 调查完成不代表知识自动发布；来源成功也不代表某条根因被人工确认。这个区分防止助手把技术写入成功误当成业务真相。
 
-## 4. 检索和答案为什么是确定性的
+## 4. 检索和答案为什么保留确定性控制层
 
 当前混合排序使用词法、哈希向量和制造上下文三类信号，权重集中在 `rag_app/retrieval.py`。哈希向量只提供可重复的语义近似，真实项目应通过现场 golden set 比较 BM25、多语言 embedding 和 reranker。
 
-`rag_app/service.py` 不让模型自由生成操作，而是从授权证据编译已知事实、相似案例、差异、检查步骤和升级条件。低于阈值时返回人工升级；要求停线、放行、跳测、报废或改参数时返回受控拒绝。这让 PoC 可以验证“证据是否存在、用户能否打开、版本是否有效”，而不是只看语言是否自然。
+`rag_app/service.py` 不让模型自由生成操作，而是从授权证据编译已知事实、相似案例、差异、检查步骤和升级条件。低于阈值时返回人工升级；要求停线、放行、跳测、报废或改参数时返回受控拒绝。
+
+`rag_app/generation.py` 是其内部的可选增强层：只有确定性决策已经得到 `ANSWER` 且存在授权证据时，才会调用 Responses API 兼容网关。模型只输出候选假设、支持/反对证据 ID 和缺失信息；服务端重新校验结构与引用。任何失败都会回到已生成的确定性结果，模型不能影响拒答、升级、固定排查步骤或调查持久化。这样项目既展示真实生成式 RAG 路径，也保持可复现的安全底座。
 
 ## 5. 持久化和并发边界
 
@@ -74,11 +81,11 @@ SQLite 适合单机 PoC 和可重复演示：WAL 允许读取与短写事务更�
 | --- | --- | --- |
 | 合成 `Repository` | SeaTrack、DMS、PLM/JIRA 只读连接器 | 来源、版本、ACL、撤销可追溯 |
 | 哈希向量 | 企业向量库 + 多语言 embedding + reranker | 先过滤权限，后排序 |
-| 确定性合成器 | 企业模型网关 + Structured Output | 引用验证、拒答和人工决定 |
+| 确定性控制层 + 可选 Responses API 适配器 | 企业批准模型、证书、密钥与评测路由 | 引用验证、拒答、降级和人工决定 |
 | 一次性文件作业 | Kafka/调度器/对象存储事件适配器 | 幂等、重放、游标、检疫 |
 | SQLite | 企业关系库与审计平台 | 原子状态机、所有者隔离、留存 |
 | 本地/OIDC 验证路径 | 企业 SSO、代理和策略引擎 | issuer/audience/算法固定，失败关闭 |
 
 ## 7. 阅读顺序
 
-建议按 `server.py` → `rag_app/validation.py` → `rag_app/service.py` → `rag_app/retrieval.py` → `rag_app/repository.py` → `rag_app/storage.py` 阅读在线路径；再按 `scripts/run_source_sync_job.py` → `rag_app/source_operations.py` → `source_manifest.py` → `ingestion.py` → `reconciliation.py` 阅读数据路径。每读完一条路径，运行对应测试观察真实输入输出，比逐文件通读更快。
+建议按 `server.py` → `rag_app/validation.py` → `rag_app/service.py` → `rag_app/retrieval.py` → `rag_app/repository.py` → `rag_app/generation.py` → `rag_app/storage.py` 阅读在线路径；再按 `scripts/run_source_sync_job.py` → `rag_app/source_operations.py` → `source_manifest.py` → `ingestion.py` → `reconciliation.py` 阅读数据路径。每读完一条路径，运行对应测试观察真实输入输出，比逐文件通读更快。

@@ -56,7 +56,7 @@ python3 server.py --host 127.0.0.1 --port 8787 --dev-auth
 - [模型网关和确定性降级](docs/model-gateway.md)
 - [代码级架构导览](docs/architecture-walkthrough.md)
 - [身份接入边界](docs/oidc-deployment.md)
-- [现场需求访谈](docs/interview-guide.md) — 业务发现材料，非求职问答
+- [现场需求访谈](docs/interview-guide.md)
 - [已有修复记录](docs/security-remediation-2026-07-29.md)
 
 本次文档整理和验证使用 AI 辅助。最终技术判断仍需根据代码、测试、数据来源与具体部署契约审查。

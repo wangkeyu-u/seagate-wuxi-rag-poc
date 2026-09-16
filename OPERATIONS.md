@@ -336,8 +336,7 @@ TRIAGE -> INVESTIGATING -> CHECKED -> ROOT_CAUSE_REVIEW -> CLOSED -> PUBLISHED
 - `docs/security-remediation-2026-07-29.md`：11 个审计缺口的修复契约、验证命令与剩余风险。
 - `docs/seagate-production-architecture.md`：SeaTrack 良率异常与 RCA 证据分诊的目标架构、接口和验收门槛。
 - `docs/architecture-walkthrough.md`：从请求、检索到来源同步的代码级架构导览。
-- `docs/internship-portfolio-guide.md`：岗位能力映射、演示脚本、简历要点与面试问答。
-- `docs/final-portfolio-audit-2026-07-30.md`：痛点、解决方案闭环、工程验证与仍需诚实说明的缺口。
+- `docs/engineering-validation-2026-07-30.md`：痛点、解决方案闭环、工程验证与仍需诚实说明的缺口。
 - `docs/source-export-contract.md`：已实现的离线导出契约、增量语义、血缘、ACL 和回滚操作说明。
 - `docs/oidc-deployment.md`：OIDC RS256、JWKS 轮换、企业组映射、代理部署和失败关闭规则。
 - `docs/source-operations-runbook.md`：一次性同步作业、主数据对账、租约、来源告警和恢复手册。

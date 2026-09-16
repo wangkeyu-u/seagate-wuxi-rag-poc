@@ -19,7 +19,7 @@ from .policy import is_high_risk_request
 from .repository import DataRepository
 
 
-# Top-level fusion weights are named so an interviewer or future evaluator can
+# Top-level fusion weights are named so a maintainer or evaluator can
 # see what was tuned. They must eventually be learned/validated on a factory
 # golden set rather than treated as universal manufacturing thresholds.
 CASE_LEXICAL_WEIGHT = 0.18
